@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "a0622i1-coffee"
+    }
+  },
+  "defaultProject": "a0622i1-coffee",
+  "cli": {
+    "analytics": "e77a37fe-0000-445d-8aeb-29f8ea754974"
+  }
 }
