@@ -39,7 +39,7 @@
                    src="../../../assets/image/table1.png">
               <hr style="color: #c49b63">
               <div class="card-body" style=" height: 3rem">
-                <h4 class="card-title text-center">Bàn {{i + 1}}</h4>
+                <h4 class="card-title text-center">{{table.name}}</h4>
               </div>
             </div>
             <div (click)="disabled()" *ngIf="!table.enableFlag"
@@ -50,7 +50,7 @@
                    src="../../../assets/image/table_disabled1.png">
               <hr style="color: #c49b63">
               <div class="card-body" style=" height: 3rem">
-                <h4 class="card-title text-center">Bàn {{i + 1}}</h4>
+                <h4 class="card-title text-center">{{table.name}}</h4>
               </div>
             </div>
           </ng-container>
@@ -98,16 +98,17 @@
           </tr>
           <tr class="payment">
             <th>Thành tiền:</th>
-            <td id="billId"></td>
+            <td></td>
+            <td id="tableId" hidden>{{billChargingList[0].tableId}}</td>
             <td></td>
             <td></td>
-            <td id="payment">50.000 VNĐ</td>
+            <td id="payment">{{formatter(billChargingList[0].sum)}} VNĐ</td>
           </tr>
           </tbody>
         </table>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-dismiss="modal" onclick="tinhTien()" style="background-color: #c49b63"
+        <button class="btn btn-primary" data-bs-dismiss="modal" (click)="tinhTien()" style="background-color: #c49b63"
                 type="button">
           Tính tiền
         </button>

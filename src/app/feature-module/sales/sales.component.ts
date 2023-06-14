@@ -32,6 +32,7 @@ export class SalesComponent implements OnInit {
 
   billDetail(tableId: number) {
     this.tableService.getBillDetailByTableId(tableId).subscribe(billDetailList => this.billDetailList = billDetailList);
+    this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
   }
 
   formatter(money) {
@@ -44,7 +45,9 @@ export class SalesComponent implements OnInit {
   }
 
   tinhTien() {
-    const billId = document.getElementById('billId').innerText;
+    const tableId = document.getElementById('tableId').innerText;
+    console.log(tableId);
+
     alert('Tính tiền thành công!');
   }
 }
