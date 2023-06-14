@@ -10,11 +10,12 @@ import {SecurityModule} from './feature-module/security/security.module';
 import {ServicesModule} from './feature-module/services/services.module';
 import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
+import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +26,8 @@ import {UserModule} from './feature-module/user/user.module';
     SecurityModule,
     ServicesModule,
     TableModule,
-    UserModule
+    UserModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
