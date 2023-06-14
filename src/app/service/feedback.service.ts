@@ -1,3 +1,11 @@
+/**
+ * FeedbackService class to create shared methods, get data from API
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';

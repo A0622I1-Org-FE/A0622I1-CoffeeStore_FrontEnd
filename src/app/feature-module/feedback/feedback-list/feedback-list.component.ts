@@ -1,3 +1,12 @@
+/**
+ * FeedbackListComponent class to process data with methods called from service and display in html
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
+
+
 import {FeedbackService} from '../../../service/feedback.service';
 import {FeedbackDetail} from '../../../modal/FeedbackDetail';
 import {IFeedbackDto} from '../../../modal/IFeedbackDto';
