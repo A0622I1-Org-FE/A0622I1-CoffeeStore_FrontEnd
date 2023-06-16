@@ -46,8 +46,12 @@ export class SalesComponent implements OnInit {
 
   tinhTien() {
     const tableId = document.getElementById('tableId').innerText;
-    console.log(tableId);
-
-    alert('Tính tiền thành công!');
+    console.log(typeof tableId);
+    const check = confirm('Bạn có muốn tính tiền bàn này không?');
+    if (check) {
+      this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
+      alert('Tính tiền thành công!');
+      window.location.reload();
+    }
   }
 }
