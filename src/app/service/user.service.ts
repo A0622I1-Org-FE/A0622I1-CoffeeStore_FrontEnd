@@ -26,6 +26,6 @@ export class UserService {
   }
 
   deleteById(id: number): Observable<string> {
-    return this.httpClient.get<string>(`${this.API_URL_DELETEUSER}/${id}`);
+    return this.httpClient.put<string>(`${this.API_URL_DELETEUSER}/${id}`, {});
   }
 }

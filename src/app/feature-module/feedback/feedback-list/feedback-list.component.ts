@@ -28,7 +28,8 @@ export class FeedbackListComponent implements OnInit {
   pages: number[];
   pageRange: number[];
   imgUrl: string[];
-  noImgUrl = ['https://as2.ftcdn.net/v2/jpg/04/00/24/31/1000_F_400243185_BOxON3h9avMUX10RsDkt3pJ8iQx72kS3.jpg'];
+  // tslint:disable-next-line:max-line-length
+  noImgUrl = ['https://firebasestorage.googleapis.com/v0/b/a0622i1.appspot.com/o/17-06-2023065218PMWhite%20Simple%20Trendy%20Coffee%20Line%20Art%20Logo%20(2).png?alt=media&token=0150e9d2-061d-45fb-a883-97156b904b16'];
   date: string;
   noRecord: boolean;
   constructor(private service: FeedbackService) { }

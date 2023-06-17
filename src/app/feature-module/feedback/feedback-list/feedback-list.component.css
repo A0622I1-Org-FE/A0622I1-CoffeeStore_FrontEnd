@@ -10842,14 +10842,6 @@ prototype
   padding: 0;
 }
 
-.container_add {
-  background-image: linear-gradient(rgba(99, 92, 66, 0.5), rgba(99, 92, 66, 0.5)),
-  url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
-  background-size: cover;
-  height: 1280px;
-  background-attachment: fixed;
-
-}
 
 .content_add {
   background-color: #51391f;
@@ -10946,11 +10938,19 @@ label {
   padding: 0;
 }
 
-.menu_container {
-  background-image: url('/img/bg_4.jpg');
+/*.menu_container {*/
+/*  background-image: url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');*/
+/*  background-size: cover;*/
+/*  background-attachment: fixed;*/
+/*  height: 1700px;*/
+/*}*/
+
+.container_add {
+  background-image: linear-gradient(rgba(99, 92, 66, 0.5), rgba(99, 92, 66, 0.5)),
+  url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
   background-size: cover;
+  height: 1280px;
   background-attachment: fixed;
-  height: 1700px;
 }
 
 .menu_list {

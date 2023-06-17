@@ -5780,11 +5780,12 @@ textarea.form-control-lg {
   flex-direction: column;
   width: 100%;
   pointer-events: auto;
-  background-color: #fff;
   background-clip: padding-box;
   border: 1px solid rgba(0, 0, 0, 0.2);
   border-radius: 0.3rem;
   outline: 0;
+  background-color: #2c3034;
+  color: white;
 }
 
 .modal-backdrop {
@@ -11453,7 +11454,6 @@ prototype
   background-size: cover;
   height: 1280px;
   background-attachment: fixed;
-
 }
 
 .content_add {

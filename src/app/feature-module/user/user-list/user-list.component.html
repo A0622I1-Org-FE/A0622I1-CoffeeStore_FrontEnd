@@ -43,12 +43,11 @@
           <th>Ngày sinh</th>
           <th>Lương</th>
           <th>Chức vụ</th>
-          <th>Trạng thái</th>
           <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of users; index as i">
+        <tr *ngFor="let user of users; index as i" style="height: 55px">
           <td>{{i + 1}}</td>
           <td>{{user.account}}</td>
           <td>{{user.userName}}</td>
@@ -58,17 +57,16 @@
           <td>{{formatDate(user.birthday)}}</td>
           <td>{{formatSalary(user.salary)}}</td>
           <td>{{user.position}}</td>
-          <td>{{setEnableFlag(user.enableFlag)}}</td>
-          <!--          <td><a class="btn btn-primary" [routerLink]="['component/edit',m.id]">📝</a>-->
-          <!--            <button type="button" (click)="showInfo(m)" class="btn btn-outline-danger" data-bs-toggle="modal"-->
-          <!--                    data-bs-target="#packageModal">-->
-          <!--              🗑-->
-          <!--            </button>-->
-          <!--          </td>-->
+                    <td><a *ngIf="getEnableFlag(user.enableFlag)" class="btn btn-primary">📝</a>
+                      <button *ngIf="getEnableFlag(user.enableFlag)" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                              data-bs-target="#packageModal" (click)="sendId(user.id)">
+                        🗑
+                      </button>
+                    </td>
         </tr>
         </tbody>
         <tr *ngIf="noRecord">
-          <td colspan="10"><h5 class="text-center validate-msg-color">Không có phản hồi nào</h5></td>
+          <td colspan="19"><h5 class="text-center validate-msg-color">Không có phản hồi nào</h5></td>
         </tr>
       </table>
       <div class="row mt-5" *ngIf="pages">
@@ -96,22 +94,22 @@
 </body>
 <div class="modal fade" id="packageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-    <div class="modal-content">
+    <div class="modal-content" style="width: 110%">
       <div class="modal-header">
         <h5 class="modal-title text-danger" id="exampleModalLabel">Xác nhận xoá</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <h3>Bạn có chắc chắn xoá thông tin Nhân viên ?</h3>
+        <h3>Bạn có chắc chắn xoá thông tin Nhân viên có Id = {{id}} ?</h3>
       </div>
       <div class="modal-footer">
         <div style="position: absolute; left: 18px">
           <h6 class="text-danger">Lưu ý! Hành động không thể hoàn tác!</h6>
         </div>
-        <!--        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="deleteById(id)">-->
-        <!--          Delete-->
-        <!--        </button>-->
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn_action" data-bs-dismiss="modal" (click)="deleteById()">
+                  Delete
+                </button>
+        <button type="button" class="btn_action" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

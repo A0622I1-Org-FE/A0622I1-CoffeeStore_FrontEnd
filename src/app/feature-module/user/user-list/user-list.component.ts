@@ -119,18 +119,28 @@ export class UserListComponent implements OnInit {
       return 'Khác';
     }
   }
-  setEnableFlag(enableFlag: string): string {
+  getEnableFlag(enableFlag: string): boolean {
     if (enableFlag === 'false') {
-      return 'Vô hiệu';
+      return false;
     } else {
-      return 'Hữu hiệu';
+      return true;
     }
   }
   formatSalary(salary: string): string {
     return parseFloat(salary).toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
   }
+  sendId(id: number) {
+    this.id = id;
+  }
 
   deleteById() {
-    this.service.deleteById(this.id).subscribe();
+    this.service.deleteById(this.id).subscribe(
+      response => {
+        this.ngOnInit();
+      },
+      error => {
+        this.ngOnInit();
+      }
+    );
   }
 }
