@@ -16,4 +16,5 @@ export interface IUserDto {
   birthday?: string;
   salary?: string;
   position?: string;
+  enableFlag?: string;
 }

@@ -20,12 +20,12 @@ export class UserService {
     return this.httpClient.get<UserResponse>(url);
   }
 
-  findImgUrlById(id: number): Observable<string[]> {
-    return this.httpClient.get<string[]>(`${this.API_URL_DELETEUSER}/${id}`);
-  }
-
-  searchDate(date: string, page: number, pageSize: number) {
+  searchDateOrName(date: string, page: number, pageSize: number, name: string): Observable<UserResponse> {
     const url = `${this.API_URL_SEARCHNAMORDATE}?page=${page}&size=${pageSize}&date=${date}&name=${name}`;
     return this.httpClient.get<UserResponse>(url);
+  }
+
+  deleteById(id: number): Observable<string> {
+    return this.httpClient.get<string>(`${this.API_URL_DELETEUSER}/${id}`);
   }
 }
