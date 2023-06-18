@@ -57,7 +57,6 @@ export class SalesComponent implements OnInit {
     const tableId = document.getElementById('tableId1').innerText;
     console.log(typeof tableId);
     this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
-    // window.location.reload();
     this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
     setTimeout(() => {
       window.location.reload();
