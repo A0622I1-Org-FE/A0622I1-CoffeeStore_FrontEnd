@@ -5,6 +5,7 @@ import {IUserDto} from '../../../modal/IUserDto';
 import {UserService} from '../../../service/user.service';
 import {formatNumber} from '@angular/common';
 import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
+import {ToastrService} from 'ngx-toastr';
 
 @Component({
   selector: 'app-user-list',
@@ -24,7 +25,7 @@ export class UserListComponent implements OnInit {
   name: string;
   noRecord: boolean;
 
-  constructor(private service: UserService) {
+  constructor(private service: UserService, private message: ToastrService) {
   }
 
   ngOnInit(): void {
@@ -139,6 +140,7 @@ export class UserListComponent implements OnInit {
       },
       error => {
         this.ngOnInit();
+        this.message.success('Đã xóa thành công', 'Thông báo xóa');
       }
     );
   }
