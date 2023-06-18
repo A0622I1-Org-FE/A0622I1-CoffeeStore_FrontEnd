@@ -4,7 +4,6 @@ import {SalesRoutingModule} from './sales-routing.module';
 import {ToastrModule} from 'ngx-toastr';
 import {ReactiveFormsModule} from '@angular/forms';
 import {SalesComponent} from './sales.component';
-import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -18,7 +17,6 @@ import {HttpClientModule} from '@angular/common/http';
     CommonModule,
     SalesRoutingModule,
     ReactiveFormsModule,
-    // HttpClientModule,
     ToastrModule.forRoot(),
   ]
 })

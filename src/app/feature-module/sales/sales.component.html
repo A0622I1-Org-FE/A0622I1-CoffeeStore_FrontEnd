@@ -37,7 +37,7 @@
               <img *ngIf="table.enableFlag == true" alt="Card image cap"
                    class="card-img-top"
                    src="../../../assets/image/table1.png">
-              <hr style="color: #c49b63">
+              <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
               <div class="card-body" style=" height: 3rem">
                 <h4 class="card-title text-center">{{table.name}}</h4>
               </div>
@@ -48,7 +48,7 @@
               <img *ngIf="table.enableFlag == false" alt="Card image cap"
                    class="card-img-top"
                    src="../../../assets/image/table_disabled1.png">
-              <hr style="color: #c49b63">
+              <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
               <div class="card-body" style=" height: 3rem">
                 <h4 class="card-title text-center">{{table.name}}</h4>
               </div>
@@ -108,8 +108,8 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-dismiss="modal" (click)="tinhTien()" style="background-color: #c49b63"
-                type="button">
+        <button class="btn btn-primary"  data-bs-target="#modelId1" data-bs-toggle="modal" data-bs-dismiss="modal"
+                (click)="confirmModal()" style="background-color: #c49b63" type="button">
           Tính tiền
         </button>
       </div>
@@ -118,34 +118,26 @@
 </div>
 <!-- Modal1 -->
 <div aria-hidden="true" aria-labelledby="modelTitleId" class="modal fade" id="modelId1" role="dialog"
-     style="opacity: 0.92"
      tabindex="-1">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
     <div class="modal-content" style="background-color: #2c3034; color: white">
       <div class="modal-header">
-        <h4 class="modal-title" id="modelTitleId1">Hóa đơn bàn</h4>
-        <i aria-label="Close" class="fas fa-times fa-lg closebtn" data-bs-dismiss="modal"
+        <h4 class="modal-title" style="text-align: center !important;" id="modelTitleId1">Xác nhận tính tiền</h4>
+        <i aria-label="Close" class="fas fa-times fa-lg closebtn" data-bs-dismiss="modal" data-bs-target="#modelId" data-bs-toggle="modal"
            style="color: #ffffff; margin-top: 5px"></i>
       </div>
       <div class="modal-body" style=" color: white">
-        <table class="table table-striped" id="bill1" style=" color: white; opacity: 100%">
-          <tr style=" color: white; background-color: #c49b63;">
-            <th>STT</th>
-            <th>Tên món</th>
-            <th>Số lượng</th>
-            <th>Giá</th>
-            <th>Số bàn</th>
-            <th>Tổng tiền</th>
-          </tr>
-          <tr style=" color: white">
-            <td class="text-center" colspan="6">Không có món</td>
-          </tr>
-        </table>
+        <p>Bạn có muốn tính tiền bàn này không?</p>
       </div>
       <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-dismiss="modal" onclick="tinhTien()" style="background-color: #c49b63"
+        <button class="btn btn-primary" data-bs-dismiss="modal" (click)="chargeTheBill()" style="background-color: #c49b63"
                 type="button">
-          Tính tiền
+          Đồng ý
+        </button>
+        <p id="tableId1" hidden></p>
+        <button class="btn btn-secondary" data-bs-target="#modelId" data-bs-toggle="modal" data-bs-dismiss="modal"
+                role="button">
+          Không
         </button>
       </div>
     </div>

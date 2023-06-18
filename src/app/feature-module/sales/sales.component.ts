@@ -3,6 +3,8 @@ import {TableService} from '../../service/table.service';
 import {ITable} from '../../modal/ITable';
 import {IBillDetailListDTO} from '../../modal/dto/IBillDetailListDTO';
 import {IBillChargingDTO} from '../../modal/dto/IBillChargingDTO';
+import {ToastrService} from 'ngx-toastr';
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -15,7 +17,9 @@ export class SalesComponent implements OnInit {
   billDetailList: IBillDetailListDTO[];
   billChargingList: IBillChargingDTO[];
 
-  constructor(private tableService: TableService) {
+  constructor(private tableService: TableService,
+              private toastr: ToastrService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -27,7 +31,8 @@ export class SalesComponent implements OnInit {
   }
 
   disabled() {
-    alert('Bàn không có khách!');
+    // alert('Bàn không có khách!');
+    this.toastr.warning('Bàn không có khách!', 'Lưu ý');
   }
 
   billDetail(tableId: number) {
@@ -44,14 +49,15 @@ export class SalesComponent implements OnInit {
     return formatter.format(money).replace('₫', '');
   }
 
-  tinhTien() {
-    const tableId = document.getElementById('tableId').innerText;
+  confirmModal() {
+    document.getElementById('tableId1').innerText = document.getElementById('tableId').innerText;
+  }
+
+  chargeTheBill() {
+    const tableId = document.getElementById('tableId1').innerText;
     console.log(typeof tableId);
-    const check = confirm('Bạn có muốn tính tiền bàn này không?');
-    if (check) {
-      this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
-      alert('Tính tiền thành công!');
-      window.location.reload();
-    }
+    this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
+    this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
+    this.router.navigateByUrl('/sales');
   }
 }

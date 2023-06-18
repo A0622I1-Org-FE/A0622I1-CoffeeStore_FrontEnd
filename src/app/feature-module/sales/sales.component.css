@@ -187,5 +187,9 @@ tr {
 
 .payment {
   color: white;
-  border-bottom: black;
+  border-bottom: rgba(39, 39, 39, 0.4);
+}
+
+#modelId1 {
+  margin-top: -50px !important;
 }
