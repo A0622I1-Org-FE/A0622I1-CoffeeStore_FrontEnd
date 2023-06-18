@@ -119,16 +119,15 @@ export class UserListComponent implements OnInit {
       return 'Khác';
     }
   }
+
   getEnableFlag(enableFlag: string): boolean {
-    if (enableFlag === 'false') {
-      return false;
-    } else {
-      return true;
-    }
+    return enableFlag !== 'false';
   }
+
   formatSalary(salary: string): string {
-    return parseFloat(salary).toLocaleString('vi-VN',{style: 'currency', currency: 'VND'});
+    return parseFloat(salary).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
   }
+
   sendId(id: number) {
     this.id = id;
   }

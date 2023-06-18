@@ -20,7 +20,7 @@
           <label for="dateSearch">Ngày Sinh&nbsp;&nbsp;</label>
           <input #date type="date" class="form-control" id="dateSearch">&nbsp;&nbsp;
           <label for="nameSearch">Tên&nbsp;&nbsp;</label>
-          <input #name type="text" class="form-control" id="nameSearch">
+          <input #name type="text" class="form-control" id="nameSearch" [maxLength]="100">
           <button type="button" class="btn btn-outline-light" (click)="sendDateName(date.value, name.value)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-search" viewBox="0 0 16 16">
@@ -43,6 +43,7 @@
           <th>Ngày sinh</th>
           <th>Lương</th>
           <th>Chức vụ</th>
+          <th>Chỉnh sửa/Xóa</th>
           <th></th>
         </tr>
         </thead>
@@ -57,7 +58,7 @@
           <td>{{formatDate(user.birthday)}}</td>
           <td>{{formatSalary(user.salary)}}</td>
           <td>{{user.position}}</td>
-                    <td><a *ngIf="getEnableFlag(user.enableFlag)" class="btn btn-primary">📝</a>
+                    <td><a *ngIf="getEnableFlag(user.enableFlag)" class="btn btn-outline-info">📝</a> &nbsp;
                       <button *ngIf="getEnableFlag(user.enableFlag)" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
                               data-bs-target="#packageModal" (click)="sendId(user.id)">
                         🗑
@@ -66,7 +67,7 @@
         </tr>
         </tbody>
         <tr *ngIf="noRecord">
-          <td colspan="19"><h5 class="text-center validate-msg-color">Không có phản hồi nào</h5></td>
+          <td colspan="19"><h5 class="text-center validate-msg-color">Không có tài khoản nào</h5></td>
         </tr>
       </table>
       <div class="row mt-5" *ngIf="pages">
