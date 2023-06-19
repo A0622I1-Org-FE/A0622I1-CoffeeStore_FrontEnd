@@ -1,0 +1,47 @@
+<main class="card">
+  <section class="esquerda">
+    <h3 class="titulo__login">Đăng nhập</h3>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <section class="caixa__input">
+        <label>Tên tài khoản</label>
+        <input type="text" formControlName="username"/>
+
+        <div *ngFor="let validation of validationMessage.username">
+          <p *ngIf="loginForm.get('username').hasError(validation.type) && loginForm.get('username').touched">
+            {{validation.message}}
+          </p>
+        </div>
+
+        <!--        <p style="color: #FF6000">Tên đăng nhập chưa đúng</p>-->
+      </section>
+      <section class="caixa__input">
+        <label>Mật khẩu</label>
+        <input type="password" formControlName="password"/>
+        <div *ngFor="let validation of validationMessage.password">
+          <p *ngIf="loginForm.get('password').hasError(validation.type) && loginForm.get('password').touched">
+            {{validation.message}}
+          </p>
+        </div>
+        <!--        <p style="color: #FF6000">Mật khẩu phải bắt đầu bằng ký tự in hoa</p>-->
+      </section>
+      <section class="controle__salvamento">
+        <div class="checkbox-circle2">
+          <input type="checkbox" id="checkbox-circle2" formControlName="remenberMe">
+          <label for="checkbox-circle2">Ghi nhớ tài khoản</label>
+        </div>
+        <a href="#" class="esqueceu__senha" routerLink="/forgot-password">
+          Quên mật khẩu?
+        </a>
+      </section>
+      <section class="controle__acesso">
+        <button class="btn" type="submit">Đăng nhập</button>
+        <button class="btn" type="button">Đăng ký</button>
+      </section>
+    </form>
+  </section>
+  <section class="direita">
+    <div class="background__imagem">
+      <img src="./assets/Mookup/White%20Simple%20Trendy%20Coffee%20Line%20Art%20Logo%20(1).png">
+    </div>
+  </section>
+</main>
