@@ -32,8 +32,10 @@
 
 .card-table {
   cursor: pointer;
-  width: 8rem !important;
-  height: 140px !important;
+  /*width: 8rem !important;*/
+  /*height: 140px !important;*/
+  width: 6.5rem !important;
+  height: 120px !important;
   margin-right: 20px;
   margin-bottom: 20px;
   background-color: black;
@@ -51,12 +53,22 @@
   margin-top: -30px;
 }
 
-@media (max-width: 600px) and (min-width: 430px) {
+@media (max-width: 600px) and (min-width: 450px) {
   .content_main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 0;
     padding-right: 0 !important;
+  }
+
+  div.card.card-table {
+    padding: 0 5px 0 5px !important;
+  }
+
+  div.col-lg-12.container_table {
+    /*margin: 0 !important;*/
+    padding: 0 0 0 10px !important;
+
   }
 
   .card-table {
@@ -66,10 +78,11 @@
 
   .background {
     background-repeat: repeat !important;
+    height: 100% !important;
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 450px) {
   .content_main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -89,7 +102,7 @@
   div.col-lg-12.container_table {
     /*margin: 0 !important;*/
     padding: 0 0 0 10px !important;
-    height: 100%;
+
   }
 
   div.card.card-table {
@@ -101,9 +114,22 @@
   }
 
   .background {
+    background-size: cover !important;
     height: 100%;
     background-repeat: repeat !important;
+    display: inline-block !important;
   }
+}
+
+.background {
+  background-image: linear-gradient(rgba(99, 92, 66, 0.5), rgba(99, 92, 66, 0.5)), url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-attachment: fixed;
+  /*display: block;*/
+  padding-bottom: 140px !important;
+  height: 675px;
+  background-position: center;
 }
 
 .card-table:hover {
@@ -147,17 +173,6 @@ hr {
 .closebtn:hover {
   cursor: pointer;
   color: gray;
-}
-
-.background {
-  background-image: linear-gradient(rgba(99, 92, 66, 0.5), rgba(99, 92, 66, 0.5)), url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
-  background-repeat: no-repeat;
-  background-size: cover !important;
-  background-attachment: fixed;
-  /*display: block;*/
-  padding-bottom: 140px !important;
-  height: 675px;
-  background-position: center;
 }
 
 .title {
