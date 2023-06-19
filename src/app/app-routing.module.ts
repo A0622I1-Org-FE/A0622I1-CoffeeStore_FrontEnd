@@ -6,11 +6,13 @@ import {UserListComponent} from './feature-module/user/user-list/user-list.compo
 
 const routes: Routes = [
   { path: 'quan-ly-phan-hoi', component: FeedbackListComponent},
-  { path: 'quan-ly-nguoi-dung', component: UserListComponent}
+  { path: 'quan-ly-nguoi-dung', component: UserListComponent},
+  { path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
