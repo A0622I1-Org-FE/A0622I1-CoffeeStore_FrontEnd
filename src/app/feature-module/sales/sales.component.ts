@@ -40,13 +40,13 @@ export class SalesComponent implements OnInit {
     this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
   }
 
+  /**
+   * @description Format giá trị số sang định dạng tiền.
+   * @return Giá trị số dưới dạng tiền kèm đơn vị đằng sau.
+   */
   formatter(money) {
-    const formatter = Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'VND',
-      maximumFractionDigits: 0
-    });
-    return formatter.format(money).replace('₫', '');
+    return parseFloat(money).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'})
+      .replace('₫', 'VNĐ');
   }
 
   confirmModal() {
