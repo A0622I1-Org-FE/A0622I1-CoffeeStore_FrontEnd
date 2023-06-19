@@ -3,7 +3,7 @@ import {NgModule} from '@angular/core';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormGroup, ReactiveFormsModule} from '@angular/forms';
 import {BillModule} from './feature-module/bill/bill.module';
 import {FeedbackModule} from './feature-module/feedback/feedback.module';
 import {SecurityModule} from './feature-module/security/security.module';
@@ -32,6 +32,7 @@ import {ToastrModule} from 'ngx-toastr';
     TableModule,
     UserModule,
     HttpClientModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
