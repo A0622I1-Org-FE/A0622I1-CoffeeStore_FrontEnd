@@ -32,16 +32,14 @@
 
 .card-table {
   cursor: pointer;
-  /*width: 8rem !important;*/
-  /*height: 140px !important;*/
   width: 6.5rem !important;
   height: 120px !important;
-  margin-right: 20px;
+  margin-right: 15px;
   margin-bottom: 20px;
   background-color: black;
   color: white;
   border: 10px solid #c49b63;
-  border-radius: 0.3rem;
+  border-radius: 0.8rem;
   padding-bottom: 15px;
 }
 
@@ -66,9 +64,7 @@
   }
 
   div.col-lg-12.container_table {
-    /*margin: 0 !important;*/
     padding: 0 0 0 10px !important;
-
   }
 
   .card-table {
