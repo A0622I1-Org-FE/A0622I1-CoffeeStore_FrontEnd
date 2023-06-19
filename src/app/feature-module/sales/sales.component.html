@@ -26,7 +26,7 @@
 <body class="container-fluid">
 <div class="row background">
   <div class="col-12">
-    <div class="row container-fluid" style="margin-top: 30px;">
+    <div class="row container-fluid contain" style="margin-top: 30px;">
       <div class="col-lg-12 container_table">
         <p class="title" style="color: #c49b63 !important;">DANH SÁCH BÀN</p>
         <div class="row container-fluid content_main">
@@ -50,11 +50,13 @@
                    src="../../../assets/image/table_disabled1.png">
               <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
               <div class="card-body" style=" height: 3rem">
-                <h4 class="card-title text-center">{{table.name}}</h4>
+                <h4 class="card-title text-center" style="color: grey">{{table.name}}</h4>
               </div>
             </div>
           </ng-container>
-
+          <ng-container *ngIf="tableList === null">
+            <h5 style="color: yellow; text-align: center">Không có bàn nào!</h5>
+          </ng-container>
         </div>
       </div>
     </div>
@@ -93,8 +95,8 @@
               <img alt="Ảnh nền" height="70px" src="{{billDetail.imgUrl}}" width="70px"> {{billDetail.serviceName}}
             </td>
             <td style="padding-top: 30px">{{billDetail.quantity}}</td>
-            <td style="padding-top: 30px">{{formatter(billDetail.price)}} VNĐ</td>
-            <td style="padding-top: 30px">{{formatter(billDetail.sum)}} VNĐ</td>
+            <td style="padding-top: 30px">{{formatter(billDetail.price)}}</td>
+            <td style="padding-top: 30px">{{formatter(billDetail.sum)}}</td>
           </tr>
           <tr class="payment">
             <th>Thành tiền:</th>
@@ -102,7 +104,7 @@
             <td id="tableId" hidden>{{billChargingList[0].tableId}}</td>
             <td></td>
             <td></td>
-            <td id="payment">{{formatter(billChargingList[0].sum)}} VNĐ</td>
+            <td id="payment">{{formatter(billChargingList[0].sum)}}</td>
           </tr>
           </tbody>
         </table>
