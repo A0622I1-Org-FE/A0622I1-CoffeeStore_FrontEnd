@@ -5,6 +5,7 @@ import {IBillDetailListDTO} from '../../modal/dto/IBillDetailListDTO';
 import {IBillChargingDTO} from '../../modal/dto/IBillChargingDTO';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {formatNumber} from "@angular/common";
 
 
 @Component({
@@ -35,9 +36,10 @@ export class SalesComponent implements OnInit {
     this.toastr.warning('Bàn không có khách!', 'Lưu ý');
   }
 
-  billDetail(tableId: number) {
+  billDetail(tableId: number, tableName: string) {
     this.tableService.getBillDetailByTableId(tableId).subscribe(billDetailList => this.billDetailList = billDetailList);
     this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
+    document.getElementById('modelTitleId').innerText = 'Hóa đơn bàn ' + tableName;
   }
 
   /**
@@ -55,8 +57,15 @@ export class SalesComponent implements OnInit {
 
   chargeTheBill() {
     const tableId = document.getElementById('tableId1').innerText;
+    this.getAll();
+    if (+tableId < 1 || +tableId > this.tableList.length) {
+      this.toastr.error('Bàn không tồn tại!', 'Lỗi thanh toán');
+    }
+    if (typeof +tableId !== 'number') {
+      this.toastr.error('Sai định dạng', 'Lỗi thanh toán');
+    }
     console.log(typeof tableId);
-    this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
+    this.tableService.tinhTien(+tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
     this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
     setTimeout(() => {
       window.location.reload();
