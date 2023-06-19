@@ -1,1 +1,66 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg ftco_navbar navbar-dark ftco-navbar-light">
+  <div class="container">
+    <img src="assets/img/White%20Simple%20Trendy%20Coffee%20Line%20Art%20Logo%20(1).png" style="max-width: 100px;  height: auto;">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
+            aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+
+    </button>
+    <div class="collapse navbar-collapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active"><a href="index.html" class="nav-link">Thực Đơn</a></li>
+        <li class="nav-item"><a href="menu.html" class="nav-link">Dịch vụ</a></li>
+        <li class="nav-item"><a href="services.html" class="nav-link">Phản Hồi</a></li>
+        <li class="nav-item" *ngIf="authService.isLoggedIn(); then loggedinMenu else loginMenu"></li>
+      </ul>
+
+      <ng-template #loggedinMenu>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+             aria-haspopup="true" aria-expanded="false">
+            Quản lý nhân viên
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="#">Thêm nhân viên</a>
+            <a class="dropdown-item" href="#">Sửa nhân viên</a>
+            <a class="dropdown-item" href="#">Xóa nhân viên</a>
+          </div>
+        </li>
+      </ng-template>
+
+      <ng-template #loginMenu>
+        <li class="nav-item"><a href="login.html" class="nav-link">Đăng Nhập</a></li>
+      </ng-template>
+    </div>
+  </div>
+</nav>
+
+
+
+<!--import { Injectable } from '@angular/core';-->
+
+<!--@Injectable({-->
+<!--providedIn: 'root'-->
+<!--})-->
+<!--export class AuthService {-->
+<!--private loggedIn = false;-->
+
+<!--constructor() { }-->
+
+<!--login(username: string, password: string): boolean {-->
+<!--if (username === 'admin' && password === 'admin') {-->
+<!--this.loggedIn = true;-->
+<!--sessionStorage.setItem('username', username);-->
+<!--return true;-->
+<!--}-->
+<!--return false;-->
+<!--}-->
+
+<!--logout(): void {-->
+<!--this.loggedIn = false;-->
+<!--sessionStorage.removeItem('username');-->
+<!--}-->
+
+<!--isLoggedIn(): boolean {-->
+<!--return this.loggedIn;-->
+<!--}-->
+<!--  }-->
