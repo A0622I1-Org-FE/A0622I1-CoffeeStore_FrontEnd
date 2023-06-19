@@ -41,7 +41,7 @@ export class SalesComponent implements OnInit {
   }
 
   /**
-   * @description Format giá trị số sang định dạng tiền.
+   * @description Description: Format giá trị số sang định dạng tiền.
    * @return Giá trị số dưới dạng tiền kèm đơn vị đằng sau.
    */
   formatter(money) {

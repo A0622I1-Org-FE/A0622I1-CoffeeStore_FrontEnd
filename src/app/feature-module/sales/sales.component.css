@@ -32,14 +32,14 @@
 
 .card-table {
   cursor: pointer;
-  width: 8rem !important;
-  height: 140px !important;
-  margin-right: 20px;
+  width: 6.5rem !important;
+  height: 120px !important;
+  margin-right: 15px;
   margin-bottom: 20px;
   background-color: black;
   color: white;
   border: 10px solid #c49b63;
-  border-radius: 0.3rem;
+  border-radius: 0.8rem;
   padding-bottom: 15px;
 }
 
@@ -51,12 +51,20 @@
   margin-top: -30px;
 }
 
-@media (max-width: 600px) and (min-width: 430px) {
+@media (max-width: 600px) and (min-width: 450px) {
   .content_main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 0;
     padding-right: 0 !important;
+  }
+
+  div.card.card-table {
+    padding: 0 5px 0 5px !important;
+  }
+
+  div.col-lg-12.container_table {
+    padding: 0 0 0 10px !important;
   }
 
   .card-table {
@@ -66,10 +74,12 @@
 
   .background {
     background-repeat: repeat !important;
+    height: 100% !important;
+    min-width: 333px !important;
   }
 }
 
-@media (max-width: 430px) {
+@media (max-width: 450px) {
   .content_main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -77,9 +87,14 @@
     padding-right: 0 !important;
   }
 
+  .contain {
+    padding-left: 0 !important;
+  }
+
   .card-table {
     width: 6rem !important;
     height: 120px !important;
+    padding-right: 0 !important;
   }
 
   img {
@@ -87,9 +102,7 @@
   }
 
   div.col-lg-12.container_table {
-    /*margin: 0 !important;*/
-    padding: 0 0 0 10px !important;
-    height: 100%;
+    padding: 0 0 0 25px !important;
   }
 
   div.card.card-table {
@@ -101,9 +114,27 @@
   }
 
   .background {
-    height: 100%;
+    background-size: cover !important;
+    height: 100% !important;
     background-repeat: repeat !important;
   }
+}
+
+@media (min-width: 1412px) {
+  .background {
+    min-height: 676px;
+  }
+}
+
+.background {
+  background-image: linear-gradient(rgba(148, 141, 114, 0.5), rgba(148, 141, 114, 0.5)), url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
+  background-repeat: no-repeat;
+  background-size: cover !important;
+  background-attachment: fixed;
+  padding-bottom: 140px !important;
+  height: 100% !important;
+  background-position: center;
+  min-width: 333px !important;
 }
 
 .card-table:hover {
@@ -149,17 +180,6 @@ hr {
   color: gray;
 }
 
-.background {
-  background-image: linear-gradient(rgba(99, 92, 66, 0.5), rgba(99, 92, 66, 0.5)), url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
-  background-repeat: no-repeat;
-  background-size: cover !important;
-  background-attachment: fixed;
-  /*display: block;*/
-  padding-bottom: 140px !important;
-  height: 675px;
-  background-position: center;
-}
-
 .title {
   font-weight: 800;
   font-size: 2.3rem;
@@ -178,6 +198,7 @@ hr {
   opacity: 0.9;
   display: inline-block;
   background-repeat: repeat;
+  min-width: 300px;
 }
 
 .card-body {

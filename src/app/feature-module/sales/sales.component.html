@@ -26,7 +26,7 @@
 <body class="container-fluid">
 <div class="row background">
   <div class="col-12">
-    <div class="row container-fluid" style="margin-top: 30px;">
+    <div class="row container-fluid contain" style="margin-top: 30px;">
       <div class="col-lg-12 container_table">
         <p class="title" style="color: #c49b63 !important;">DANH SÁCH BÀN</p>
         <div class="row container-fluid content_main">
@@ -50,11 +50,13 @@
                    src="../../../assets/image/table_disabled1.png">
               <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
               <div class="card-body" style=" height: 3rem">
-                <h4 class="card-title text-center">{{table.name}}</h4>
+                <h4 class="card-title text-center" style="color: grey">{{table.name}}</h4>
               </div>
             </div>
           </ng-container>
-
+          <ng-container *ngIf="tableList === null">
+            <h5 style="color: yellow; text-align: center">Không có bàn nào!</h5>
+          </ng-container>
         </div>
       </div>
     </div>
