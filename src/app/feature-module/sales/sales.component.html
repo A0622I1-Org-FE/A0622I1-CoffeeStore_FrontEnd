@@ -85,7 +85,7 @@
           </tr>
 
           <tr *ngIf="billDetailList == null">
-            <td class="text-center" colspan="7">Không có món nào</td>
+            <td class="text-center" colspan="7" style="padding-top: 30px"><h5>Không có món nào</h5></td>
           </tr>
 
           <tbody *ngIf="billDetailList != null">
@@ -109,10 +109,15 @@
           </tbody>
         </table>
       </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary"  data-bs-target="#modelId1" data-bs-toggle="modal" data-bs-dismiss="modal"
+      <div class="modal-footer" *ngIf="billDetailList != null">
+        <button class="btn btn-primary" data-bs-target="#modelId1" data-bs-toggle="modal" data-bs-dismiss="modal"
                 (click)="confirmModal()" style="background-color: #c49b63" type="button">
           Tính tiền
+        </button>
+      </div>
+      <div class="modal-footer" *ngIf="billDetailList == null">
+        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+          Đóng
         </button>
       </div>
     </div>
