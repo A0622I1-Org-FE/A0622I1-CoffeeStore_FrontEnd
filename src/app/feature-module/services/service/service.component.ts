@@ -41,6 +41,7 @@ export class ServiceComponent implements OnInit {
   getBill: BillDTO;
   billDetail: InsertBillDetailDTO;
   showMe: boolean;
+  isShowErrMsg = false;
 
   constructor(private servicesService: ServicesService,
               private serviceTypeService: ServiceTypeService,
@@ -64,6 +65,15 @@ export class ServiceComponent implements OnInit {
     this.serviceTypeService.findAll().subscribe(response => {
       this.serviceTypeList = response;
     });
+  }
+
+  doCheck(quantity: string) {
+    if ( parseInt(quantity) < 1) {
+      this.isShowErrMsg = true;
+    } else {
+      this.isShowErrMsg = false;
+      this.order();
+    }
   }
 
   goToPage(page: number) {
@@ -151,14 +161,21 @@ export class ServiceComponent implements OnInit {
   order() {
     this.tongTien = 0;
     const order = this.rfCreate.value;
+    let addNewService = true;
     order.sum = order.quantity * order.price;
-    this.orderList.push(order);
+    for (let i = 0; i < this.orderList.length; i++) {
+      if (this.rfCreate.value.service_id === this.orderList[i].service_id) {
+        this.orderList[i].quantity += this.rfCreate.value.quantity;
+        addNewService = false;
+      }
+    }
+    if (addNewService) {
+      this.orderList.push(order);
+    }
     this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
-    console.log(this.orderList);
   }
 
   delete() {
-    console.log(this.deleteOrder);
     this.orderList = this.orderList.filter(item => item.name !== this.deleteOrder.name);
   }
 
