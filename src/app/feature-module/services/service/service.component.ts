@@ -143,7 +143,7 @@ export class ServiceComponent implements OnInit {
     this.rfCreate = new FormGroup({
       service_id: new FormControl(this.serviceChon.id),
       name: new FormControl(this.serviceChon.name),
-      quantity: new FormControl('', [Validators.required, Validators.min(1)]),
+      quantity: new FormControl(1),
       price: new FormControl(this.serviceChon.price),
       sum: new FormControl(0)
     });
