@@ -54,11 +54,13 @@ export class SalesComponent implements OnInit {
   }
 
   chargeTheBill() {
-    const tableId = document.getElementById('tableId1').innerText;
-    // tableId = 'gdgdg';
-    console.log(typeof +tableId);
     this.getAll();
-    if (+tableId < 1 || +tableId > this.tableList.length) {
+    const tableId = document.getElementById('tableId1').innerText;
+    // tableId = String(100);
+    console.log(typeof +tableId);
+    console.log(this.tableList);
+    const isPresent = this.tableList.some(el => el.id === +tableId);
+    if (+tableId < 1 || !isPresent) {
       this.toastr.error('Bàn không tồn tại!', 'Lỗi thanh toán');
     } else if (isNaN(+tableId)) {
       this.toastr.error('Sai định dạng số bàn', 'Lỗi thanh toán');
