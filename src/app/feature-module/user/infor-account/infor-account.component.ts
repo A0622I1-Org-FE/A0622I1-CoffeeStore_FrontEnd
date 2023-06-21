@@ -28,12 +28,17 @@ export class InforAccountComponent implements OnInit {
         this.userInfor = data;
         console.log(this.userInfor);
       }
-    // , error => {
-    //     this.toastrService.error('Không tìm thấy thong tin tài khoản!', 'Message');
-    //     this.router.navigateByUrl('');
-    //     console.log(dataId);
-    //   }
+    , error => {
+        this.toastrService.error('Không tìm thấy thong tin tài khoản!', 'Message');
+        this.router.navigateByUrl('');
+        console.log(dataId);
+      }
       );
     });
+  }
+  formatSalary(salary: number): string {
+    // tslint:disable-next-line:variable-name
+    const string = salary + '';
+    return parseFloat(string).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
   }
 }
