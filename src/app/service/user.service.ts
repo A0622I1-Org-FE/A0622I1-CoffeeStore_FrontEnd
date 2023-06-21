@@ -38,6 +38,6 @@ export class UserService {
     return this.httpClient.put<string>(`${this.API_URL_DELETEUSER}/${id}`, {});
   }
   findUserInforById(id): Observable<IUserInforDTO> {
-    return this.httpClient.get<IUserInforDTO>(this. API_USER + '/find-user-id/' + id, this.httpOptions);
+    return this.httpClient.get<IUserInforDTO>(this. API_USER + '/find-user-id/' + '5', this.httpOptions);
   }
 }
