@@ -47,4 +47,7 @@ export class ScoketServiceService {
   sendMessage(message: string) {
     this.stompClient.send('/app/messages', {}, JSON.stringify(message));
   }
+  get mess() {
+    return this.messList;
+  }
 }
