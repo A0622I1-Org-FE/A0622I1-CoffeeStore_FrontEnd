@@ -9,7 +9,7 @@ import {SecurityModule} from './feature-module/security/security.module';
 import {ServicesModule} from './feature-module/services/services.module';
 import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
-import {FeedbackCreateComponent} from './component/feedback/feedback-create/feedback-create.component';
+import {FeedbackCreateComponent} from './feature-module/feedback/feedback/feedback-create/feedback-create.component';
 import {HttpClientModule} from '@angular/common/http';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment.prod';

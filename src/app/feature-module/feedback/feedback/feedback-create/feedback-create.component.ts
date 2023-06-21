@@ -1,14 +1,14 @@
 import {Component, Inject, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {FeedbackTypeService} from '../../../service/feedback-type.service';
-import {FeedbackService} from '../../../service/feedback.service';
+import {FeedbackTypeService} from '../../../../service/feedback-type.service';
+import {FeedbackService} from '../../../../service/feedback.service';
 import {Router} from '@angular/router';
-import {FeedbackTypeDto} from '../../../../dto/feedback-type-dto';
+import {FeedbackTypeDto} from '../../../../../dto/feedback-type-dto';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
-import {FeedbackImageDto} from '../../../../dto/feedback-image-dto';
-import {FeedbackImgService} from '../../../service/feedback-img.service';
+import {FeedbackImageDto} from '../../../../../dto/feedback-image-dto';
+import {FeedbackImgService} from '../../../../service/feedback-img.service';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
@@ -77,7 +77,7 @@ export class FeedbackCreateComponent implements OnInit {
       this.callApiAndSaveUrl(this.defaultImageUrl);
     }
     this.feedbackService.save(formData).subscribe(next => {
-      this.toastr.success('Lời phản hồi của bạn góp phần tạo nên thành công của chúng tôi!' +
+      this.toastr.success('Lời phản hồi của bạn góp phần tạo nên thành công của chúng tôi!\n' +
         'Chúc bạn một ngày tốt lành ♥♥♥');
       this.router.navigateByUrl('feedback');
     });
