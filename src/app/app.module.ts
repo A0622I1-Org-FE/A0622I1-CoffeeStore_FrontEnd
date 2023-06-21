@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {FormGroup, ReactiveFormsModule} from '@angular/forms';
@@ -11,6 +10,7 @@ import {ServicesModule} from './feature-module/services/services.module';
 import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
 import {HttpClientModule} from '@angular/common/http';
+import { ServiceComponent } from './feature-module/services/service/service.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 
@@ -18,6 +18,7 @@ import {ToastrModule} from 'ngx-toastr';
 @NgModule({
   declarations: [
     AppComponent,
+    ServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -26,11 +27,13 @@ import {ToastrModule} from 'ngx-toastr';
     AppRoutingModule,
     ReactiveFormsModule,
     BillModule,
+    HttpClientModule,
     FeedbackModule,
     SecurityModule,
     ServicesModule,
     TableModule,
     UserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
   ],
