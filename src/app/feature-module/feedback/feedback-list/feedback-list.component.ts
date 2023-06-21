@@ -32,6 +32,9 @@ export class FeedbackListComponent implements OnInit {
   noImgUrl = ['https://firebasestorage.googleapis.com/v0/b/a0622i1.appspot.com/o/17-06-2023065218PMWhite%20Simple%20Trendy%20Coffee%20Line%20Art%20Logo%20(2).png?alt=media&token=0150e9d2-061d-45fb-a883-97156b904b16'];
   date: string;
   noRecord: boolean;
+  listAllFeedback: IFeedbackDto[];
+  avgRate: number;
+
   constructor(private service: FeedbackService) { }
 
   ngOnInit(): void {
@@ -43,6 +46,7 @@ export class FeedbackListComponent implements OnInit {
         this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
         this.noRecord = response.size === 0;
         this.countPageCanShow();
+        this.calculateAverageRate();
       },
       error => {
         this.noRecord = error.status === 404;
@@ -51,6 +55,21 @@ export class FeedbackListComponent implements OnInit {
     if (!this.imgUrl) {
       this.imgUrl = this.noImgUrl;
     }
+  }
+
+  calculateAverageRate() {
+    this.service.findAll(this.currentPage, this.totalElements).subscribe(response => {
+        this.listAllFeedback = response.content;
+        let sum = 0;
+        for (let i = 0; i < this.listAllFeedback.length; i++) {
+          sum += parseInt(this.listAllFeedback[i].rate, 10);
+        }
+        this.avgRate = Number((sum / this.listAllFeedback.length).toFixed(3));
+      },
+      error => {
+        this.noRecord = error.status === 404;
+        this.feedbacks = [];
+      });
   }
   formatDate(date: string): string {
     const parts = date.split('-');
