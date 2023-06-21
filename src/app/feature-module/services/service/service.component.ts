@@ -44,6 +44,7 @@ export class ServiceComponent implements OnInit {
   getBill: BillDTO;
   billDetail: InsertBillDetailDTO;
   showMe: boolean;
+  isShowErrMsg = false;
   submitted = false;
   messList: Message[] = [];
   stompClient: any;
@@ -75,6 +76,15 @@ export class ServiceComponent implements OnInit {
     this.serviceTypeService.findAll().subscribe(response => {
       this.serviceTypeList = response;
     });
+  }
+
+  doCheck(quantity: string) {
+    if ( parseInt(quantity) < 1) {
+      this.isShowErrMsg = true;
+    } else {
+      this.isShowErrMsg = false;
+      this.order();
+    }
   }
 
   goToPage(page: number) {
@@ -144,7 +154,7 @@ export class ServiceComponent implements OnInit {
     this.rfCreate = new FormGroup({
       service_id: new FormControl(this.serviceChon.id),
       name: new FormControl(this.serviceChon.name),
-      quantity: new FormControl('', [Validators.required, Validators.min(1)]),
+      quantity: new FormControl(1),
       price: new FormControl(this.serviceChon.price),
       sum: new FormControl(0)
     });
@@ -160,22 +170,23 @@ export class ServiceComponent implements OnInit {
   }
 
   order() {
-    this.submitted = true;
-    if (this.rfCreate.invalid) {
-      return;
+    this.tongTien = 0;
+    const order = this.rfCreate.value;
+    let addNewService = true;
+    order.sum = order.quantity * order.price;
+    for (let i = 0; i < this.orderList.length; i++) {
+      if (this.rfCreate.value.service_id === this.orderList[i].service_id) {
+        this.orderList[i].quantity += this.rfCreate.value.quantity;
+        addNewService = false;
+      }
     }
-    if (this.submitted) {
-      this.tongTien = 0;
-      const order = this.rfCreate.value;
-      order.sum = order.quantity * order.price;
+    if (addNewService) {
       this.orderList.push(order);
-      this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
-      console.log(this.orderList);
     }
+    this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
   }
 
   delete() {
-    console.log(this.deleteOrder);
     this.orderList = this.orderList.filter(item => item.name !== this.deleteOrder.name);
   }
 

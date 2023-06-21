@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+// @ts-ignore
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {ToastrService} from 'ngx-toastr';

@@ -197,7 +197,11 @@
               <td scope="row">Số lượng</td>
               <td><input style="background-color: white"
                          type="number"
-                         class="form-control" formControlName="quantity"/></td>
+                         class="form-control" formControlName="quantity" #quantity></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><small style="color: red" *ngIf="isShowErrMsg"> Số lượng phải là số lớn hơn 0</small></td>
             </tr>
             <tr hidden>
               <td>Giá</td>
@@ -221,12 +225,12 @@
               <td></td>
             </tr>
           </table>
+          <div class="modal-footer">
+            <button type="button" class="btn" style="background-color: green"
+                    (click)="doCheck(quantity.value)">Thêm
+            </button>
+          </div>
         </form>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn" style="background-color: green" data-bs-dismiss="modal" (click)="order()">
-          Thêm
-        </button>
       </div>
     </div>
   </div>

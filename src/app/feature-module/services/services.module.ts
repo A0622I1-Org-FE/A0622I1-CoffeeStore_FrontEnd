@@ -9,9 +9,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 
 
-
 @NgModule({
-  declarations: [ServiceComponent],
+  declarations: [],
   imports: [
     CommonModule,
     ServicesRoutingModule,
@@ -21,10 +20,10 @@ import {BrowserModule} from '@angular/platform-browser';
       timeOut: 10000,
       progressBar: true,
       progressAnimation: 'increasing',
-      preventDuplicates: true
-    }),
+      preventDuplicates: true}),
     BrowserAnimationsModule,
     BrowserModule,
+    BrowserModule
   ]
 })
 export class ServicesModule { }
