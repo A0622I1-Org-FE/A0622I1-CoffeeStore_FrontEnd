@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Danh Sách Nhân Viên</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+</head>
+<body>
+<div class="container_add">
+  <div class="d-flex justify-content-center">
+    <div class="content_add col-xl-10">
+      <h2 class="title">Danh Sách Nhân Viên</h2>
+      <div class="d-flex justify-content-end">
+        <div class="input-group  align-items-center" style="width: 600px!important;">
+          <label for="dateSearch">Ngày Sinh&nbsp;&nbsp;</label>
+          <input #date type="date" class="form-control" id="dateSearch">&nbsp;&nbsp;
+          <label for="nameSearch">Tên&nbsp;&nbsp;</label>
+          <input #name type="text" class="form-control" id="nameSearch" [maxLength]="100">
+          <button type="button" class="btn btn-outline-light" (click)="sendDateName(date.value, name.value)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-search" viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <br><br><br><br><br>
+      <table class="table" style="border: 1px solid gray;">
+        <thead>
+        <tr>
+          <th>STT</th>
+          <th>Tài Khoản</th>
+          <th>Họ tên</th>
+          <th>Địa chỉ</th>
+          <th>SDT</th>
+          <th>Giới tính</th>
+          <th>Ngày sinh</th>
+          <th>Lương</th>
+          <th>Chức vụ</th>
+          <th>Chỉnh sửa/Xóa</th>
+          <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of users; index as i" style="height: 55px">
+          <td>{{i + 1}}</td>
+          <td>{{user.account}}</td>
+          <td>{{user.userName}}</td>
+          <td>{{user.address}}</td>
+          <td>{{user.phoneNumber}}</td>
+          <td>{{formatGender(user.gender)}}</td>
+          <td>{{formatDate(user.birthday)}}</td>
+          <td>{{formatSalary(user.salary)}}</td>
+          <td>{{user.position}}</td>
+                    <td><a *ngIf="getEnableFlag(user.enableFlag)" class="btn btn-outline-info">📝</a> &nbsp;
+                      <button *ngIf="getEnableFlag(user.enableFlag)" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
+                              data-bs-target="#packageModal" (click)="sendId(user.id)">
+                        🗑
+                      </button>
+                    </td>
+        </tr>
+        </tbody>
+        <tr *ngIf="noRecord">
+          <td colspan="19"><h5 class="text-center validate-msg-color">Không có tài khoản nào</h5></td>
+        </tr>
+      </table>
+      <div class="row mt-5" *ngIf="pages">
+        <div class="col text-center">
+          <div class="block-27">
+            <ul>
+              <ul>
+                <li>
+                  <a (click)="previousPage()" [class.disabled]="currentPage === 0">&lt;</a>
+                </li>
+                <li *ngFor="let page of pageRange" [class.active]="page === currentPage">
+                  <a (click)="goToPage(page)">{{ page + 1 }}</a>
+                </li>
+                <li>
+                  <a (click)="nextPage()" [class.disabled]="currentPage === totalPages - 1">&gt;</a>
+                </li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<div class="modal fade" id="packageModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content" style="width: 110%">
+      <div class="modal-header">
+        <h5 class="modal-title text-danger" id="exampleModalLabel">Xác nhận xoá</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <h3>Bạn có chắc chắn xoá thông tin Nhân viên có Id = {{id}} ?</h3>
+      </div>
+      <div class="modal-footer">
+        <div style="position: absolute; left: 18px">
+          <h6 class="text-danger">Lưu ý! Hành động không thể hoàn tác!</h6>
+        </div>
+                <button type="button" class="btn_action" data-bs-dismiss="modal" (click)="deleteById()">
+                  Delete
+                </button>
+        <button type="button" class="btn_action" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</html>

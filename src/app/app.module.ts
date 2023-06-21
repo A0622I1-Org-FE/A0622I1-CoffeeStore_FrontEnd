@@ -1,6 +1,5 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
 import {ReactiveFormsModule} from '@angular/forms';
@@ -13,6 +12,7 @@ import {UserModule} from './feature-module/user/user.module';
 import {HttpClientModule} from '@angular/common/http';
 import { ServiceComponent } from './feature-module/services/service/service.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ToastrModule} from 'ngx-toastr';
 
 
 @NgModule({
@@ -22,6 +22,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
+    ToastrModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BillModule,
@@ -32,6 +34,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
     TableModule,
     UserModule,
     BrowserAnimationsModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
