@@ -6,10 +6,11 @@ import {ToastrModule} from 'ngx-toastr';
 import { FeedbackListComponent } from './feedback-list/feedback-list.component';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {FeedbackCreateComponent} from './feedback/feedback-create/feedback-create.component';
 
 
 @NgModule({
-  declarations: [FeedbackListComponent],
+  declarations: [FeedbackListComponent, FeedbackCreateComponent],
   imports: [
     CommonModule,
     FeedbackRoutingModule,

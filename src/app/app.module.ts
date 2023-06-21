@@ -12,14 +12,13 @@ import {UserModule} from './feature-module/user/user.module';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {FeedbackCreateComponent} from './feature-module/feedback/feedback/feedback-create/feedback-create.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment.prod';
+import {SalesModule} from './feature-module/sales/sales.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    FeedbackCreateComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -36,8 +35,8 @@ import {environment} from '../environments/environment.prod';
     UserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     ToastrModule.forRoot(),
+    SalesModule,
     AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],

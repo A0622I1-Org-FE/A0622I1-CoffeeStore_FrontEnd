@@ -1,10 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {IFeedbackDto} from '../../../modal/IFeedbackDto';
-import {FeedbackDetail} from '../../../modal/FeedbackDetail';
 import {IUserDto} from '../../../modal/IUserDto';
 import {UserService} from '../../../service/user.service';
-import {formatNumber} from '@angular/common';
-import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import {ToastrService} from 'ngx-toastr';
 
 @Component({
