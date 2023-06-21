@@ -4,9 +4,10 @@ import { UserRoutingModule } from './user-routing.module';
 import {ToastrModule} from 'ngx-toastr';
 import { InforAccountComponent } from './infor-account/infor-account.component';
 import {HttpClientModule} from '@angular/common/http';
+import {UserListComponent} from './user-list/user-list.component';
 
 @NgModule({
-  declarations: [InforAccountComponent],
+  declarations: [InforAccountComponent, UserListComponent],
 
   imports: [
     CommonModule,
