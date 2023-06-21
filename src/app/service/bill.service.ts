@@ -30,7 +30,7 @@ export class BillService {
   }
 
   searchUser(name: string, page: number, pageSize: number): Observable<BillResponse> {
-    const url = `${this.API_URL_SEARCH_USER}?page=${page}&size=${pageSize}&name=${"%"+name+"%"}`;
+    const url = `${this.API_URL_SEARCH_USER}?page=${page}&size=${pageSize}&name=${name}`;
     return this.httpClient.get<BillResponse>(url);
   }
 

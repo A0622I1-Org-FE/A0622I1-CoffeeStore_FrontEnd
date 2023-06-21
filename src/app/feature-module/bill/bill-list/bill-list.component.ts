@@ -64,7 +64,7 @@ name: string;
   }
 
   getListByUser() {
-    this.currentPage = 0;
+    
     this.billService.searchUser(this.name, this.currentPage, this.pageSize).subscribe(response => {
         this.billLists = response.content;
         this.totalPages = response.totalPages;
