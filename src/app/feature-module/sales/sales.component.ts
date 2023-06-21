@@ -44,11 +44,12 @@ export class SalesComponent implements OnInit {
    */
   disabled() {
     this.toastr.warning('Bàn không có khách!', 'Lưu ý');
+    this.getAll();
   }
 
   /**
    * <h3>Description: Format giá trị số sang định dạng tiền.</h3>
-   * @param tableId tableName
+   * <p>Params: tableId, tableName</p>
    * @return Giá trị số dưới dạng tiền kèm đơn vị đằng sau.
    * @author CuongHM
    */
@@ -56,6 +57,7 @@ export class SalesComponent implements OnInit {
     this.tableService.getBillDetailByTableId(tableId).subscribe(billDetailList => this.billDetailList = billDetailList);
     this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
     document.getElementById('modelTitleId').innerText = 'Hóa đơn bàn ' + tableName;
+    this.getAll();
   }
 
   /**
