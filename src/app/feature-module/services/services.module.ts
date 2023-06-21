@@ -3,15 +3,18 @@ import { CommonModule } from '@angular/common';
 
 import { ServicesRoutingModule } from './services-routing.module';
 import {ToastrModule} from 'ngx-toastr';
-import { BodyComponent } from './body/body.component';
+
+import {ReactiveFormsModule} from '@angular/forms';
+import {ServiceComponent} from './service/service.component';
 
 
 @NgModule({
-  declarations: [BodyComponent],
+  declarations: [ServiceComponent],
   imports: [
     CommonModule,
     ServicesRoutingModule,
     ToastrModule.forRoot(),
+    ReactiveFormsModule,
   ]
 })
 export class ServicesModule { }

@@ -10,12 +10,9 @@ import {ServiceRespone} from '../modal/ServiceRespone';
 export class ServicesService {
   private API_URL = 'http://localhost:8080/api/list/service';
   private API_URL_TYPE = 'http://localhost:8080/api/type_id';
-  private API_URL_SERVICE = 'http://localhost:8080/api/service';
-  private bestSellerApi = 'http://localhost:8080/api/service/body/best';
-  private newFoodApi = 'http://localhost:8080/api/service/body/new';
+  private API_URL_SERVICE = 'http://localhost:8080/api/list/service_type';
+  constructor(private httpClient: HttpClient) { }
 
-  constructor(private httpClient: HttpClient) {
-  }
 
   findAll(page: number, pageSize: number): Observable<ServiceRespone> {
     const url = `${this.API_URL}?page=${page}&size=${pageSize}`;
