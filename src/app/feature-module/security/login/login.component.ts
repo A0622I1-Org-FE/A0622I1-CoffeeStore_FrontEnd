@@ -65,10 +65,21 @@ export class LoginComponent implements OnInit {
             console.log(this.tokenStrorageService.getRole());
           }
           this.loginForm.reset();
-          this.toastr.success(`Xin chào ${data.name} ^^`, 'Đăng nhập thành công: ', {
-            timeOut: 5000,
-            extendedTimeOut: 1500
-          });
+          if (data.changePassword) {
+            this.toastr.warning(`Mật khẩu của bạn hiện đã quá 30 ngày. Vui lòng thay đổi mật khẩu mới!`, 'Cảnh báo: ', {
+              timeOut: 5000,
+              extendedTimeOut: 1500
+            });
+            this.toastr.success(`Xin chào ${data.name} ^^`, 'Đăng nhập thành công: ', {
+              timeOut: 2000,
+              extendedTimeOut: 1500
+            });
+          } else {
+            this.toastr.success(`Xin chào ${data.name} ^^`, 'Đăng nhập thành công: ', {
+              timeOut: 2000,
+              extendedTimeOut: 1500
+            });
+          }
         },
         error => {
           this.toastr.error('Tên tài khoản hoặc mật khẩu chưa chính xác', 'Đăng nhập thất bại', {
