@@ -6,5 +6,4 @@ export interface IBillDetail {
   quantity: number;
   service: IServices;
   bill: IBill;
-
 }
