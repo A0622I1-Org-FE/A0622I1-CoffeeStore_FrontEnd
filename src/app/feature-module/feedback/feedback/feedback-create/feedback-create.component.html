@@ -1,0 +1,89 @@
+<div class="containerr">
+  <div class="feedback-box">
+    <div class="feedback-box_right">
+      <h2 class="feedback-box_right-title">PHẢN HỒI</h2>
+      <form [formGroup]="rfCreate" (ngSubmit)="save()">
+        <div class="row">
+          <div class="mb-3 col-md-6">
+            <label for="name" class="form-label">Họ và tên<span style="color:red;">(*)</span></label>
+            <input type=" text" class=" feedback-box_right-item" name="" id="name" aria-describedby="helpId"
+                   placeholder="" formControlName="name">
+            <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.required">
+              Vui lòng nhập họ và tên</p>
+            <!--            <span class="text-warning">Tên không đúng định dạng</span>-->
+          </div>
+          <div class="mb-3 col-md-6">
+            <label for="email" class="form-label">Email<span style="color:red;">(*)</span></label>
+            <input type=" text" class=" feedback-box_right-item" name="" id="email" aria-describedby="helpId"
+                   placeholder="" formControlName="email">
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.required">Vui lòng nhập
+              email</p>
+            <!--            <span class="text-warning">Email không đúng định dạng</span>-->
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="typeFeedback" class="form-label">Loại phản hồi</label>
+          <select class="feedback-box_right-item " name="" id="typeFeedback" formControlName="feedbackType">
+            <option value="" selected disabled>Chọn</option>
+            <option *ngFor="let items of feedbackTypeList" [ngValue]="items.id">{{items.type}}</option>
+          </select>
+          <p class="text-warning" *ngIf="rfCreate.controls.feedbackType.touched && rfCreate.controls.feedbackType?.errors?.required">Vui
+            lòng chọn loại phục vụ</p>
+        </div>
+        <div class="mb-3">
+          <label for="feedback" class="form-label">Nội dung phản hồi<span style="color:red;">(*)</span></label>
+          <textarea type="" class=" feedback-box_right-item" name="" id="feedback" aria-describedby="helpId"
+                    placeholder="" rows="5" minlength="50" maxlength="1000" style="resize: none;"
+                    formControlName="content"></textarea>
+          <span class="text-white">Độ dài từ 50-1000</span> <br>
+          <p class="text-warning"
+             *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.required">Vui lòng nhập nội
+            dung phục vụ</p>
+          <!--          <span class="text-warning">Độ dài không hợp lệ</span>-->
+        </div>
+        <div class="stars">
+          <header>Đánh giá của bạn</header>
+          <input class="star star-5" id="star-5" type="radio" name="rate" formControlName="rate" value="5"/>
+          <label class="star star-5" for="star-5"></label>
+          <input class="star star-4" id="star-4" type="radio" name="rate" formControlName="rate" value="4"/>
+          <label class="star star-4" for="star-4"></label>
+          <input class="star star-3" id="star-3" type="radio" name="rate" formControlName="rate" value="3"/>
+          <label class="star star-3" for="star-3"></label>
+          <input class="star star-2" id="star-2" type="radio" name="rate" formControlName="rate" value="2"/>
+          <label class="star star-2" for="star-2"></label>
+          <input class="star star-1" id="star-1" type="radio" name="rate" formControlName="rate" value="1"/>
+          <label class="star star-1" for="star-1"></label>
+        </div>
+        <div class="mb-3">
+          <div id="file-input-container">
+            <label class="upload-icon" for="image-input"><i class="fa-solid fa-upload"></i>Chọn hình ảnh</label>
+            <input type="file" id="image-input" multiple (change)="showPreview($event)">
+          </div>
+          <div id="image-preview"></div>
+          <div class="loading-overlay">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="feedback-box_right-button">
+            <!--            <div class="feedback-box_right-button"><a name="" id="" class="feedback-box_right-button-item btn1" href="#"-->
+            <!--                                                      role="button">Quay-->
+            <!--              lại</a></div>-->
+            <!--            <div class="feedback-box_right-button"><a name="" id="" class="feedback-box_right-button-item btn2" href="#"-->
+            <!--                                                      role="button">Xác-->
+            <!--              nhận</a></div>-->
+            <div class="feedback-box_right-button">
+              <button name="" id="" class="feedback-box_right-button-item btn1">Quay lại</button>
+            </div>
+            <div class="feedback-box_right-button">
+              <button name="" id="" class="feedback-box_right-button-item btn2">Xác nhận</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <script src="../../../../../assets/js/index.js"></script>
+

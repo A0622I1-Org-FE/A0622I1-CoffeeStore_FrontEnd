@@ -1,9 +1,8 @@
 import {BrowserModule} from '@angular/platform-browser';
 import {NgModule} from '@angular/core';
-
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {FormGroup, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {BillModule} from './feature-module/bill/bill.module';
 import {FeedbackModule} from './feature-module/feedback/feedback.module';
 import {SecurityModule} from './feature-module/security/security.module';
@@ -13,11 +12,14 @@ import {UserModule} from './feature-module/user/user.module';
 import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-
+import {FeedbackCreateComponent} from './feature-module/feedback/feedback/feedback-create/feedback-create.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment.prod';
 
 @NgModule({
   declarations: [
     AppComponent,
+    FeedbackCreateComponent
   ],
   imports: [
     BrowserModule,
@@ -25,6 +27,7 @@ import {ToastrModule} from 'ngx-toastr';
     ToastrModule,
     AppRoutingModule,
     ReactiveFormsModule,
+    HttpClientModule,
     BillModule,
     FeedbackModule,
     SecurityModule,
@@ -33,9 +36,13 @@ import {ToastrModule} from 'ngx-toastr';
     UserModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
+
 export class AppModule {
 }
