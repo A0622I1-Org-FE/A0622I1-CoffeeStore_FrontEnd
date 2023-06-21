@@ -10,22 +10,28 @@ import {SecurityModule} from './feature-module/security/security.module';
 import {ServicesModule} from './feature-module/services/services.module';
 import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
+import {HttpClientModule} from '@angular/common/http';
+import { ServiceComponent } from './feature-module/services/service/service.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ServiceComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BillModule,
+    HttpClientModule,
     FeedbackModule,
     SecurityModule,
     ServicesModule,
     TableModule,
-    UserModule
+    UserModule,
+    BrowserAnimationsModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
