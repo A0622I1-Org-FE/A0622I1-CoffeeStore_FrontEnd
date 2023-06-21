@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { ServicesRoutingModule } from './services-routing.module';
 import {ToastrModule} from 'ngx-toastr';
+import { BodyComponent } from './body/body.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [BodyComponent],
   imports: [
     CommonModule,
     ServicesRoutingModule,

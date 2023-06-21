@@ -1,0 +1,87 @@
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+  * {
+      margin: 0;
+      padding: 0;
+  }
+
+  .navbar {
+      background-color: #151111 !important;
+      position: fixed !important;
+      width: 100%;
+      height: 80px;
+      z-index: 100;
+      display: flex;
+  }
+
+  .navbar-brand {
+      color: #fff;
+      font-size: 15px;
+      font-weight: bold;
+  }
+
+  .navbar-nav .nav-link {
+      color: #fff;
+      font-size: 15px;
+      font-weight: 300;
+
+  }
+
+  .navbar-nav .nav-link:hover {
+      color: #c49b63;
+  }
+
+  .navbar-toggler {
+      border-color: transparent;
+  }
+
+  .overlay {
+      z-index: 2;
+      position: absolute !important;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: #000;
+      opacity: .3;
+      height: 900px;
+  }
+
+  .edit_img {
+      height: 900px;
+  }
+
+  .subheading {
+      font-family: 'Great Vibes', cursive;
+      font-size: 40px;
+      color: #c49b63;
+  }
+
+  .nav_text {
+      width: 800px;
+      height: 400px;
+      z-index: 3;
+      position: absolute;
+      top: 300px;
+      left: 600px;
+      margin-right: 0 !important;
+  }
+
+  .nav_text div a:hover {
+      color: white !important;
+      background-color: #c49b63;
+      transition: all 0.3s ease-in-out;
+  }
+
+  .container_content{
+    background-image: url('/bg_4.jpg');
+    background-attachment: fixed;
+    height: 800px;
+    color: white !important;
+  }
+
+  .main_content{
+    margin: 0 270px;
+    padding: 0 15px;
+  }
+
