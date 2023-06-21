@@ -12,6 +12,9 @@ import {formatDate} from '@angular/common';
 import {BillDTO} from '../../../dto/bill-dto';
 import {InsertBillDetailDTO} from '../../../dto/insert-bill-detail-dto';
 import {BillDetailService} from '../../../service/bill-detail.service';
+import {ScoketServiceService} from '../../../service/socket/scoket-service.service';
+import {ToastrService} from 'ngx-toastr';
+import {Message} from '../../../modal/message';
 
 @Component({
   selector: 'app-service',
@@ -42,13 +45,21 @@ export class ServiceComponent implements OnInit {
   billDetail: InsertBillDetailDTO;
   showMe: boolean;
   isShowErrMsg = false;
+  submitted = false;
+  messList: Message[] = [];
+  stompClient: any;
 
   constructor(private servicesService: ServicesService,
               private serviceTypeService: ServiceTypeService,
               private billService: BillService,
-              private billDetailService: BillDetailService) {
+              private serviceMessage: ServicesService,
+              private billDetailService: BillDetailService,
+              private scoketServiceService: ScoketServiceService,
+              private toastrService: ToastrService) {
+    this.scoketServiceService.connect();
   }
 
+  get f() { return this.rfCreate.controls; }
   ngOnInit(): void {
     this.servicesService.findAll(this.currentPage, this.pageSize).subscribe(response => {
         this.serviceList = response.content;
@@ -212,6 +223,25 @@ export class ServiceComponent implements OnInit {
   }
 
   insertBillDto() {
-    this.getBillTable();
+    // this.getBillTable();
+    // const mess = 'Bàn 1 gọi order món';
+    this.scoketServiceService.sendMessage('Bàn 1 gọi order món');
+    // console.log(this.scoketServiceService.sendMessage('Bàn 1 gọi order món'));
+  }
+
+  goiPhucVu() {
+    this.serviceMessage.getMessage().subscribe(data => {
+      this.messList = data;
+    });
+    // this.stompClient = this.scoketServiceService.connect();
+    // this.stompClient.connect({}, (frame) => {
+    //   console.log(frame);
+    //   this.stompClient.subscribe('/topic/list/service', data => {
+    //     this.mes = '' + JSON.parse(data.body).text;
+    //     // this.toastrService.success(mess);
+    //   });
+    // });
+    this.scoketServiceService.sendMessage('Bàn 1 gọi phục vu');
+    // console.log(this.mes);
   }
 }
