@@ -1,0 +1,196 @@
+<!--
+feedback-list html file is used to show data
+
+@author TuLG
+@version 1.0
+@since 2023-06-13
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quản lý phản hồi</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+</head>
+<body>
+<div class="container_add" *ngIf="feedbacks">
+  <div class="d-flex justify-content-center">
+    <div class="content_add col-xl-10">
+      <h2 class="title">Quản lý phản hồi</h2>
+      <div class="d-flex justify-content-end">
+        <div class="input-group  align-items-center" style="width: 350px!important;">
+          <label for="dateSearch">Ngày phản hồi&nbsp;&nbsp;</label>
+          <input #date type="date" class="form-control" id="dateSearch">
+          <button type="button" class="btn btn-outline-light" (click)="searchDate(date.value)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-search" viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+      <!--            <div class="text-end">-->
+      <!--                <small class="validate-msg-color">Ngày phản hồi đã nhập không đúng</small>-->
+      <!--            </div>-->
+      <br>
+      <div class="card_main">
+        <table class="table" style="border: 1px solid gray;">
+          <thead>
+          <tr>
+            <th>STT</th>
+            <th>Mã số phản hồi</th>
+            <th>Người tạo</th>
+            <th>Email</th>
+            <th>Phản hồi</th>
+            <th class="text-center">Ngày phản hồi</th>
+            <th></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let feedback of feedbacks; index as i">
+            <td>{{i + 1}}</td>
+            <td>{{feedback.fb_id}}</td>
+            <td>{{feedback.name}}</td>
+            <td>{{feedback.email}}</td>
+            <td>{{feedback.type}}</td>
+<!--            <td class="text-center">{{formatDate(feedback.date)}}</td>-->
+            <td>{{feedback.date}}</td>
+            <td>
+              <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#modelId"
+                      (click)="sendId(feedback.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                     style="margin-top: -30px!important;"
+                     class="bi bi-eye icon" viewBox="0 0 16 16">
+                  <path
+                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                  <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+          <tr *ngIf="noRecord">
+            <td colspan="8"><h5 class="text-center validate-msg-color">Không có phản hồi nào</h5></td>
+          </tr>
+        </table>
+      </div>
+      <div class="row mt-5" *ngIf="pages">
+        <div class="col text-center">
+          <div class="block-27">
+            <ul>
+              <ul>
+                <li>
+                  <a (click)="previousPage()" [class.disabled]="currentPage === 0">&lt;</a>
+                </li>
+                <li *ngFor="let page of pageRange" [class.active]="page === currentPage">
+                  <a (click)="goToPage(page)">{{ page + 1 }}</a>
+                </li>
+                <li>
+                  <a (click)="nextPage()" [class.disabled]="currentPage === totalPages - 1">&gt;</a>
+                </li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--modal 1-->
+    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+         aria-hidden="true" *ngIf="feedback">
+      <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+        <div class="modal-content">
+          <div class="d-flex justify-content-center">
+            <h4 class="title mt-md-3" id="modelTitleId">Chi tiết phản hồi</h4>
+          </div>
+          <div class="row">
+            <div class="d-flex justify-content-center">
+              <table>
+                <tr>
+                  <td>{{feedback.type}}</td>
+                  <td>
+                    <div class="stars">
+                      <input class="star star-5" id="star-5" type="radio" name="star" [value]="5"
+                             [(ngModel)]="feedback.rate" [checked]="5 == feedback.rate" disabled/>
+                      <label class="star star-5" for="star-5"></label>
+                      <input class="star star-4" id="star-4" type="radio" name="star" [value]="4"
+                             [(ngModel)]="feedback.rate" [checked]="4 == feedback.rate" disabled/>
+                      <label class="star star-4" for="star-4"></label>
+                      <input class="star star-3" id="star-3" type="radio" name="star" [value]="3"
+                             [(ngModel)]="feedback.rate" [checked]="3 == feedback.rate" disabled/>
+                      <label class="star star-3" for="star-3"></label>
+                      <input class="star star-2" id="star-2" type="radio" name="star" [value]="2"
+                             [(ngModel)]="feedback.rate" [checked]="2 == feedback.rate" disabled/>
+                      <label class="star star-2" for="star-2"></label>
+                      <input class="star star-1" id="star-1" type="radio" name="star" [value]="1"
+                             [(ngModel)]="feedback.rate" [checked]="1 == feedback.rate" disabled/>
+                      <label class="star star-1" for="star-1"></label>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="row" style="width: 102%">
+            <div class="modal-body col-6" style="flex: 0 0 auto!important; width: 50%!important;">
+              <table style="margin-left: 10px">
+                <tr>
+                  <td>Người phản hồi:&nbsp;&nbsp;</td>
+                  <td>{{feedback.name}}</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Nội dung phản hồi:&nbsp;&nbsp;</td>
+                </tr>
+                <tr>
+                  <td class="text-white" colspan="2">
+                    {{feedback.content}}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            <div id="carouselExampleIndicators"
+                 class="carousel slide col-6 " data-bs-ride="carousel"
+                 style="flex: 0 0 auto!important; width: 50%!important;justify-content: center !important;">
+              <div class="carousel-indicators">
+                <button *ngFor="let url of imgUrl; let i = index" type="button"
+                        data-bs-target="#carouselExampleIndicators" [attr.data-bs-slide-to]="i" [class.active]="i === 0"
+                        aria-current="true" [attr.aria-label]="'Slide ' + (i + 1)"></button>
+              </div>
+              <div class="carousel-inner">
+                <div *ngFor="let url of imgUrl; let i = index" class="carousel-item"  [class.active]="i === 0">
+                  <img [src]="url" alt="NoImg" style="height: 400px">
+                </div>
+              </div>
+              <button class="carousel-control-prev" type="button"
+                      data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+              </button>
+              <button class="carousel-control-next" type="button"
+                      data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+              </button>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn_action" data-bs-dismiss="modal">
+              Quay lại
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+</html>

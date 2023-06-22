@@ -9,7 +9,7 @@ export interface IFeedback {
   email: string;
   date: string;
   content: string;
-  rate: string;
+  rate: number;
   type: IFeedbackType;
   img?: IFeedbackImg[];
   bill: IBill;
