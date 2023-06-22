@@ -33,6 +33,7 @@ export class FeedbackListComponent implements OnInit {
   date: string;
   noRecord: boolean;
 
+
   constructor(private service: FeedbackService) {
   }
 

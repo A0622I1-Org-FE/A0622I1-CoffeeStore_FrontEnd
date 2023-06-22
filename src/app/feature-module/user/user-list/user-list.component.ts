@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {IUserDto} from '../../../modal/IUserDto';
 import {UserService} from '../../../service/user.service';
 import {ToastrService} from 'ngx-toastr';
-
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',

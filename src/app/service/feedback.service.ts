@@ -1,9 +1,17 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import {FeedbackDto} from '../dto/feedback-dto';
+import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 import {FeedbackResponse} from '../modal/FeedbackResponse';
 import {FeedbackDetail} from '../modal/FeedbackDetail';
+
+/**
+ * FeedbackService class to create shared methods, get data from API
+ *
+ * @author TuLG
+ * @version 1.0
+ * @since 2023-06-13
+ */
 
 @Injectable({
   providedIn: 'root'
@@ -31,12 +39,15 @@ export class FeedbackService {
     return this.httpClient.get<string[]>(`${this.API_URL_FEEDBACKIMG}/${id}`);
   }
 
+
   searchDate(date: string, page: number, pageSize: number): Observable<FeedbackResponse> {
     const url = `${this.API_URL_SEARCHDATE}?page=${page}&size=${pageSize}&date=${date}`;
     return this.httpClient.get<FeedbackResponse>(url);
   }
 
+
   save(feedback: FeedbackDto): Observable<FeedbackDto> {
     return this.httpClient.post<FeedbackDto>(this.API_URL, feedback);
   }
+
 }

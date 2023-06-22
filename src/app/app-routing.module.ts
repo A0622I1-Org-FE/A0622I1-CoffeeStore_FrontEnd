@@ -1,12 +1,17 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
 import {UserListComponent} from './feature-module/user/user-list/user-list.component';
-
+import {BillListComponent} from './feature-module/bill/bill-list/bill-list.component';
+import {ServiceComponent} from './feature-module/services/service/service.component';
+import {InforAccountComponent} from './feature-module/user/infor-account/infor-account.component';
 
 const routes: Routes = [
   {path: 'feedback', loadChildren: () => import('./feature-module/feedback/feedback.module').then(module => module.FeedbackModule)},
   {path: 'quan-ly-nguoi-dung', component: UserListComponent},
-  {path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)}
+  {path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)},
+  {path: 'service', component: ServiceComponent},
+  {path: 'change-pass', component: InforAccountComponent},
+  {path: 'order', component: BillListComponent},
 ];
 
 @NgModule({

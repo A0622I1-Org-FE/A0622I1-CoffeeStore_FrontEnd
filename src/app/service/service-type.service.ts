@@ -9,6 +9,7 @@ import {IServiceType} from '../modal/IServiceType';
 export class ServiceTypeService {
   private API_URL = 'http://localhost:8080/api/list/service_type';
 
+
   constructor(private httpClient: HttpClient) {
   }
 

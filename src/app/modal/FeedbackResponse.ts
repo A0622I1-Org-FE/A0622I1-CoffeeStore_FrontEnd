@@ -7,6 +7,10 @@
  */
 
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> a2d8e3c112bd117c137a0360407a70748c18a329
 import {IFeedbackDto} from './IFeedbackDto';
 
 export interface FeedbackResponse {
