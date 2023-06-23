@@ -42,7 +42,7 @@
                 <h4 class="card-title text-center">{{table.name}}</h4>
               </div>
             </div>
-            <div (click)="disabled()" *ngIf="table.enableFlag"
+            <div (click)="disabled()" *ngIf="!table.enableFlag"
                  class="card card-table"
                  style="background-color: transparent; border: 3px solid #c49b63;">
               <img *ngIf="table.enableFlag == false" alt="Card image cap"
