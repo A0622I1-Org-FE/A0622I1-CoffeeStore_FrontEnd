@@ -20,25 +20,27 @@ export class SalesComponent implements OnInit {
   billDetailList: IBillDetailListDTO[];
   billChargingList: IBillChargingDTO[];
   messList: Message[] = [];
+  checkNew1: Message[];
 
   constructor(private tableService: TableService,
               private servicesService: ServicesService,
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    // setTimeout(() => {
-    //   this.ngOnInit();
-    // }, 10);
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 10);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
   ngOnInit(): void {
     this.servicesService.getMessage().subscribe(data => {
+      this.checkNew(data);
       this.messList = data;
     });
-    // setTimeout(() => {
-    //   this.ngOnInit();
-    // }, 1000);
+    setTimeout(() => {
+      this.ngOnInit();
+    }, 1000);
     setTimeout(() => {
       for (let i = 0; i < this.messList.length; i++) {
         this.servicesService.deleteMessage(this.messList[i].id).subscribe();
@@ -120,6 +122,17 @@ export class SalesComponent implements OnInit {
       setTimeout(() => {
         this.getAll();
       }, 100);
+    }
+  }
+
+  private checkNew(data: Message[]) {
+    this.checkNew1 = data;
+    if (this.checkNew1.length !== this.messList.length) {
+      if (this.messList.length > 0) {
+        this.toastr.success(this.messList[this.messList.length-1].message);
+      } else {
+        this.toastr.success('Khách gọi');
+      }
     }
   }
 }

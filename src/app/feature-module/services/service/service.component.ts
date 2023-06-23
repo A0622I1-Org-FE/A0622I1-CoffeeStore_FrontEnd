@@ -260,12 +260,13 @@ export class ServiceComponent implements OnInit {
   insertBillDto() {
     this.getBillTable();
     // const mess = 'Bàn 1 gọi order món';
-    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món, ');
+    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món. ');
     // console.log(this.scoketServiceService.sendMessage('Bàn 1 gọi order món'));
+    this.tongTien = 0;
   }
 
   goiPhucVu() {
-    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ, ');
+    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ. ');
     // this.servicesService.getMessage().subscribe(data => {
     //   this.messList = data;
     // });
