@@ -5,6 +5,8 @@ import {IBillDetailListDTO} from '../../modal/dto/IBillDetailListDTO';
 import {IBillChargingDTO} from '../../modal/dto/IBillChargingDTO';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {ServicesService} from '../../service/services.service';
+import {Message} from '../../modal/message';
 import {Title} from '@angular/platform-browser';
 
 
@@ -17,15 +19,33 @@ export class SalesComponent implements OnInit {
   tableList: ITable[];
   billDetailList: IBillDetailListDTO[];
   billChargingList: IBillChargingDTO[];
+  messList: Message[] = [];
 
   constructor(private tableService: TableService,
+              private servicesService: ServicesService,
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
+    // setTimeout(() => {
+    //   this.ngOnInit();
+    // }, 10);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
   ngOnInit(): void {
+    this.servicesService.getMessage().subscribe(data => {
+      this.messList = data;
+    });
+    // setTimeout(() => {
+    //   this.ngOnInit();
+    // }, 1000);
+    setTimeout(() => {
+      for (let i = 0; i < this.messList.length; i++) {
+        this.servicesService.deleteMessage(this.messList[i].id).subscribe();
+      }
+      this.messList = [];
+      // this.ngOnInit();
+    }, 60000);
     this.getAll();
   }
 
