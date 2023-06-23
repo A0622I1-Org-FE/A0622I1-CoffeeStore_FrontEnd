@@ -62,7 +62,7 @@
           <div class="menu_text">
             <h4>{{service.name}}</h4>
             <h5>{{formatter(service.price)}} VNĐ</h5>
-            <a class="btn" data-bs-toggle="modal" data-bs-target="#exampleModal" (click)="chon(service)">Chọn</a>
+            <a class="btn"(click)="chon(service)">Chọn</a>
           </div>
         </div>
       </div>
@@ -86,7 +86,7 @@
         </div>
 
         <div class="card_main">
-          <table class="table" *ngIf="orderList===null" style="border: 1px solid gray;">
+          <table class="table" *ngIf="orderList" style="border: 1px solid gray;">
             <thead class="thead-primary">
             <tr class="text-center">
               <th></th>
@@ -105,7 +105,15 @@
               </td>
               <td>{{i + 1}}</td>
               <td>{{order.name}}</td>
-              <td>{{order.quantity}}</td>
+              <td>
+                <span>
+                  <button class="tang_giam" (click)="giam(order)">-</button>
+                </span>
+                {{order.quantity}}
+                <span>
+                  <button class="tang_giam" (click)="tang(order)">+</button>
+                </span>
+              </td>
               <td>{{formatter(order.price)}} VNĐ</td>
               <td>{{formatter(order.sum)}} VNĐ</td>
             </tr>
@@ -124,7 +132,7 @@
           <button>Phản Hồi</button>
         </div>
         <div>
-          <button *ngFor="let message of scoketServiceService.mess">{{message.message}}</button>
+          <span style="color: red" *ngFor="let message of messList">{{message.message}}</span>
         </div>
       </div>
     </div>
@@ -174,67 +182,67 @@
 <!--</div>-->
 
 
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content" style="background-color: #2c3034; color: white; width: 50%; margin: auto">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Thêm món</h5>
-        <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal"
-                aria-label="Close" style="background-color: red"></button>
-      </div>
-      <div class="modal-body">
-        <form [formGroup]="rfCreate" *ngIf="rfCreate" id="newModalForm">
-          <table class="table" style=" color: white" id="bill">
-            <tr class="color-white">
-              <td>Tên Món</td>
-              <td><input
-                type="text" readonly
-                class="form-control" style="color: red" formControlName="name">
-              </td>
-              <td hidden></td>
-            </tr>
-            <tr class="color-white">
-              <td scope="row">Số lượng</td>
-              <td><input style="background-color: white"
-                         type="number"
-                         class="form-control" formControlName="quantity" #quantity></td>
-            </tr>
-            <tr>
-              <td></td>
-              <td><small style="color: red" *ngIf="isShowErrMsg"> Số lượng phải là số lớn hơn 0</small></td>
-            </tr>
-            <tr hidden>
-              <td>Giá</td>
-              <td><input
-                type="text" readonly
-                class="form-control" formControlName="price" style="color: red"></td>
-              <td></td>
-            </tr>
-            <tr hidden>
-              <td>serviceId</td>
-              <td><input
-                type="text" readonly
-                class="form-control" formControlName="service_id" style="color: red"></td>
-              <td></td>
-            </tr>
-            <tr hidden>
-              <td></td>
-              <td><input
-                type="text"
-                class="form-control" formControlName="sum"></td>
-              <td></td>
-            </tr>
-          </table>
-          <div class="modal-footer">
-            <button type="button" class="btn" style="background-color: green"
-                    (click)="doCheck(quantity.value)">Thêm
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+<!--<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">-->
+<!--  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">-->
+<!--    <div class="modal-content" style="background-color: #2c3034; color: white; width: 50%; margin: auto">-->
+<!--      <div class="modal-header">-->
+<!--        <h5 class="modal-title" id="exampleModalLabel">Thêm món</h5>-->
+<!--        <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal"-->
+<!--                aria-label="Close" style="background-color: red"></button>-->
+<!--      </div>-->
+<!--      <div class="modal-body">-->
+<!--        <form [formGroup]="rfCreate" *ngIf="rfCreate" id="newModalForm">-->
+<!--          <table class="table" style=" color: white" id="bill">-->
+<!--            <tr class="color-white">-->
+<!--              <td>Tên Món</td>-->
+<!--              <td><input-->
+<!--                type="text" readonly-->
+<!--                class="form-control" style="color: red" formControlName="name">-->
+<!--              </td>-->
+<!--              <td hidden></td>-->
+<!--            </tr>-->
+<!--            <tr class="color-white">-->
+<!--              <td scope="row">Số lượng</td>-->
+<!--              <td><input style="background-color: white"-->
+<!--                         type="number"-->
+<!--                         class="form-control" formControlName="quantity" #quantity></td>-->
+<!--            </tr>-->
+<!--            <tr>-->
+<!--              <td></td>-->
+<!--              <td><small style="color: red" *ngIf="isShowErrMsg"> Số lượng phải là số lớn hơn 0</small></td>-->
+<!--            </tr>-->
+<!--            <tr hidden>-->
+<!--              <td>Giá</td>-->
+<!--              <td><input-->
+<!--                type="text" readonly-->
+<!--                class="form-control" formControlName="price" style="color: red"></td>-->
+<!--              <td></td>-->
+<!--            </tr>-->
+<!--            <tr hidden>-->
+<!--              <td>serviceId</td>-->
+<!--              <td><input-->
+<!--                type="text" readonly-->
+<!--                class="form-control" formControlName="service_id" style="color: red"></td>-->
+<!--              <td></td>-->
+<!--            </tr>-->
+<!--            <tr hidden>-->
+<!--              <td></td>-->
+<!--              <td><input-->
+<!--                type="text"-->
+<!--                class="form-control" formControlName="sum"></td>-->
+<!--              <td></td>-->
+<!--            </tr>-->
+<!--          </table>-->
+<!--          <div class="modal-footer">-->
+<!--            <button type="button" class="btn" style="background-color: green" data-bs-dismiss="modal"-->
+<!--                    (click)="order()">Thêm-->
+<!--            </button>-->
+<!--          </div>-->
+<!--        </form>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
 
 
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
