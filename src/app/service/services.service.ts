@@ -3,6 +3,7 @@ import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {IServices} from '../modal/IServices';
 import {ServiceRespone} from '../modal/ServiceRespone';
+import {Message} from '../modal/message';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,11 @@ export class ServicesService {
   serviceById(id: number): Observable<IServices> {
     const url = `${this.API_URL}/${id}`;
     return this.httpClient.get<IServices>(url);
+  }
+  getMessage(): Observable<Message[]> {
+    return this.httpClient.get<Message[]>('http://localhost:8080/api/message');
+  }
+  deleteMessage(id: number): Observable<Message> {
+    return this.httpClient.delete<Message>('http://localhost:8080/api/delete_message/' + id);
   }
 }

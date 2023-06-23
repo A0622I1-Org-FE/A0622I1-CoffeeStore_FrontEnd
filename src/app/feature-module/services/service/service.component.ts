@@ -12,6 +12,10 @@ import {formatDate} from '@angular/common';
 import {BillDTO} from '../../../dto/bill-dto';
 import {InsertBillDetailDTO} from '../../../dto/insert-bill-detail-dto';
 import {BillDetailService} from '../../../service/bill-detail.service';
+// import {S} from '../../../service/socket/socket-service.service';
+import {ToastrService} from 'ngx-toastr';
+import {Message} from '../../../modal/message';
+import {SocketServiceService} from '../../../service/socket-service.service';
 
 @Component({
   selector: 'app-service',
@@ -41,11 +45,22 @@ export class ServiceComponent implements OnInit {
   getBill: BillDTO;
   billDetail: InsertBillDetailDTO;
   showMe: boolean;
+  isShowErrMsg = false;
+  submitted = false;
+  messList: Message[] = [];
+  stompClient: any;
 
   constructor(private servicesService: ServicesService,
               private serviceTypeService: ServiceTypeService,
               private billService: BillService,
-              private billDetailService: BillDetailService) {
+              private billDetailService: BillDetailService,
+              public socketServiceService: SocketServiceService,
+              private toastrService: ToastrService) {
+    this.socketServiceService.connect();
+  }
+
+  get f() {
+    return this.rfCreate.controls;
   }
 
   ngOnInit(): void {
@@ -64,6 +79,15 @@ export class ServiceComponent implements OnInit {
     this.serviceTypeService.findAll().subscribe(response => {
       this.serviceTypeList = response;
     });
+  }
+
+  doCheck(quantity: string) {
+    if (parseInt(quantity) < 1) {
+      this.isShowErrMsg = true;
+    } else {
+      this.isShowErrMsg = false;
+      this.order();
+    }
   }
 
   goToPage(page: number) {
@@ -133,7 +157,7 @@ export class ServiceComponent implements OnInit {
     this.rfCreate = new FormGroup({
       service_id: new FormControl(this.serviceChon.id),
       name: new FormControl(this.serviceChon.name),
-      quantity: new FormControl('', [Validators.required, Validators.min(1)]),
+      quantity: new FormControl(1),
       price: new FormControl(this.serviceChon.price),
       sum: new FormControl(0)
     });
@@ -151,14 +175,21 @@ export class ServiceComponent implements OnInit {
   order() {
     this.tongTien = 0;
     const order = this.rfCreate.value;
+    let addNewService = true;
     order.sum = order.quantity * order.price;
-    this.orderList.push(order);
+    for (let i = 0; i < this.orderList.length; i++) {
+      if (this.rfCreate.value.service_id === this.orderList[i].service_id) {
+        this.orderList[i].quantity += this.rfCreate.value.quantity;
+        addNewService = false;
+      }
+    }
+    if (addNewService) {
+      this.orderList.push(order);
+    }
     this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
-    console.log(this.orderList);
   }
 
   delete() {
-    console.log(this.deleteOrder);
     this.orderList = this.orderList.filter(item => item.name !== this.deleteOrder.name);
   }
 
@@ -195,6 +226,33 @@ export class ServiceComponent implements OnInit {
   }
 
   insertBillDto() {
-    this.getBillTable();
+    // this.getBillTable();
+    // const mess = 'Bàn 1 gọi order món';
+    this.socketServiceService.sendMessage('Bàn 1 gọi order món');
+    // console.log(this.scoketServiceService.sendMessage('Bàn 1 gọi order món'));
+  }
+
+  goiPhucVu() {
+    this.socketServiceService.sendMessage('Bàn 1 gọi phục vu, ');
+    // this.servicesService.getMessage().subscribe(data => {
+    //   this.messList = data;
+    // });
+    // setTimeout(() => {
+    //   for (let i = 0; i < this.messList.length; i++) {
+    //     this.servicesService.deleteMessage(this.messList[i].id).subscribe();
+    //   }
+    //   this.messList = [];
+    //   this.ngOnInit();
+    // }, 30000);
+    // this.stompClient = this.scoketServiceService.connect();
+    // this.stompClient.connect({}, (frame) => {
+    //   console.log(frame);
+    //   this.stompClient.subscribe('/topic/list/service', data => {
+    //     this.mes = '' + JSON.parse(data.body).text;
+    //     // this.toastrService.success(mess);
+    //   });
+    // });
+    // console.log(this.messList);
+    // console.log(this.mes);
   }
 }
