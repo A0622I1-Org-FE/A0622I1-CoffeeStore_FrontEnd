@@ -34,7 +34,7 @@
             <div *ngIf="table.enableFlag"
                  class="card card-table"
                  routerLink="/service/{{table.id}}"
-                 (click)="updateTable()";
+                 (click)="updateTable()"
                  style="width: 8rem; height: 200px; background-color: transparent; border: 3px solid #c49b63;">
               <img *ngIf="table.enableFlag == true" alt="Card image cap"
                    class="card-img-top"
