@@ -1,14 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {IServices} from '../../../modal/IServices';
 import {ServicesService} from '../../../service/services.service';
-import {IBillDetail} from '../../../modal/IBillDetail';
 import {ServiceTypeService} from '../../../service/service-type.service';
 import {IServiceType} from '../../../modal/IServiceType';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Order} from '../../../modal/order';
 import {InsertBillDTO} from '../../../dto/insert-bill-dto';
 import {BillService} from '../../../service/bill.service';
-import {formatDate} from '@angular/common';
 import {BillDTO} from '../../../dto/bill-dto';
 import {InsertBillDetailDTO} from '../../../dto/insert-bill-detail-dto';
 import {BillDetailService} from '../../../service/bill-detail.service';
