@@ -24,10 +24,17 @@ feedback-list html file is used to show data
     <div class="content_add col-xl-10">
       <h2 class="title">Quản lý phản hồi</h2>
       <div class="d-flex justify-content-end">
-        <div class="input-group  align-items-center" style="width: 350px!important;">
+        <div class="input-group  align-items-center" style="width: 500px!important;">
           <label for="dateSearch">Ngày phản hồi&nbsp;&nbsp;</label>
-          <input #date type="date" class="form-control" id="dateSearch">
-          <button type="button" class="btn btn-outline-light" (click)="searchDate(date.value)">
+          <input #date type="date" class="form-control" id="dateSearch">&nbsp;
+          <label for="rateSearch">Đánh giá &nbsp;&nbsp;</label>
+          <div style="width: 100px!important;">
+            <select #rate type="date" class="form-control" id="rateSearch" >
+              <option value=""> </option>
+              <option *ngFor="let rate of rateList" value="{{rate}}">{{rate}}</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-outline-light" (click)="searchRateDate(rate.value, date.value)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-search" viewBox="0 0 16 16">
               <path
