@@ -11,8 +11,8 @@
             <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.required">
               Vui lòng nhập họ và tên</p>
             <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.pattern">
-            <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.minLength">
-              Tên ngắn</p>
+              Tên không chứa số hoặc các kí tự đặc biệt</p>
+
           </div>
           <div class="mb-3 col-md-6">
             <label for="email" class="form-label">Email<span style="color:red;">(*)</span></label>
@@ -21,6 +21,9 @@
             <p class="text-warning"
                *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.required">Vui lòng nhập
               email</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.pattern">Vui lòng nhập
+              email đúng định dạng</p>
             <!--            <span class="text-warning">Email không đúng định dạng</span>-->
           </div>
         </div>
@@ -38,13 +41,18 @@
         <div class="mb-3">
           <label for="feedback" class="form-label">Nội dung phản hồi<span style="color:red;">(*)</span></label>
           <textarea type="" class=" feedback-box_right-item" name="" id="feedback" aria-describedby="helpId"
-                    placeholder="" rows="5" minlength="50" maxlength="1000" style="resize: none;"
+                    placeholder="" rows="5" style="resize: none;"
                     formControlName="content"></textarea>
-          <span class="text-white">Độ dài từ 50-1000</span> <br>
+          <span class="text-white">Độ dài từ 10-1000</span> <br>
           <p class="text-warning"
              *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.required">Vui lòng nhập nội
             dung phục vụ</p>
-          <!--          <span class="text-warning">Độ dài không hợp lệ</span>-->
+          <p class="text-warning"
+             *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.minlength">Vui lòng nhập nội
+            dung phục vụ dài hơn 10 kí tự</p>
+          <p class="text-warning"
+             *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.maxlength">Vui lòng nhập nội
+            dung phục vụ không vượt quá 1000 kí tự</p>
         </div>
         <div class="stars">
           <header>Đánh giá của bạn</header>
@@ -71,14 +79,8 @@
         </div>
         <div class="mb-3">
           <div class="feedback-box_right-button">
-            <!--            <div class="feedback-box_right-button"><a name="" id="" class="feedback-box_right-button-item btn1" href="#"-->
-            <!--                                                      role="button">Quay-->
-            <!--              lại</a></div>-->
-            <!--            <div class="feedback-box_right-button"><a name="" id="" class="feedback-box_right-button-item btn2" href="#"-->
-            <!--                                                      role="button">Xác-->
-            <!--              nhận</a></div>-->
             <div class="feedback-box_right-button">
-              <button name="" id="" class="feedback-box_right-button-item btn1">Quay lại</button>
+              <button name="" id="" class="feedback-box_right-button-item btn1" routerLink="/service">Quay lại</button>
             </div>
             <div class="feedback-box_right-button">
               <button name="" id="" class="feedback-box_right-button-item btn2">Xác nhận</button>

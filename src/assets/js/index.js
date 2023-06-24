@@ -1,5 +1,14 @@
-const imagePreview = document.getElementById("image-preview");
-const loadingOverlay = document.querySelector(".loading-overlay");
+// let imagePreview = null;
+
+function updateImagePreviewContainer() {
+  return document.getElementById("image-preview");
+}
+
+function updateLoadingOverplay() {
+  return document.querySelector(".loading-overlay");
+}
+
+// const loadingOverlay = document.querySelector(".loading-overlay");
 var totalSelectedFiles = 0;
 document.getElementById("image-input").addEventListener("change", function (event) {
   var files = event.target.files;
@@ -50,23 +59,35 @@ document.getElementById("image-input").addEventListener("change", function (even
   }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+  var imagePreview = updateImagePreviewContainer();
+});
+document.addEventListener("DOMContentLoaded", function () {
+  var loadingOverplay = updateLoadingOverplay();
+});
+
+// updateImagePreviewContainer();
 function updateTotalSelectedFiles(count) {
   totalSelectedFiles += count;
 }
 
 function showLoadingOverlay() {
+  var loadingOverlay = updateLoadingOverplay();
   loadingOverlay.classList.add("show");
 }
 
 function hideLoadingOverlay() {
+  var loadingOverlay = updateLoadingOverplay();
   loadingOverlay.classList.remove("show");
 }
 
 function showImagePreview() {
+  var imagePreview = updateImagePreviewContainer();
   imagePreview.style.display = "block";
 }
 
 function hideImagePreview() {
+  var imagePreview = updateImagePreviewContainer();
   imagePreview.style.display = "none";
 }
 

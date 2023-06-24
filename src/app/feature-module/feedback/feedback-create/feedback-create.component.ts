@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, Renderer2} from '@angular/core';
 import {FeedbackTypeService} from '../../../service/feedback-type.service';
 import {FeedbackService} from '../../../service/feedback.service';
 import {FeedbackImgService} from '../../../service/feedback-img.service';
-import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -38,20 +38,25 @@ export class FeedbackCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const script = this.renderer.createElement('script');
-    script.src = '/assets/js/index.js';
-    this.renderer.appendChild(document.body, script);
+    this.loadJavaScriptFile('/assets/js/index.js');
     this.feedbackTypeService.findAll().subscribe(next => {
       this.feedbackTypeList = next;
       console.log(this.feedbackTypeList);
     });
     this.rfCreate = this.fb.group({
-      name: ['', [Validators.required, Validators.pattern('^[0-9]+$'), Validators.minLength(5)]],
-      email: ['', Validators.required, Validators.pattern('/^([a-zA-Z][a-zA-Z0-9_\\.\\-]*)+\\@(([a-z])+\\.)+([a-z]{2,4})+$/')],
+      // tslint:disable-next-line:max-line-length
+      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứửữự ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]],
+      email: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'), Validators.email]],
       feedbackType: ['', Validators.required],
-      content: ['', Validators.required],
+      content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]],
       rate: ['']
     });
+  }
+
+  loadJavaScriptFile(filePath: string): void {
+    const script = this.renderer.createElement('script');
+    script.src = filePath;
+    this.renderer.appendChild(document.body, script);
   }
 
   showPreview(event: any) {
@@ -79,7 +84,7 @@ export class FeedbackCreateComponent implements OnInit {
     this.feedbackService.save(formData).subscribe(next => {
       this.toastr.success('Lời phản hồi của bạn góp phần tạo nên thành công của chúng tôi!\n' +
         'Chúc bạn một ngày tốt lành ♥♥♥');
-      this.router.navigateByUrl('feedback');
+      this.router.navigateByUrl('service');
     });
 
   }
