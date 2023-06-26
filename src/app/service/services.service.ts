@@ -8,18 +8,18 @@ import {IServices} from '../modal/IServices';
 })
 export class ServicesService {
 
-  private bestSellerApi = 'http://localhost:8080/api/service/body/best';
+  private API_URL_BEST_SELLER = 'http://localhost:8080/api/service/body/best';
 
-  private newFoodApi = 'http://localhost:8080/api/service/body/new';
+  private API_URL_NEW_FOOD = 'http://localhost:8080/api/service/body/new';
 
   constructor(private httpClient: HttpClient) {
   }
 
   getListBestSeller(): Observable<IServices[]> {
-    return this.httpClient.get<IServices[]>(this.bestSellerApi);
+    return this.httpClient.get<IServices[]>(this.API_URL_BEST_SELLER);
   }
 
   getListNewFood(): Observable<IServices[]> {
-    return this.httpClient.get<IServices[]>(this.newFoodApi);
+    return this.httpClient.get<IServices[]>(this.API_URL_NEW_FOOD);
   }
 }

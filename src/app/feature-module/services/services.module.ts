@@ -7,11 +7,14 @@ import { BodyComponent } from './body/body.component';
 
 
 @NgModule({
-  declarations: [BodyComponent],
-  imports: [
-    CommonModule,
-    ServicesRoutingModule,
-    ToastrModule.forRoot(),
-  ]
+    declarations: [BodyComponent],
+    exports: [
+        BodyComponent
+    ],
+    imports: [
+        CommonModule,
+        ServicesRoutingModule,
+        ToastrModule.forRoot(),
+    ]
 })
 export class ServicesModule { }

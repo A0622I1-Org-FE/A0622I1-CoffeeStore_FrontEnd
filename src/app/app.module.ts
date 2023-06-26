@@ -10,6 +10,8 @@ import {SecurityModule} from './feature-module/security/security.module';
 import {ServicesModule} from './feature-module/services/services.module';
 import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
+import {SharedModuleModule} from './shared-module/shared-module.module';
+import {HttpClient, HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
@@ -25,7 +27,9 @@ import {UserModule} from './feature-module/user/user.module';
     SecurityModule,
     ServicesModule,
     TableModule,
-    UserModule
+    UserModule,
+    SharedModuleModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
