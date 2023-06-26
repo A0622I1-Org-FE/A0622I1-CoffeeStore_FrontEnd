@@ -49,7 +49,7 @@ export class FeedbackListComponent implements OnInit {
         this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
         this.noRecord = response.size === 0;
         this.countPageCanShow();
-        this.calculateAverageRate();
+        this.calculateAverageRate('begin');
       },
       error => {
         this.noRecord = error.status === 404;
@@ -60,19 +60,35 @@ export class FeedbackListComponent implements OnInit {
     }
   }
 
-  calculateAverageRate() {
-    this.service.findAll(this.currentPage, this.totalElements).subscribe(response => {
-        this.listAllFeedback = response.content;
-        let sum = 0;
-        for (let i = 0; i < this.listAllFeedback.length; i++) {
-          sum += parseInt(this.listAllFeedback[i].rate, 10);
-        }
-        this.avgRate = Number((sum / this.listAllFeedback.length).toFixed(3));
-      },
-      error => {
-        this.noRecord = error.status === 404;
-        this.feedbacks = [];
-      });
+  calculateAverageRate(calcuType) {
+    if (calcuType === 'begin') {
+      this.service.findAll(this.currentPage, this.totalElements).subscribe(response => {
+          this.listAllFeedback = response.content;
+          let sum = 0;
+          for (let i = 0; i < this.listAllFeedback.length; i++) {
+            sum += parseInt(this.listAllFeedback[i].rate, 10);
+          }
+          this.avgRate = Number((sum / this.listAllFeedback.length).toFixed(3));
+        },
+        error => {
+          this.noRecord = error.status === 404;
+          this.feedbacks = [];
+        });
+    } else {
+      this.service.searchRateDate(this.rate, this.date, this.currentPage, this.pageSize).subscribe(response => {
+          this.listAllFeedback = response.content;
+          let sum = 0;
+          for (let i = 0; i < this.listAllFeedback.length; i++) {
+            sum += parseInt(this.listAllFeedback[i].rate, 10);
+          }
+          this.avgRate = Number((sum / this.listAllFeedback.length).toFixed(3));
+        },
+        error => {
+          this.noRecord = error.status === 404;
+          this.feedbacks = [];
+        });
+    }
+
   }
 
   formatDate(date: string): string {
@@ -111,6 +127,7 @@ export class FeedbackListComponent implements OnInit {
         this.noRecord = error.status === 404;
         this.feedbacks = [];
       });
+    this.calculateAverageRate('for search');
   }
 
   goToPage(page: number) {
