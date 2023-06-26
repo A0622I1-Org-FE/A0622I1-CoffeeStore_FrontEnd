@@ -54,7 +54,7 @@ export class ServiceComponent implements OnInit {
               private billService: BillService,
               private serviceMessage: ServicesService,
               private billDetailService: BillDetailService,
-              private scoketServiceService: ScoketServiceService,
+              public scoketServiceService: ScoketServiceService,
               private toastrService: ToastrService) {
     this.scoketServiceService.connect();
   }

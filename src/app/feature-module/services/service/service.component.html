@@ -42,12 +42,11 @@
   <link rel="stylesheet" href="service.component.css">
 </head>
 
-<body style="background-color: black">
-
+<body style="margin-top: 5em">
 <div class="menu_container">
   <div class="d-flex justify-content-center">
-    <div class="menu_list" style="background-color: black; opacity: 0.9">
-      <div class="menu_tab d-flex justify-content-center" style="background-color: black">
+    <div class="menu_list" style="opacity: 0.9">
+      <div class="menu_tab d-flex justify-content-center">
         <a class="btn" (click)="findAll()">Tất cả</a>
         <a class="btn" *ngFor="let serviceType of serviceTypeList"
            (click)="sreachType(serviceType.id)">{{serviceType.name}}</a>
@@ -55,7 +54,7 @@
         <!--            <a href="">Bánh</a>-->
         <!--            <a href="">Nước Tăng Lực</a>-->
       </div>
-      <div class="menu_content" style="background-color: black">
+      <div class="menu_content">
         <div class="menu_item" *ngFor="let service of serviceList,index as i">
           <img
             src="{{service.imgUrl}}">
