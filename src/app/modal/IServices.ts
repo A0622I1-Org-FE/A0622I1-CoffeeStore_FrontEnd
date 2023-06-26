@@ -5,9 +5,8 @@ export interface IServices {
   id?: number;
   name: string;
   price: number;
-  enableFlag: boolean;
+  enableFlag: number;
   imgUrl: string;
-  createDate: string;
-  type: IServiceType;
-  billDetailList: IBillDetail[];
+  createdDate: string;
+  serviceType: IServiceType;
 }
