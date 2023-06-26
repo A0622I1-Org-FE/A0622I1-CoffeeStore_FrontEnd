@@ -24,10 +24,17 @@ feedback-list html file is used to show data
     <div class="content_add col-xl-10">
       <h2 class="title">Quản lý phản hồi</h2>
       <div class="d-flex justify-content-end">
-        <div class="input-group  align-items-center" style="width: 350px!important;">
+        <div class="input-group  align-items-center" style="width: 500px!important;">
           <label for="dateSearch">Ngày phản hồi&nbsp;&nbsp;</label>
-          <input #date type="date" class="form-control" id="dateSearch">
-          <button type="button" class="btn btn-outline-light" (click)="searchDate(date.value)">
+          <input #date type="date" class="form-control" id="dateSearch">&nbsp;
+          <label for="rateSearch">Đánh giá &nbsp;&nbsp;</label>
+          <div style="width: 100px!important;">
+            <select #rate type="date" class="form-control" id="rateSearch" >
+              <option value=""> </option>
+              <option *ngFor="let rate of rateList" value="{{rate}}">{{rate}}</option>
+            </select>
+          </div>
+          <button type="button" class="btn btn-outline-light" (click)="searchRateDate(rate.value, date.value)">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                  class="bi bi-search" viewBox="0 0 16 16">
               <path
@@ -41,6 +48,9 @@ feedback-list html file is used to show data
       <!--            </div>-->
       <br>
       <div class="card_main">
+        <h5 style="color: white">Đánh giá chất lượng trung bình là: {{avgRate}} <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+          <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+        </svg> </h5>
         <table class="table" style="border: 1px solid gray;">
           <thead>
           <tr>

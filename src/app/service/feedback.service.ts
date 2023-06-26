@@ -19,7 +19,7 @@ export class FeedbackService {
   private API_URL = 'http://localhost:8080/api/listFeedback';
   private API_URL_FEEDBACKDETAIL = 'http://localhost:8080/api/feedbackDetail';
   private API_URL_FEEDBACKIMG = 'http://localhost:8080/api/feedbackImg';
-  private API_URL_SEARCHDATE = 'http://localhost:8080/api/getListByDate';
+  private API_URL_SEARCHDATE = 'http://localhost:8080/api/getListByRateDate';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -37,8 +37,8 @@ export class FeedbackService {
     return this.httpClient.get<string[]>(`${this.API_URL_FEEDBACKIMG}/${id}`);
   }
 
-  searchDate(date: string, page: number, pageSize: number): Observable<FeedbackResponse> {
-    const url = `${this.API_URL_SEARCHDATE}?page=${page}&size=${pageSize}&date=${date}`;
+  searchRateDate(rate: string, date: string, page: number, pageSize: number): Observable<FeedbackResponse> {
+    const url = `${this.API_URL_SEARCHDATE}?page=${page}&size=${pageSize}&rate=${rate}&date=${date}`;
     return this.httpClient.get<FeedbackResponse>(url);
   }
 }
