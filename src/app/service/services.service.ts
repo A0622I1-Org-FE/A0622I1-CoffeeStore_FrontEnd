@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {IServices} from '../modal/IServices';
 import {ServiceRespone} from '../modal/ServiceRespone';
 import {Message} from '../modal/message';
+import {ITable} from '../modal/ITable';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class ServicesService {
   private API_URL_SERVICE = 'http://localhost:8080/api/list/service_type';
   private API_URL_BEST_SELLER = 'http://localhost:8080/api/service/body/best';
   private API_URL_NEW_FOOD = 'http://localhost:8080/api/service/body/new';
+  private API_URL_TABLE = 'http://localhost:8080/api/list/table';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -31,6 +33,10 @@ export class ServicesService {
     return this.httpClient.get<ServiceRespone>(url);
   }
 
+  findAllTable(): Observable<ITable[]> {
+    return this.httpClient.get<ITable[]>(this.API_URL_TABLE);
+  }
+
   searchTypeId(id: number, page: number, pageSize: number): Observable<ServiceRespone> {
     const url = `${this.API_URL_TYPE}?id=${id}&page=${page}&size=${pageSize}`;
     return this.httpClient.get<ServiceRespone>(url);
@@ -42,5 +48,8 @@ export class ServicesService {
   }
   getMessage(): Observable<Message[]> {
     return this.httpClient.get<Message[]>('http://localhost:8080/api/message');
+  }
+  deleteMessage(id: number): Observable<Message> {
+    return this.httpClient.delete<Message>('http://localhost:8080/api/delete_message/' + id);
   }
 }

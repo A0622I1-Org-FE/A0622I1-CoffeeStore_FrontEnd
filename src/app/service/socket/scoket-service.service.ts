@@ -35,19 +35,34 @@ export class ScoketServiceService {
     });
   }
 
+  connectTable() {
+    const ws = new SockJS('http://localhost:8080/ws');
+    this.stompClient = Stomp.over(ws);
+    this.stompClient.connect({}, (frame) => {
+      console.log(frame);
+      this.stompClient.subscribe('/topic/table', data => {
+        // this.toastrService.success(JSON.stringify(data));
+        // this.toastrService.success(mess);
+      });
+    });
+  }
+
   disconnect() {
     if (this.stompClient != null) {
       this.stompClient.disconnect();
     }
   }
+
   getAllMess() {
     this.service.getMessage().subscribe(data => {
       this.messList = data;
     });
   }
+
   sendMessage(message: string) {
     this.stompClient.send('/app/messages', {}, JSON.stringify(message));
   }
+
   get mess() {
     return this.messList;
   }

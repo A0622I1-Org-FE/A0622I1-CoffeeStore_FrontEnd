@@ -14,12 +14,14 @@ import {HttpClientModule} from '@angular/common/http';
 import { ServiceComponent } from './feature-module/services/service/service.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {TableComponent} from './feature-module/table/table.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    ServiceComponent
+    ServiceComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
