@@ -51,7 +51,6 @@ export class LoginComponent implements OnInit {
         extendedTimeOut: 1500
       });
     } else {
-      // this.signInForm = new SignInForm(this.loginForm.value.username, this.loginForm.value.password);
       this.authService.login(this.loginForm.value).subscribe(
         data => {
           if (this.loginForm.value.remenberMe) {

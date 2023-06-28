@@ -4,13 +4,17 @@ import {ChangePasswordComponent} from './change-password/change-password.compone
 import {LoginComponent} from './login/login.component';
 import {ForgotPasswordComponent} from './forgot-password/forgot-password.component';
 import {VerifyChangePasswordComponent} from './verify-change-password/verify-change-password.component';
+import {AuthGuard} from '../../service/auth.guard';
 
 
 const routes: Routes = [
-  {path: '', component: LoginComponent},
+  {path: 'login', component: LoginComponent},
   {path: 'forgot-password', component: ForgotPasswordComponent},
   {path: 'verify-change-password/:code', component: VerifyChangePasswordComponent},
-  {path: 'change-password', component: ChangePasswordComponent}
+  {path: 'change-password', component: ChangePasswordComponent , canActivate: [AuthGuard],
+  data: {
+    roles: ['admin', 'user']
+  }}
 ];
 
 @NgModule({

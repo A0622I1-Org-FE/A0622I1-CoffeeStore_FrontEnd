@@ -1,45 +1,45 @@
-/* You can add global styles to this file, and also import other style files */
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;800&display=swap");
+/*!* You can add global styles to this file, and also import other style files *!*/
+/*@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;800&display=swap");*/
 
-:root {
-  --cor-background: #f7f8fa;
-  --cor-branco: #362207;
-  /*--cor-texto: #241a52;*/
-  --cor-texto: #c49b63;
-  --cor-texto-fraco: #c4bfd4;
-  --cor-borda-input-desabilitado: #f2f1f6;
-  --cor-roxo-puro: red;
-  --cor-placeholder: #837dff;
-  --cor-linear-1: #8dacff;
-  --cor-linear-2: #7c5dff;
-  --cor-background-desfocado: rgba(255, 255, 255, 0.15);
-  --cor-shadow-desfocado: rgba(0, 0, 0, 0.1);
-  --cor-borda-desfocado: rgba(255, 255, 255, 0.2);
-}
+/*:root {*/
+/*  --cor-background: #f7f8fa;*/
+/*  --cor-branco: #362207;*/
+/*  !*--cor-texto: #241a52;*!*/
+/*  --cor-texto: #c49b63;*/
+/*  --cor-texto-fraco: #c4bfd4;*/
+/*  --cor-borda-input-desabilitado: #f2f1f6;*/
+/*  --cor-roxo-puro: red;*/
+/*  --cor-placeholder: #837dff;*/
+/*  --cor-linear-1: #8dacff;*/
+/*  --cor-linear-2: #7c5dff;*/
+/*  --cor-background-desfocado: rgba(255, 255, 255, 0.15);*/
+/*  --cor-shadow-desfocado: rgba(0, 0, 0, 0.1);*/
+/*  --cor-borda-desfocado: rgba(255, 255, 255, 0.2);*/
+/*}*/
 
-* {
-  font-family: sans-serif;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
-  letter-spacing: 0px;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  scroll-behavior: smooth;
-  margin: 0;
-}
+/** {*/
+/*  font-family: sans-serif;*/
+/*  -moz-box-sizing: border-box;*/
+/*  box-sizing: border-box;*/
+/*  letter-spacing: 0px;*/
+/*  -webkit-font-smoothing: antialiased;*/
+/*  -moz-osx-font-smoothing: grayscale;*/
+/*  scroll-behavior: smooth;*/
+/*  margin: 0;*/
+/*}*/
 
-html,
-body {
-  height: 100vh;
-  display: grid;
-  place-items: center;
+/*html,*/
+/*body {*/
+/*  height: 100vh;*/
+/*  display: grid;*/
+/*  place-items: center;*/
 
-}
+/*}*/
 
-body {
-  /*background-image: url("https://images.pexels.com/photos/2079438/pexels-photo-2079438.jpeg?cs=srgb&dl=pexels-emre-can-acer-2079438.jpg&fm=jpg");*/
-  /*background-image: url("");*/
-  background-image: url("https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000");
-  background-repeat: no-repeat;
-  background-size: cover;
-}
+/*body {*/
+/*  !*background-image: url("https://images.pexels.com/photos/2079438/pexels-photo-2079438.jpeg?cs=srgb&dl=pexels-emre-can-acer-2079438.jpg&fm=jpg");*!*/
+/*  !*background-image: url("");*!*/
+/*  background-image: url("https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000");*/
+/*  background-repeat: no-repeat;*/
+/*  background-size: cover;*/
+/*}*/
