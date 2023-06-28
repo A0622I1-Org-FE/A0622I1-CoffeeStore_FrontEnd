@@ -265,9 +265,8 @@ export class ServiceComponent implements OnInit {
       this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
     }
   }
-
   goiPhucVu() {
-    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ');
+    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ. ');
     this.toastrService.success('Vui lòng đợi trong ít phút');
     // this.servicesService.getMessage().subscribe(data => {
     //   this.messList = data;

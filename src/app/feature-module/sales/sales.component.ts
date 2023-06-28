@@ -28,9 +28,6 @@ export class SalesComponent implements OnInit {
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    // setTimeout(() => {
-    //   this.ngOnInit();
-    // }, 10);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
@@ -42,10 +39,12 @@ export class SalesComponent implements OnInit {
       if (this.messList !== null) {
         this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe();
       }
+      this.messList = [];
       this.getMessage();
     }, 60000);
     this.getAll();
   }
+
 
   /**
    * <h3>Description: Hiển thị danh sách bàn chưa bị hư</h3>
@@ -55,6 +54,7 @@ export class SalesComponent implements OnInit {
   getAll() {
     this.tableService.getAll().subscribe(tableList => this.tableList = tableList);
   }
+
 
   getMessage() {
     this.servicesService.getMessage().subscribe(data => {
@@ -72,10 +72,6 @@ export class SalesComponent implements OnInit {
    * <h3>Description: Hiển thị thông báo bàn không có khách.</h3>
    * @author CuongHM
    */
-  disabled() {
-    this.toastr.warning('Bàn không có khách!', 'Lưu ý');
-    this.getAll();
-  }
 
   /**
    * <h3>Description: Format giá trị số sang định dạng tiền.</h3>
@@ -144,4 +140,9 @@ export class SalesComponent implements OnInit {
       this.toastr.success(this.checkNew1[0].message);
     }
   }
+
+  disabled() {
+    this.toastr.warning('bàn đã có khách', 'lưu ý');
+  }
 }
+
