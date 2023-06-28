@@ -231,13 +231,12 @@ export class ServiceComponent implements OnInit {
 
   getBillTable() {
     this.billService.getBill(this.tableId).subscribe(next => {
-      console.log(next);
       if (next === null) {
         this.insertBill = {
           payment_status: 0,
           payment_time: '',
           table_id: this.tableId,
-          user_id: 2
+          user_id: 123
         };
         this.billService.insertBill(this.insertBill).subscribe(item => {
           this.getBillTable();
@@ -258,15 +257,17 @@ export class ServiceComponent implements OnInit {
   }
 
   insertBillDto() {
-    this.getBillTable();
-    // const mess = 'Bàn 1 gọi order món';
-    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món. ');
-    // console.log(this.scoketServiceService.sendMessage('Bàn 1 gọi order món'));
-    this.tongTien = 0;
+    if (this.orderList.length === 0) {
+      this.toastrService.warning('Vui lòng chọn món');
+    } else {
+      this.tongTien = 0;
+      this.getBillTable();
+      this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
+    }
   }
-
   goiPhucVu() {
     this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ. ');
+    this.toastrService.success('Vui lòng đợi trong ít phút');
     // this.servicesService.getMessage().subscribe(data => {
     //   this.messList = data;
     // });
@@ -287,5 +288,10 @@ export class ServiceComponent implements OnInit {
     // });
     // console.log(this.messList);
     // console.log(this.mes);
+  }
+
+  tinhTien() {
+    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
+    this.toastrService.success('Vui lòng đợi trong ít phút');
   }
 }

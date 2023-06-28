@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ToastrService} from 'ngx-toastr';
 import {ITable} from '../../modal/ITable';
 import {TableService} from '../../service/table.service';
 import {ServicesService} from '../../service/services.service';
+import {ScoketServiceService} from '../../service/socket/scoket-service.service';
 
 @Component({
   selector: 'app-table',
@@ -13,20 +14,21 @@ export class TableComponent implements OnInit {
   tableList: ITable[];
 
   constructor(private toastr: ToastrService,
-              private tableService: ServicesService) { }
+              public scoketServiceService: ScoketServiceService,
+              private tableService: ServicesService) {
+    this.scoketServiceService.connectTable();
+  }
 
   ngOnInit(): void {
+    // this.tableService.findAllTable().subscribe(tableList => this.tableList = tableList);
     this.getAll();
   }
+
   getAll() {
     this.tableService.findAllTable().subscribe(tableList => this.tableList = tableList);
     console.log(this.tableList);
   }
-  disabled() {
-    // alert('Bàn không có khách!');
-    this.toastr.warning('Bàn này đã có khách!', 'Lưu ý');
-  }
-
-  updateTable() {
+  updateTable(id: number) {
+    this.scoketServiceService.updateTable(id);
   }
 }
