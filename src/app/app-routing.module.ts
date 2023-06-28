@@ -1,24 +1,18 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {BillListComponent} from './feature-module/bill/bill-list/bill-list.component';
-import {FeedbackListComponent} from './feature-module/feedback/feedback-list/feedback-list.component';
-import {UserListComponent} from './feature-module/user/user-list/user-list.component';
-import {ServiceComponent} from './feature-module/services/service/service.component';
-import {InforAccountComponent} from './feature-module/user/infor-account/infor-account.component';
-
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 const routes: Routes = [
-  { path: 'quan-ly-phan-hoi', component: FeedbackListComponent},
-  { path: 'quan-ly-nguoi-dung', component: UserListComponent},
-  { path: 'service', component: ServiceComponent},
-  { path: 'change-pass', component: InforAccountComponent},
-  { path: 'order', component: BillListComponent},
-  { path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)}
+  {path: 'feedback', loadChildren: () => import('./feature-module/feedback/feedback.module').then(module => module.FeedbackModule)},
+  {path: '', loadChildren: () => import('./feature-module/user/user.module').then(module => module.UserModule)},
+  {path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)},
+  {path: '', loadChildren: () => import('./feature-module/services/services.module').then(module => module.ServicesModule)},
+  {path: 'order', loadChildren: () => import('./feature-module/bill/bill.module').then(module => module.BillModule)}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
+
 export class AppRoutingModule {
 }

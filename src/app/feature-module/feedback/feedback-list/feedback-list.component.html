@@ -72,7 +72,8 @@ feedback-list html file is used to show data
             <td>{{feedback.name}}</td>
             <td>{{feedback.email}}</td>
             <td>{{feedback.type}}</td>
-            <td class="text-center">{{formatDate(feedback.date)}}</td>
+<!--            <td class="text-center">{{formatDate(feedback.date)}}</td>-->
+            <td>{{feedback.date}}</td>
             <td>
               <button type="button" class="btn btn-lg" data-bs-toggle="modal" data-bs-target="#modelId"
                       (click)="sendId(feedback.id)">

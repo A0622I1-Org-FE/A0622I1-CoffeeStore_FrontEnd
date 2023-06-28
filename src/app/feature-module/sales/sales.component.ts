@@ -78,6 +78,7 @@ export class SalesComponent implements OnInit {
    * <h3>Description: Truyền tableId sang modal confirm.</h3>
    * @author CuongHM
    */
+
   confirmModal() {
     document.getElementById('tableId1').innerText = document.getElementById('tableId').innerText;
   }

@@ -2,143 +2,143 @@
 <html lang="en">
 
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Quản lý hóa đơn</title>
-    <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Quản lý hóa đơn</title>
+  <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 </head>
 
 <body>
-    <div class="container_add">
-        <div class="d-flex justify-content-center" *ngIf="billLists">
-            <div class="content_add col-xl-10">
-                <h2 class="title">Quản lý hóa đơn</h2>
-                <div class="d-flex justify-content-end">
-                    <div class="input-group" style="width: 300px!important;">
-                        <!-- <label for="dateSearch">Ngày xuất hóa đơn&nbsp;&nbsp;</label>
-                        <input #date type="date" class="form-control" id="dateSearch">&nbsp;&nbsp; -->
-                        <label for="userSearch">Người tạo&nbsp;&nbsp;</label>
-                        <input #name type="text" class="form-control" id="userSearch">
-                        <button type="button" class="btn btn-outline-light" (click)="searchUser(name.value)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-
-                <br>
-                <div class="card_main">
-                    <table class="table" style="border: 1px solid gray;">
-                        <thead>
-                            <tr>
-                            <tr>
-                                <th scope="col">STT</th>
-                                <th scope="col">Số hóa đơn</th>
-                                <th scope="col">Ngày tạo</th>
-                                <th scope="col">Người tạo</th>
-                                <th scope="col">Số bàn</th>
-                                <th scope="col">Tổng tiền (VNĐ)</th>
-                                <th scope="col"></th>
-                            </tr>
-
-                        </thead>
-                        <tbody>
-                            <tr *ngFor="let bill of billLists; index as i">
-                                <td scope="row">{{i + 1}}</td>
-                                <td>{{bill.id}}</td>
-                                <td>{{bill.createdTime | date : 'dd/MM/yyyy' }}</td>
-                                <td>{{bill.name}}</td>
-                                <td>{{bill.tableNumber}}</td>
-                                <td>{{formatCurrency(bill.totalPrice)}}</td>
-                                <td>
-                                    <button type="button" class="btn btn-lg" data-bs-toggle="modal"
-                                        data-bs-target="#modelId" (click)="sendId(bill.id)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
-                                            fill="currentColor" style="margin-top: -30px!important;"
-                                            class="bi bi-eye icon" viewBox="0 0 16 16">
-                                            <path
-                                                d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z" />
-                                            <path
-                                                d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
-                                        </svg>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                        <tr *ngIf="noRecord">
-                            <td colspan="8">
-                                <h5 class="text-center validate-msg-color">Không có hóa đơn nào</h5>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-                <div class="row mt-5" *ngIf="pages">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul>
-                                <ul>
-                                    <li>
-                                        <a (click)="previousPage()" [class.disabled]="currentPage === 0">&lt;</a>
-                                    </li>
-                                    <li *ngFor="let page of pageRange" [class.active]="page === currentPage">
-                                        <a (click)="goToPage(page)">{{ page + 1 }}</a>
-                                    </li>
-                                    <li>
-                                        <a (click)="nextPage()"
-                                            [class.disabled]="currentPage === totalPages - 1">&gt;</a>
-                                    </li>
-                                </ul>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<div class="container_add">
+  <div class="d-flex justify-content-center" *ngIf="billLists">
+    <div class="content_add col-xl-10">
+      <h2 class="title">Quản lý hóa đơn</h2>
+      <div class="d-flex justify-content-end">
+        <div class="input-group" style="width: 300px!important;">
+          <!-- <label for="dateSearch">Ngày xuất hóa đơn&nbsp;&nbsp;</label>
+          <input #date type="date" class="form-control" id="dateSearch">&nbsp;&nbsp; -->
+          <label for="userSearch">Người tạo&nbsp;&nbsp;</label>
+          <input #name type="text" class="form-control" id="userSearch">
+          <button type="button" class="btn btn-outline-light" (click)="searchUser(name.value)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                 class="bi bi-search" viewBox="0 0 16 16">
+              <path
+                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+            </svg>
+          </button>
         </div>
+      </div>
+
+      <br>
+      <div class="card_main">
+        <table class="table" style="border: 1px solid gray;">
+          <thead>
+          <tr>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Số hóa đơn</th>
+            <th scope="col">Ngày tạo</th>
+            <th scope="col">Người tạo</th>
+            <th scope="col">Số bàn</th>
+            <th scope="col">Tổng tiền (VNĐ)</th>
+            <th scope="col"></th>
+          </tr>
+
+          </thead>
+          <tbody>
+          <tr *ngFor="let bill of billLists; index as i">
+            <td scope="row">{{i + 1}}</td>
+            <td>{{bill.id}}</td>
+            <td>{{bill.createdTime | date : 'dd/MM/yyyy' }}</td>
+            <td>{{bill.name}}</td>
+            <td>{{bill.tableNumber}}</td>
+            <td>{{formatCurrency(bill.totalPrice)}}</td>
+            <td>
+              <button type="button" class="btn btn-lg" data-bs-toggle="modal"
+                      data-bs-target="#modelId" (click)="sendId(bill.id)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                     fill="currentColor" style="margin-top: -30px!important;"
+                     class="bi bi-eye icon" viewBox="0 0 16 16">
+                  <path
+                    d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                  <path
+                    d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                </svg>
+              </button>
+            </td>
+          </tr>
+          </tbody>
+          <tr *ngIf="noRecord">
+            <td colspan="8">
+              <h5 class="text-center validate-msg-color">Không có hóa đơn nào</h5>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="row mt-5" *ngIf="pages">
+        <div class="col text-center">
+          <div class="block-27">
+            <ul>
+              <ul>
+                <li>
+                  <a (click)="previousPage()" [class.disabled]="currentPage === 0">&lt;</a>
+                </li>
+                <li *ngFor="let page of pageRange" [class.active]="page === currentPage">
+                  <a (click)="goToPage(page)">{{ page + 1 }}</a>
+                </li>
+                <li>
+                  <a (click)="nextPage()"
+                     [class.disabled]="currentPage === totalPages - 1">&gt;</a>
+                </li>
+              </ul>
+            </ul>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                aria-hidden="true" *ngIf="bill">
-                <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h4 class="modal-title" id="modelTitleId" >Chi tiết hóa đơn</h4>
-                        </div>
-                        <div class="modal-body">
-                            <table class="table" style="border: 1px solid gray; text-align: center;">
-                                <thead>
-                                    <tr>
-                                    <tr>
-                                        <th scope="col">STT</th>
-                                        <th scope="col">Tên món</th>
-                                        <th scope="col">Đơn giá (VNĐ)</th>
-                                        <th scope="col">Số lượng</th>
-                                        <th scope="col">Thành tiền(VNĐ)</th>
-                                    </tr>
-                                    
-                                </thead>
-                                <tbody>
-                                    <tr *ngFor="let billDetail of bill, index as i">
-                                        <td scope="row">{{i+1}}</td>
-                                        <td>{{billDetail.name}}</td>
-                                        <td>{{billDetail.price | currency : 'VND'}}</td>
-                                        <td>{{billDetail.quantity}}</td>
-                                        <td>{{billDetail.total | currency : 'VND' }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-warning btn-padding-10"
-                                data-bs-dismiss="modal">
-                                Quay lại
-                        </button>
-                    </div>
-                </div>
-            </div>
+  </div>
+</div>
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
+     aria-hidden="true" *ngIf="bill">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modelTitleId">Chi tiết hóa đơn</h4>
+      </div>
+      <div class="modal-body">
+        <table class="table" style="border: 1px solid gray; text-align: center;">
+          <thead>
+          <tr>
+          <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên món</th>
+            <th scope="col">Đơn giá (VNĐ)</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Thành tiền(VNĐ)</th>
+          </tr>
+
+          </thead>
+          <tbody>
+          <tr *ngFor="let billDetail of bill, index as i">
+            <td scope="row">{{i + 1}}</td>
+            <td>{{billDetail.name}}</td>
+            <td>{{billDetail.price | currency : 'VND'}}</td>
+            <td>{{billDetail.quantity}}</td>
+            <td>{{billDetail.total | currency : 'VND' }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-warning btn-padding-10"
+                data-bs-dismiss="modal">
+          Quay lại
+        </button>
+      </div>
     </div>
+  </div>
+</div>
 </body>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"

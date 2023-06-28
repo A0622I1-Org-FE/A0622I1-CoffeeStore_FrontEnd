@@ -5,7 +5,7 @@ import { BillListComponent } from './bill-list/bill-list.component';
 
 const routes: Routes = [
   {
-    path: "", component: BillListComponent
+    path: '', component: BillListComponent
   }
 ];
 

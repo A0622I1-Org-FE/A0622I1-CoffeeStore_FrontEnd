@@ -45,6 +45,7 @@ export class FeedbackListComponent implements OnInit {
   ngOnInit(): void {
     this.dateF = '';
     this.dateT = '';
+    this.rate = '';
     this.dateErrorMessage = '';
     this.service.findAll(this.currentPage, this.pageSize).subscribe(response => {
         this.feedbacks = response.content;
@@ -66,7 +67,7 @@ export class FeedbackListComponent implements OnInit {
 
   calculateAverageRate(calcuType) {
     if (calcuType === 'begin') {
-      this.service.findAll(this.currentPage, this.totalElements).subscribe(response => {
+      this.service.findAll( 0 , this.totalElements).subscribe(response => {
           this.listAllFeedback = response.content;
           let sum = 0;
           for (let i = 0; i < this.listAllFeedback.length; i++) {
@@ -79,7 +80,7 @@ export class FeedbackListComponent implements OnInit {
           this.feedbacks = [];
         });
     } else {
-      this.service.searchRateDate(this.rate, this.dateF, this.dateT, this.currentPage, this.pageSize).subscribe(response => {
+      this.service.searchRateDate(this.rate, this.dateF, this.dateT, 0, this.pageSize).subscribe(response => {
           this.listAllFeedback = response.content;
           let sum = 0;
           for (let i = 0; i < this.listAllFeedback.length; i++) {
@@ -104,6 +105,7 @@ export class FeedbackListComponent implements OnInit {
   }
 
   searchRateDate(rate: string, dateF: string, dateT: string) {
+    this.currentPage = 0;
     if (Date.parse(dateF) > Date.parse(dateT)) {
       this.dateErrorMessage = 'Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc';
     } else {
@@ -124,7 +126,6 @@ export class FeedbackListComponent implements OnInit {
   }
 
   getListByRateDate() {
-    this.currentPage = 0;
     this.service.searchRateDate(this.rate, this.dateF, this.dateT, this.currentPage, this.pageSize).subscribe(response => {
         this.feedbacks = response.content;
         this.totalPages = response.totalPages;
