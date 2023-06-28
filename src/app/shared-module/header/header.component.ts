@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css',
+    '../../../assets/style.css',
+    '../../../assets/css/style.css',
+    '../../../assets/scss/style.scss']
 })
 export class HeaderComponent implements OnInit {
   private loggedIn = false;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
+
   login(username: string, password: string): boolean {
     if (username === 'admin' && password === 'admin') {
       this.loggedIn = true;
