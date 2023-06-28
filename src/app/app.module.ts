@@ -10,9 +10,10 @@ import {SecurityModule} from './feature-module/security/security.module';
 import {ServicesModule} from './feature-module/services/services.module';
 import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
-import {HttpClientModule} from '@angular/common/http';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptor} from './service/auth.interceptor';
 
 
 @NgModule({
@@ -32,9 +33,11 @@ import {ToastrModule} from 'ngx-toastr';
     TableModule,
     UserModule,
     HttpClientModule,
-    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
-  providers: [],
+
+  providers: [ { provide: HTTP_INTERCEPTORS,  useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
 export class AppModule {
