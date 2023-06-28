@@ -1,8 +1,5 @@
-<section class="section4-new" style="margin-top: 80px;min-height: 600px;
-          background: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-           ),url('/assets/img/section3_bg.jpg')">
+<body class="background container-fluid">
+<section style="padding-bottom: 30px; margin-top: 90px">
   <div class="row">
     <div class="col-md-12 text-center">
       <div class="display-t js-fullheight">
@@ -16,26 +13,22 @@
   </div>
 
   <div class="container-fluid">
-    <div class="row justify-content-center align-items-center" *ngIf="newFoodList.length != 0; else isEmty">
+    <div class="row justify-content-center " *ngIf="newFoodList.length != 0; else isEmty">
       <div class="col-lg-2 col-md-2 div-content" *ngFor="let item of newFoodList">
-        <img [src]="item.imgUrl">
+        <img [src]="item.imgUrl" width="80%" height="200px" style="margin: auto">
         <h3 style="text-align: center">{{item.name}}</h3>
       </div>
     </div>
     <ng-template #isEmty>
       <h3 class="font-Dancing-script" style="color: #e3cc6f">
-        Menu hiện quán đang cập nhật. Xin lỗi khách yêu!
+        Menu hiện quán đang cập nhật. Xin lỗi quý khách!
       </h3>
     </ng-template>
   </div>
 
 </section>
 
-<section class="section4-new" style="margin-top: 80px;min-height: 600px;
-          background: linear-gradient(
-            rgba(0, 0, 0, 0.7),
-            rgba(0, 0, 0, 0.7)
-           ),url('/assets/img/section3_bg.jpg')">
+<section style="padding-bottom: 30px; margin-top: 90px">
   <div class="row">
     <div class="col-md-12 text-center">
       <div class="display-t js-fullheight">
@@ -51,15 +44,15 @@
   <div class="container-fluid">
     <div class="row justify-content-center align-items-center" *ngIf="bestSellerList.length != 0; else isEmty">
       <div class="col-lg-2 col-md-2 div-content" *ngFor="let item of bestSellerList">
-        <img [src]="item.imgUrl">
+        <img [src]="item.imgUrl" width="80%" height="200px" style="margin: auto">
         <h3 style="text-align: center">{{item.name}}</h3>
       </div>
     </div>
     <ng-template #isEmty>
       <h3 class="font-Dancing-script" style="color: #e3cc6f">
-        Menu hiện quán đang cập nhật. Xin lỗi khách yêu!
+        Menu hiện quán đang cập nhật. Xin lỗi quý khách!
       </h3>
     </ng-template>
   </div>
-
 </section>
+</body>

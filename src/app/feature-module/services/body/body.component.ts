@@ -5,13 +5,15 @@ import {IServices} from '../../../modal/IServices';
 @Component({
   selector: 'app-body',
   templateUrl: './body.component.html',
-  styleUrls: ['./body.component.css']
+  styleUrls: ['./body.component.css',
+    '../../../../assets/style.css',
+    '../../../../assets/css/style.css',
+    '../../../../assets/scss/style.scss']
 })
 export class BodyComponent implements OnInit {
   bestSellerList: IServices[] = [];
   newFoodList: IServices[] = [];
-  topOneFood: IServices;
-  topFourFood: IServices[] = [];
+
 
   constructor(private servicesService: ServicesService) {
   }
@@ -29,15 +31,7 @@ export class BodyComponent implements OnInit {
 
   getTopFivePopular() {
     this.servicesService.getListBestSeller().subscribe(data => {
-      console.log('data: ');
-      console.log(data);
       this.bestSellerList = data;
-      this.topOneFood = data.shift();
-      console.log('topPopularFood: ');
-      console.log(this.topOneFood);
-      this.topFourFood = this.bestSellerList;
-      console.log('fourPopularFood: ');
-      console.log(this.topFourFood);
     });
   }
 }
