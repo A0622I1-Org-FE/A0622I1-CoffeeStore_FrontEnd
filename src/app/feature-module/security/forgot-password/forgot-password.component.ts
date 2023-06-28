@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthService} from '../../../service/auth.service';
 import {ToastrService} from 'ngx-toastr';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-forgot-password',
@@ -19,7 +20,10 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private router: Router,
               private formBuilder: FormBuilder,
               private authhService: AuthService,
-              private toastrService: ToastrService) { }
+              private toastrService: ToastrService,
+              private titleService: Title) {
+    this.titleService.setTitle('Quên mật khẩu');
+  }
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.formBuilder.group({

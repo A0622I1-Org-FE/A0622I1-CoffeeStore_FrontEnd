@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../../../service/auth.service';
 import {ToastrService} from 'ngx-toastr';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-verify-change-password',
@@ -28,7 +29,10 @@ export class VerifyChangePasswordComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private authService: AuthService,
               private toastrService: ToastrService,
-              private formBuilder: FormBuilder) { }
+              private formBuilder: FormBuilder,
+              private titleService: Title) {
+    this.titleService.setTitle('Xác thực mật khẩu');
+  }
 
   ngOnInit(): void {
     this.verifyChangePasswordForm = this.formBuilder.group({
