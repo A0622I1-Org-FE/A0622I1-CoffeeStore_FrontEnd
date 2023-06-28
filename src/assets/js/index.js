@@ -8,6 +8,17 @@ function updateLoadingOverplay() {
   return document.querySelector(".loading-overlay");
 }
 
+function checkMaxImageSize(file, maxSizeInBytes) {
+  if (file.size > maxSizeInBytes) {
+    var maxSizeInMB = maxSizeInBytes / (1024 * 1024); // Chuyển đổi thành đơn vị MB
+    var fileSizeInMB = file.size / (1024 * 1024); // Chuyển đổi dung lượng ảnh thành đơn vị MB
+    var message = "Tiệm cafe A0622I1: Dung lượng của ảnh không được vượt quá " + maxSizeInMB + " MB. Dung lượng hiện tại: " + fileSizeInMB + " MB.";
+    window.alert(message);
+    return false;
+  }
+  return true;
+}
+
 // const loadingOverlay = document.querySelector(".loading-overlay");
 var totalSelectedFiles = 0;
 document.getElementById("image-input").addEventListener("change", function (event) {
@@ -30,6 +41,9 @@ document.getElementById("image-input").addEventListener("change", function (even
         var file = files[i];
         if (!file.type.match("image.*")) {
           window.alert("Tiệm cafe A0622I1: Vui lòng chỉ chọn các tệp tin ảnh.");
+          continue;
+        }
+        if (!checkMaxImageSize(file, 5 * 1024 * 1024)) { // Kiểm tra dung lượng tối đa là 5MB
           continue;
         }
         var reader = new FileReader();

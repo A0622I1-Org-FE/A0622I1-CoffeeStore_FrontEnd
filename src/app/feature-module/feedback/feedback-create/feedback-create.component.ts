@@ -2,7 +2,7 @@ import {Component, Inject, OnInit, Renderer2} from '@angular/core';
 import {FeedbackTypeService} from '../../../service/feedback-type.service';
 import {FeedbackService} from '../../../service/feedback.service';
 import {FeedbackImgService} from '../../../service/feedback-img.service';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {AngularFireStorage} from '@angular/fire/storage';
@@ -17,13 +17,6 @@ import {FeedbackTypeDto} from '../../../dto/feedback-type-dto';
   styleUrls: ['./feedback-create.component.css']
 })
 export class FeedbackCreateComponent implements OnInit {
-  rfCreate: FormGroup;
-  feedbackTypeList: FeedbackTypeDto[];
-  selectedImage: any = null;
-  final;
-  // tslint:disable-next-line:max-line-length
-  defaultImageUrl = 'https://files.slack.com/files-tmb/TEBPXS5HQ-F05BYS4K2RY-abfc0ff965/white_simple_trendy_coffee_line_art_logo__2__480.png';
-
   // tslint:disable-next-line:max-line-length
   // defaultImageUrl2 = 'https://firebasestorage.googleapis.com/v0/b/a0622i1.appspot.com/o/17-06-2023065218PMWhite%20Simple%20Trendy%20Coffee%20Line%20Art%20Logo%20(2).png?alt=media&token=0150e9d2-061d-45fb-a883-97156b904b16';
 
@@ -37,6 +30,15 @@ export class FeedbackCreateComponent implements OnInit {
               @Inject(AngularFireStorage) private storage: AngularFireStorage) {
   }
 
+  rfCreate: FormGroup;
+  feedbackTypeList: FeedbackTypeDto[];
+  selectedImage: any = null;
+
+  // tslint:disable-next-line:max-line-length
+  defaultImageUrl = 'https://files.slack.com/files-tmb/TEBPXS5HQ-F05BYS4K2RY-abfc0ff965/white_simple_trendy_coffee_line_art_logo__2__480.png';
+
+  function;
+
   ngOnInit(): void {
     this.loadJavaScriptFile('/assets/js/index.js');
     this.feedbackTypeService.findAll().subscribe(next => {
@@ -45,12 +47,20 @@ export class FeedbackCreateComponent implements OnInit {
     });
     this.rfCreate = this.fb.group({
       // tslint:disable-next-line:max-line-length
-      name: ['', [Validators.required, Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứửữự ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]],
-      email: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'), Validators.email]],
+      name: ['', [Validators.required, this.noWhitespaceValidator(), Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứửữự ÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$'), Validators.minLength(5), Validators.maxLength(50)]],
+      // tslint:disable-next-line:max-line-length
+      email: ['', [Validators.required, Validators.pattern('[a-zA-Z][a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}'), Validators.email, Validators.minLength(10), Validators.maxLength(254)]],
       feedbackType: ['', Validators.required],
       content: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(1000)]],
       rate: ['']
     });
+  }
+
+  noWhitespaceValidator(): ValidatorFn {
+    return (control: FormControl): { [key: string]: any } | null => {
+      const isWhitespace = control.value.trim().length === 0;
+      return isWhitespace ? {whitespace: true} : null;
+    };
   }
 
   loadJavaScriptFile(filePath: string): void {
@@ -81,12 +91,25 @@ export class FeedbackCreateComponent implements OnInit {
     } else {
       this.callApiAndSaveUrl(this.defaultImageUrl);
     }
-    this.feedbackService.save(formData).subscribe(next => {
-      this.toastr.success('Lời phản hồi của bạn góp phần tạo nên thành công của chúng tôi!\n' +
-        'Chúc bạn một ngày tốt lành ♥♥♥');
-      this.router.navigateByUrl('service');
-    });
-
+    if (this.rfCreate.invalid) {
+      this.toastr.error('Vui lòng điền tất cả các thông tin cần thiết');
+      return;
+    } else {
+      const email = this.rfCreate.get('email').value;
+      console.log(email);
+      this.feedbackService.countEmail(email).subscribe(count => {
+        if (count > 0) {
+          this.toastr.error('Đã có email này trong hệ thống');
+          return;
+        } else {
+          this.feedbackService.save(formData).subscribe(next => {
+            this.toastr.success('Lời phản hồi của bạn góp phần tạo nên thành công của chúng tôi!\n' +
+              'Chúc bạn một ngày tốt lành ♥♥♥');
+            this.router.navigateByUrl('service');
+          });
+        }
+      });
+    }
   }
 
   getCurrentDateTime(): string {

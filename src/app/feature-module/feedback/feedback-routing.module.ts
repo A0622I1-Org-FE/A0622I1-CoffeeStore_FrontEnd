@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import {FeedbackCreateComponent} from './feedback-create/feedback-create.component';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
 import {FeedbackListComponent} from './feedback-list/feedback-list.component';
+import {FeedbackCreateComponent} from './feedback-create/feedback-create.component';
 
 
 const routes: Routes = [
@@ -13,4 +13,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class FeedbackRoutingModule { }
+export class FeedbackRoutingModule {
+}

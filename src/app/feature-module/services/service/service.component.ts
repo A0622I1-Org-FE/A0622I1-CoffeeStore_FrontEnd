@@ -61,6 +61,7 @@ export class ServiceComponent implements OnInit {
         this.noRecord = error.status === 404;
         this.serviceList = [];
       });
+    // @ts-ignore
     this.serviceTypeService.findAll().subscribe(response => {
       this.serviceTypeList = response;
     });

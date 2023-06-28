@@ -5,23 +5,16 @@ import {HttpClient} from '@angular/common/http';
 import {FeedbackResponse} from '../modal/FeedbackResponse';
 import {FeedbackDetail} from '../modal/FeedbackDetail';
 
-/**
- * FeedbackService class to create shared methods, get data from API
- *
- * @author TuLG
- * @version 1.0
- * @since 2023-06-13
- */
-
 @Injectable({
   providedIn: 'root'
 })
 export class FeedbackService {
-  API_URL = 'http://localhost:8080/feedback/create';
+  API_URL = 'http://localhost:8080/api/feedback/create';
   private API_URL_LIST = 'http://localhost:8080/api/listFeedback';
   private API_URL_FEEDBACKDETAIL = 'http://localhost:8080/api/feedbackDetail';
   private API_URL_FEEDBACKIMG = 'http://localhost:8080/api/feedbackImg';
   private API_URL_SEARCHDATE = 'http://localhost:8080/api/getListByDate';
+  private API_EMAIL = 'http://localhost:8080/api/feedback/count';
 
   constructor(private httpClient: HttpClient) {
   }
@@ -50,4 +43,7 @@ export class FeedbackService {
     return this.httpClient.post<FeedbackDto>(this.API_URL, feedback);
   }
 
+  countEmail(email: string): Observable<number> {
+    return this.httpClient.get<number>(`${this.API_EMAIL}/${email}`);
+  }
 }

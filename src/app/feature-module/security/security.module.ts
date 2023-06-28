@@ -9,11 +9,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [ChangePasswordComponent],
-    imports: [
-        CommonModule,
-        SecurityRoutingModule,
-        ToastrModule.forRoot(),
-        ReactiveFormsModule,
-    ]
+  imports: [
+    CommonModule,
+    SecurityRoutingModule,
+    ToastrModule.forRoot(),
+    ReactiveFormsModule,
+  ]
 })
 export class SecurityModule { }

@@ -1,23 +1,21 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {FeedbackRoutingModule} from './feedback-routing.module';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
+import { FeedbackRoutingModule } from './feedback-routing.module';
 import {ToastrModule} from 'ngx-toastr';
+import {FeedbackListComponent} from './feedback-list/feedback-list.component';
 import {FeedbackCreateComponent} from './feedback-create/feedback-create.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {FeedbackListComponent} from './feedback-list/feedback-list.component';
-import {HttpClientModule} from '@angular/common/http';
+
 
 @NgModule({
-  declarations: [FeedbackCreateComponent, FeedbackListComponent],
+  declarations: [FeedbackListComponent, FeedbackCreateComponent],
   imports: [
     CommonModule,
     FeedbackRoutingModule,
     ToastrModule.forRoot(),
     ReactiveFormsModule,
     FormsModule,
-    FormsModule,
-    HttpClientModule
   ]
 })
-export class FeedbackModule {
-}
+export class FeedbackModule { }

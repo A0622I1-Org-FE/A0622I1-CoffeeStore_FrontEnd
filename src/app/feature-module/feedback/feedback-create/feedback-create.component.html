@@ -12,6 +12,15 @@
               Vui lòng nhập họ và tên</p>
             <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.pattern">
               Tên không chứa số hoặc các kí tự đặc biệt</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.minlength">Vui lòng nhập tên dài
+              hơn 5 kí tự</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.maxlength">Vui lòng nhập tên
+              không vượt quá 50 kí tự</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.whitespace">
+              Tên không được chứa toàn space</p>
 
           </div>
           <div class="mb-3 col-md-6">
@@ -24,6 +33,12 @@
             <p class="text-warning"
                *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.pattern">Vui lòng nhập
               email đúng định dạng</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.minlength">Vui lòng nhập email dài
+              hơn 10 kí tự</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.maxlength">Vui lòng nhập email
+              không vượt quá 254 kí tự</p>
             <!--            <span class="text-warning">Email không đúng định dạng</span>-->
           </div>
         </div>

@@ -38,3 +38,42 @@
   border: 2px solid blue;
 }
 
+@import 'ngx-toastr/toastr';
+
+#image-preview {
+  margin-top: 1rem;
+  display: flex !important;
+  flex-wrap: wrap;
+  background-color: #fff;
+}
+
+.preview-image {
+  position: relative;
+  width: 33.3333333333%;
+  gap: 1rem;
+  display: flex;
+  justify-content: space-around;
+  height: 10rem;
+  margin: 0rem 0rem;
+}
+
+.preview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.preview-image .delete-button {
+  position: absolute;
+  font-size: 1.2rem;
+  top: -0.7rem;
+  right: 0;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.preview-image.selected {
+  border: 2px solid blue;
+}
+
