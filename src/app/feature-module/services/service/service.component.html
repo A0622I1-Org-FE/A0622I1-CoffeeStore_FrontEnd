@@ -62,7 +62,7 @@
           <div class="menu_text">
             <h4>{{service.name}}</h4>
             <h5>{{formatter(service.price)}} VNĐ</h5>
-            <a class="btn"(click)="chon(service)">Chọn</a>
+            <a class="btn" (click)="chon(service)">Chọn</a>
           </div>
         </div>
       </div>
@@ -127,7 +127,7 @@
 
         <div class="func_btn d-flex justify-content-center align-items-center">
           <button (click)="insertBillDto()">Gọi Món</button>
-          <button>Tính Tiền</button>
+          <button (click)="tinhTien()">Tính Tiền</button>
           <button (click)="goiPhucVu()">Gọi Phục Vụ</button>
           <button>Phản Hồi</button>
         </div>
@@ -246,19 +246,21 @@
 
 
 <div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-     aria-hidden="true">
+     aria-hidden="true" style="opacity: 0.92">
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content" style="background-color: #2c3034; color: white; width: 50%; margin: auto">
+    <div class="modal-content" style=" background-color: #2c3034; color: white; width: 50%; margin: auto">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel1">Xóa món</h5>
         <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal"
                 aria-label="Close" style="background-color: red"></button>
       </div>
-      <div class="modal-body" style="color: red;background-color: white " *ngIf="deleteOrder">
-        Bạn có chăc muốn xóa {{deleteOrder.name}}
+      <div class="modal-body" style="color: white;" *ngIf="deleteOrder">
+        <p class="text-center">Bạn có chăc muốn xóa món <span style="color: #c49b63">{{deleteOrder.name}}</span> không?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="delete()">Xóa</button>
+        <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" (click)="delete()">
+          Xóa
+        </button>
       </div>
     </div>
   </div>
