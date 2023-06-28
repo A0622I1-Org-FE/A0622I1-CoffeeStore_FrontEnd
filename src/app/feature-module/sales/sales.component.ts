@@ -115,7 +115,7 @@ export class SalesComponent implements OnInit {
     } else if (isNaN(+tableId)) {
       this.toastr.error('Sai định dạng số bàn', 'Lỗi thanh toán');
     } else {
-      this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
+      this.tableService.tinhTien(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
       this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
       setTimeout(() => {
         this.getAll();
