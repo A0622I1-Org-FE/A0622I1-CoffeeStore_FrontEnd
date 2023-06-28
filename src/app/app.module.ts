@@ -12,7 +12,8 @@ import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
+import {AuthInterceptor} from './service/auth.interceptor';
 
 
 @NgModule({
@@ -36,7 +37,7 @@ import {HttpClientModule} from '@angular/common/http';
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [[{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}]],
   bootstrap: [AppComponent]
 })
 export class AppModule {
