@@ -15,4 +15,5 @@ export interface IFeedbackDto {
   date?: string;
   content?: string;
   type?: string;
+  rate?: string;
 }

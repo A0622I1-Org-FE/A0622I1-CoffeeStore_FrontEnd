@@ -1,0 +1,58 @@
+<body class="background container-fluid">
+<section style="padding-bottom: 30px; margin-top: 90px">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="display-t js-fullheight">
+        <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
+          <div class="font-Dancing-script" style="color: white;margin-bottom: 50px;line-height: 10px">Khám
+            phá top <span class="badge badge-warning">5</span> món mới
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center " *ngIf="newFoodList.length != 0; else isEmty">
+      <div class="col-lg-2 col-md-2 div-content" *ngFor="let item of newFoodList">
+        <img [src]="item.imgUrl" width="80%" height="200px" style="margin: auto">
+        <h3 style="text-align: center">{{item.name}}</h3>
+      </div>
+    </div>
+    <ng-template #isEmty>
+      <h3 class="font-Dancing-script" style="color: #e3cc6f">
+        Menu hiện quán đang cập nhật. Xin lỗi quý khách!
+      </h3>
+    </ng-template>
+  </div>
+
+</section>
+
+<section style="padding-bottom: 30px; margin-top: 90px">
+  <div class="row">
+    <div class="col-md-12 text-center">
+      <div class="display-t js-fullheight">
+        <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
+          <div class="font-Dancing-script" style="color: white;margin-bottom: 50px;line-height: 10px">Khám
+            phá top <span class="badge badge-warning">5</span> món bán chạy nhất
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container-fluid">
+    <div class="row justify-content-center align-items-center" *ngIf="bestSellerList.length != 0; else isEmty">
+      <div class="col-lg-2 col-md-2 div-content" *ngFor="let item of bestSellerList">
+        <img [src]="item.imgUrl" width="80%" height="200px" style="margin: auto">
+        <h3 style="text-align: center">{{item.name}}</h3>
+      </div>
+    </div>
+    <ng-template #isEmty>
+      <h3 class="font-Dancing-script" style="color: #e3cc6f">
+        Menu hiện quán đang cập nhật. Xin lỗi quý khách!
+      </h3>
+    </ng-template>
+  </div>
+</section>
+</body>
