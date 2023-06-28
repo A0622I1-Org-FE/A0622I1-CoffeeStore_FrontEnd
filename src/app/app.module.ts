@@ -33,10 +33,10 @@ import {AuthInterceptor} from './service/auth.interceptor';
     TableModule,
     UserModule,
     HttpClientModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule.forRoot()
   ],
+
   providers: [ { provide: HTTP_INTERCEPTORS,  useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent]
 })
