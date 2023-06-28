@@ -38,6 +38,8 @@ import {TableComponent} from './feature-module/table/table.component';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
