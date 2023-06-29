@@ -36,7 +36,7 @@ export class FeedbackCreateComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
   defaultImageUrl = 'https://files.slack.com/files-tmb/TEBPXS5HQ-F05BYS4K2RY-abfc0ff965/white_simple_trendy_coffee_line_art_logo__2__480.png';
-
+  error: string;
   function;
 
   ngOnInit(): void {
@@ -99,7 +99,7 @@ export class FeedbackCreateComponent implements OnInit {
       console.log(email);
       this.feedbackService.countEmail(email).subscribe(count => {
         if (count > 0) {
-          this.toastr.error('Đã có email này trong hệ thống');
+          this.error = 'Email này đã có trong hệ thống';
           return;
         } else {
           this.feedbackService.save(formData).subscribe(next => {
@@ -123,5 +123,9 @@ export class FeedbackCreateComponent implements OnInit {
     };
     this.feedbackImageService.save(feedbackImg).subscribe(() => {
     });
+  }
+
+  resetError() {
+    this.error = '';
   }
 }
