@@ -40,7 +40,6 @@ export class BillService {
     return this.httpClient.post<InsertBillDTO>(url, billDTO);
   }
 
-
   getBill(tableId: number): Observable<BillDTO> {
     const url = `${this.API_URL_GET_BILL}/${tableId}`;
     return this.httpClient.get<BillDTO>(url);

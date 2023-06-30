@@ -12,6 +12,11 @@ import {formatDate} from '@angular/common';
 import {BillDTO} from '../../../dto/bill-dto';
 import {InsertBillDetailDTO} from '../../../dto/insert-bill-detail-dto';
 import {BillDetailService} from '../../../service/bill-detail.service';
+import {ScoketServiceService} from '../../../service/socket/scoket-service.service';
+import {ToastrService} from 'ngx-toastr';
+import {Message} from '../../../modal/message';
+import {Title} from '@angular/platform-browser';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-service',
@@ -40,15 +45,32 @@ export class ServiceComponent implements OnInit {
   insertBill: InsertBillDTO;
   getBill: BillDTO;
   billDetail: InsertBillDetailDTO;
-  showMe: boolean;
+  isShowErrMsg = false;
+  messList: Message[] = [];
+  stompClient: any;
+  tableId: number;
+  order1: Order;
 
   constructor(private servicesService: ServicesService,
               private serviceTypeService: ServiceTypeService,
               private billService: BillService,
-              private billDetailService: BillDetailService) {
+              private billDetailService: BillDetailService,
+              public scoketServiceService: ScoketServiceService,
+              private titleService: Title,
+              private activateRouter: ActivatedRoute,
+              private toastrService: ToastrService) {
+    this.scoketServiceService.connect();
+    this.titleService.setTitle('Màn hình menu');
+  }
+
+  get f() {
+    return this.rfCreate.controls;
   }
 
   ngOnInit(): void {
+    this.activateRouter.paramMap.subscribe(paramMap => {
+      this.tableId = +paramMap.get('id');
+    });
     this.servicesService.findAll(this.currentPage, this.pageSize).subscribe(response => {
         this.serviceList = response.content;
         this.totalPages = response.totalPages;
@@ -66,6 +88,15 @@ export class ServiceComponent implements OnInit {
       this.serviceTypeList = response;
     });
   }
+
+  // doCheck(quantity: string) {
+  //   if (parseInt(quantity) < 1) {
+  //     this.isShowErrMsg = true;
+  //   } else {
+  //     console.log('Đã vào');
+  //     this.order();
+  //   }
+  // }
 
   goToPage(page: number) {
     this.currentPage = page;
@@ -130,14 +161,29 @@ export class ServiceComponent implements OnInit {
   }
 
   chon(service: IServices) {
-    this.serviceChon = service;
-    this.rfCreate = new FormGroup({
-      service_id: new FormControl(this.serviceChon.id),
-      name: new FormControl(this.serviceChon.name),
-      quantity: new FormControl('', [Validators.required, Validators.min(1)]),
-      price: new FormControl(this.serviceChon.price),
-      sum: new FormControl(0)
-    });
+    this.tongTien = 0;
+    this.order1 = {
+      service_id: service.id,
+      name: service.name,
+      quantity: 1,
+      price: service.price,
+      sum: service.price
+    };
+    let addNewService = true;
+    for (let i = 0; i < this.orderList.length; i++) {
+      if (this.order1.service_id === this.orderList[i].service_id) {
+        this.orderList[i].quantity += this.order1.quantity;
+        console.log(this.orderList[i].quantity);
+        this.orderList[i].sum = this.orderList[i].quantity * this.orderList[i].price;
+        console.log(this.orderList[i].sum);
+        addNewService = false;
+      }
+    }
+    if (addNewService) {
+      this.orderList.push(this.order1);
+    }
+    console.log(this.orderList);
+    this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
   }
 
   formatter(money) {
@@ -149,17 +195,34 @@ export class ServiceComponent implements OnInit {
     return formatter.format(money).replace('₫', '');
   }
 
-  order() {
+  tang(orderThem: Order) {
     this.tongTien = 0;
-    const order = this.rfCreate.value;
-    order.sum = order.quantity * order.price;
-    this.orderList.push(order);
+    for (let i = 0; i < this.orderList.length; i++) {
+      if (orderThem.service_id === this.orderList[i].service_id) {
+        this.orderList[i].quantity += 1;
+        this.orderList[i].sum = this.orderList[i].quantity * this.orderList[i].price;
+      }
+    }
     this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
     console.log(this.orderList);
   }
 
+  giam(giamOrder: Order) {
+    this.tongTien = 0;
+    for (let i = 0; i < this.orderList.length; i++) {
+      if (giamOrder.service_id === this.orderList[i].service_id) {
+        this.orderList[i].quantity -= 1;
+        if (this.orderList[i].quantity === 0) {
+          this.orderList = this.orderList.filter(item => {
+            return item.service_id !== giamOrder.service_id;
+          });
+        }
+        this.orderList[i].sum = this.orderList[i].quantity * this.orderList[i].price;
+      }
+    }
+  }
+
   delete() {
-    console.log(this.deleteOrder);
     this.orderList = this.orderList.filter(item => item.name !== this.deleteOrder.name);
   }
 
@@ -168,14 +231,13 @@ export class ServiceComponent implements OnInit {
   }
 
   getBillTable() {
-    this.billService.getBill(1).subscribe(next => {
-      console.log(next);
+    this.billService.getBill(this.tableId).subscribe(next => {
       if (next === null) {
         this.insertBill = {
           payment_status: 0,
           payment_time: '',
-          table_id: 1,
-          user_id: 2
+          table_id: this.tableId,
+          user_id: 123
         };
         this.billService.insertBill(this.insertBill).subscribe(item => {
           this.getBillTable();
@@ -196,6 +258,41 @@ export class ServiceComponent implements OnInit {
   }
 
   insertBillDto() {
-    this.getBillTable();
+    if (this.orderList.length === 0) {
+      this.toastrService.warning('Vui lòng chọn món');
+    } else {
+      this.tongTien = 0;
+      this.getBillTable();
+      this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
+    }
+  }
+  goiPhucVu() {
+    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ. ');
+    this.toastrService.success('Vui lòng đợi trong ít phút');
+    // this.servicesService.getMessage().subscribe(data => {
+    //   this.messList = data;
+    // });
+    // setTimeout(() => {
+    //   for (let i = 0; i < this.messList.length; i++) {
+    //     this.servicesService.deleteMessage(this.messList[i].id).subscribe();
+    //   }
+    //   this.messList = [];
+    //   this.ngOnInit();
+    // }, 30000);
+    // this.stompClient = this.scoketServiceService.connect();
+    // this.stompClient.connect({}, (frame) => {
+    //   console.log(frame);
+    //   this.stompClient.subscribe('/topic/list/service', data => {
+    //     this.mes = '' + JSON.parse(data.body).text;
+    //     // this.toastrService.success(mess);
+    //   });
+    // });
+    // console.log(this.messList);
+    // console.log(this.mes);
+  }
+
+  tinhTien() {
+    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
+    this.toastrService.success('Vui lòng đợi trong ít phút');
   }
 }

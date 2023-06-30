@@ -43,4 +43,8 @@ export class UserService {
     return this.httpClient.get<IUserInforDTO>(this.API_USER + '/find-user-id/' + '5', this.httpOptions);
   }
 
+  findUserInforByToken(): Observable<IUserInforDTO> {
+    return this.httpClient.get<IUserInforDTO>(this.API_USER + '/find-user-infor', this.httpOptions);
+  }
+
 }

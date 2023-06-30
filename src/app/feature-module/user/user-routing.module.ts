@@ -1,12 +1,15 @@
 import {NgModule} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {InforAccountComponent} from './infor-account/infor-account.component';
-import {UserListComponent} from './user-list/user-list.component';
-
+import {AuthGuard} from '../../service/auth.guard';
 
 const routes: Routes = [
-  {path: 'account-manager', component: UserListComponent},
-  {path: 'infor-account/:id', component: InforAccountComponent}
+  {
+    path: 'infor-account', component: InforAccountComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'user']
+    }
+  },
 ];
 
 @NgModule({
