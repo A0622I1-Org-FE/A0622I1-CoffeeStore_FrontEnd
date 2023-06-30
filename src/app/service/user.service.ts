@@ -37,7 +37,7 @@ export class UserService {
   deleteById(id: number): Observable<string> {
     return this.httpClient.put<string>(`${this.API_URL_DELETEUSER}/${id}`, {});
   }
-  findUserInforById(id): Observable<IUserInforDTO> {
-    return this.httpClient.get<IUserInforDTO>(this. API_USER + '/find-user-id/' + '5', this.httpOptions);
+  findUserInforByToken(): Observable<IUserInforDTO> {
+    return this.httpClient.get<IUserInforDTO>(this. API_USER + '/find-user-infor', this.httpOptions);
   }
 }

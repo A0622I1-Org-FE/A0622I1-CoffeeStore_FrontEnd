@@ -4,6 +4,8 @@ import {IPasswordChangeDTO} from '../../../dto/IPasswordChangeDTO';
 import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {AccountService} from '../../../service/account.service';
+import {TokenStorageService} from '../../../service/token-storage.service';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-change-password',
@@ -13,10 +15,14 @@ import {AccountService} from '../../../service/account.service';
 export class ChangePasswordComponent implements OnInit {
   passwordChangeForm: FormGroup;
   passwordDTO: IPasswordChangeDTO;
+  username: string;
+  isLoading = false;
 
   constructor(private router: Router,
               private toastr: ToastrService,
-              private accountService: AccountService) {
+              private accountService: AccountService,
+              private titleService: Title) {
+    this.titleService.setTitle('Đổi mật khẩu');
   }
 
   validationMessages = {
@@ -37,19 +43,33 @@ export class ChangePasswordComponent implements OnInit {
     this.passwordChangeForm = new FormGroup({
         currentPassword: new FormControl('', [Validators.required, this.checkLengthPass]),
         newPassword: new FormControl('', [Validators.required,
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[@$!%*?&-_])[A-Za-z@$!%*?&-_]{6,15}$')]),
+          Validators.pattern('^(?=.*[A-Z])(?=.*[a-z])(?=.*[#$@!%&*?-_])[A-Za-z#$@!%&*?-_]{6,15}$')]),
         confirmPassword: new FormControl('', [Validators.required]),
-      }, [this.checkMatch('newPassword', 'confirmPassword')]
+      }, [this.checkConfirmPassword('newPassword', 'confirmPassword'),
+        this.checkMatchNewPassword('currentPassword', 'newPassword')]
     );
   }
 
-  checkMatch(newPassword: string, confirmPassword: string) {
+  checkConfirmPassword(newPassword: string, confirmPassword: string) {
     return (form: AbstractControl) => {
       const passwordValue = form.get(newPassword)?.value;
       const confirmPasswordValue = form.get(confirmPassword)?.value;
 
       if (passwordValue !== confirmPasswordValue && confirmPasswordValue.length > 0) {
         return {passwordNotMatch: true};
+      }
+      return null;
+    };
+  }
+
+  checkMatchNewPassword(currentPassword: string, newPassword: string) {
+    return (form: AbstractControl) => {
+      const currentPasswordValue = form.get(currentPassword)?.value;
+      const newPasswordValue = form.get(newPassword)?.value;
+      if (currentPasswordValue.length > 0 && newPasswordValue.length > 0) {
+        if (currentPasswordValue === newPasswordValue) {
+          return {newPasswordMatch: true};
+        }
       }
       return null;
     };
@@ -102,17 +122,16 @@ export class ChangePasswordComponent implements OnInit {
   }
 
   changPassword() {
-    console.log(this.passwordChangeForm.value);
     if (this.passwordChangeForm.invalid) {
-      this.toastr.error('Các trường điển chưa hợp lệ');
+      this.toastr.warning('Các trường điển chưa hợp lệ', 'Thông báo');
       return;
     } else {
       console.log(this.passwordChangeForm.value);
-      this.accountService.changePassword(this.passwordChangeForm.value).subscribe(data => {
-        this.toastr.success();
-        this.router.navigateByUrl('Đổi mật khẩu thất bại');
+      this.accountService.changePasswordRequest(this.passwordChangeForm.value).subscribe(data => {
+        this.toastr.success('Đổi mật khẩu thành công', 'Thông báo');
+        this.router.navigateByUrl('infor-account');
       }, error => {
-        this.toastr.error('Đổi mật khẩu thất bại');
+        this.toastr.error('Mật khẩu hiện tại không chính xác', 'Thông báo');
       });
     }
   }
