@@ -37,12 +37,16 @@ export class InforAccountComponent implements OnInit {
         if (data == null) {
           this.isLoad = false;
           this.notFound = true;
-          this.toastrService.error('Không tìm thấy thông tin hoặc người dùng đã xoá khỏi hệ thống!', 'Thông báo');
+          this.toastrService.error('Không tìm thấy thông tin hoặc người dùng đã xoá khỏi hệ thống!', 'Thông báo', {
+            timeOut: 5000
+          });
           this.router.navigateByUrl('');
         }
       }, error => {
         console.log(this.userInfor);
-        this.toastrService.error('Không tìm thấy thông tin hoặc người dùng đã xoá khỏi hệ thống!', 'Thông báo');
+        this.toastrService.error('Không tìm thấy thông tin hoặc người dùng đã xoá khỏi hệ thống!', 'Thông báo', {
+          timeOut: 5000
+        });
         this.router.navigateByUrl('');
       }
     );

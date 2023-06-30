@@ -14,9 +14,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class ChangePasswordComponent implements OnInit {
   passwordChangeForm: FormGroup;
-  passwordDTO: IPasswordChangeDTO;
   username: string;
-  isLoading = false;
 
   constructor(private router: Router,
               private toastr: ToastrService,
@@ -35,7 +33,7 @@ export class ChangePasswordComponent implements OnInit {
       {type: 'pattern', message: 'Từ 6-15 ký tự, gồm chữ thường, chữ hoa, ký tự đặc biệt.'}
     ],
     confirmPassword: [
-      {type: 'required', message: 'Xác nhận lại mật khẩu.'},
+      {type: 'required', message: 'Nhập lại mật khẩu mới.'},
     ]
   };
 
