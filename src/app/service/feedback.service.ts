@@ -37,8 +37,8 @@ export class FeedbackService {
     return this.httpClient.get<string[]>(`${this.API_URL_FEEDBACKIMG}/${id}`);
   }
 
-  searchRateDate(rate: string, date: string, page: number, pageSize: number): Observable<FeedbackResponse> {
-    const url = `${this.API_URL_SEARCHDATE}?page=${page}&size=${pageSize}&rate=${rate}&date=${date}`;
+  searchRateDate(rate: string, dateF: string, dateT: string, page: number, pageSize: number): Observable<FeedbackResponse> {
+    const url = `${this.API_URL_SEARCHDATE}?page=${page}&size=${pageSize}&rate=${rate}&dateF=${dateF}&dateT=${dateT}`;
     return this.httpClient.get<FeedbackResponse>(url);
   }
 }

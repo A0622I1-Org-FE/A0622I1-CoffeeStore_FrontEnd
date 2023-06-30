@@ -3,6 +3,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {ToastrService} from 'ngx-toastr';
 import {TokenStorageService} from '../../../service/token-storage.service';
 import {AuthService} from '../../../service/auth.service';
+import {Title} from '@angular/platform-browser';
 
 class AuthhService {
 }
@@ -27,7 +28,9 @@ export class LoginComponent implements OnInit {
   constructor(private toastr: ToastrService,
               private authService: AuthService,
               private formBuilder: FormBuilder,
-              private tokenStrorageService: TokenStorageService) {
+              private tokenStrorageService: TokenStorageService,
+              private titleService: Title) {
+    this.titleService.setTitle('Đăng Nhập');
   }
 
   ngOnInit(): void {
@@ -51,7 +54,6 @@ export class LoginComponent implements OnInit {
         extendedTimeOut: 1500
       });
     } else {
-      // this.signInForm = new SignInForm(this.loginForm.value.username, this.loginForm.value.password);
       this.authService.login(this.loginForm.value).subscribe(
         data => {
           if (this.loginForm.value.remenberMe) {
