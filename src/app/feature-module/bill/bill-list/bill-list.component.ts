@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { IBillDetailDto } from 'src/app/modal/IBillDetailDto';
 import { IBillDto } from 'src/app/modal/IBillDto';
@@ -23,7 +24,10 @@ date: string;
 noRecord: boolean;
 name: string;
 
-  constructor(private billService:BillService) { }
+  constructor(private billService:BillService,
+              private title:Title) { 
+                this.title.setTitle("Quản Lý Hóa Đơn  ")
+              }
 
   ngOnInit(): void {
     this.name ='';
@@ -52,10 +56,11 @@ name: string;
 
   searchUser(name: string) {
     this.name = name;
+    this.currentPage = 0;
     this.getList();
   }
 
-  getList() {
+    getList() {
     if (this.name === '') {
       this.ngOnInit();
     } else {
@@ -64,7 +69,6 @@ name: string;
   }
 
   getListByUser() {
-    
     this.billService.searchUser(this.name, this.currentPage, this.pageSize).subscribe(response => {
         this.billLists = response.content;
         this.totalPages = response.totalPages;
@@ -72,7 +76,6 @@ name: string;
         this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
         this.noRecord = response.size === 0;
         this.countPageCanShow();
-        debugger
       },
       error => {
         this.noRecord = error.status === 404;
