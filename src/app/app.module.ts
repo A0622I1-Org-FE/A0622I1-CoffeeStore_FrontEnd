@@ -15,6 +15,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {TableComponent} from './feature-module/table/table.component';
 import {AuthInterceptor} from './service/auth.interceptor';
+import {SalesModule} from './feature-module/sales/sales.module';
 
 
 @NgModule({
@@ -36,6 +37,7 @@ import {AuthInterceptor} from './service/auth.interceptor';
     ServicesModule,
     TableModule,
     UserModule,
+    SalesModule,
     BrowserAnimationsModule,
     HttpClientModule,
     BrowserAnimationsModule,

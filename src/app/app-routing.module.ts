@@ -7,6 +7,7 @@ import {ServiceComponent} from './feature-module/services/service/service.compon
 import {InforAccountComponent} from './feature-module/user/infor-account/infor-account.component';
 import {TableComponent} from './feature-module/table/table.component';
 import {LoginComponent} from './feature-module/security/login/login.component';
+import {SalesComponent} from './feature-module/sales/sales.component';
 
 
 const routes: Routes = [
@@ -17,7 +18,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'change-pass', component: InforAccountComponent},
   { path: 'order', component: BillListComponent},
-  { path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)}
+  { path: 'sales', component: SalesComponent}
 ];
 
 @NgModule({

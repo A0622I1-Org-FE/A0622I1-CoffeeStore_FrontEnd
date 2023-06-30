@@ -28,7 +28,7 @@ export class SalesComponent implements OnInit {
               private router: Router) {
     setInterval(() => {
       this.ngOnInit();
-    }, 5000);
+    }, 2000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
