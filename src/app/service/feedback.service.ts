@@ -9,7 +9,7 @@ import {FeedbackDetail} from '../modal/FeedbackDetail';
   providedIn: 'root'
 })
 export class FeedbackService {
-  API_URL = 'http://localhost:8080/api/feedback/create';
+  private API_URL_CREATE = 'http://localhost:8080/api/feedback/create';
   private API_URL_LIST = 'http://localhost:8080/api/listFeedback';
   private API_URL_FEEDBACKDETAIL = 'http://localhost:8080/api/feedbackDetail';
   private API_URL_FEEDBACKIMG = 'http://localhost:8080/api/feedbackImg';
@@ -40,7 +40,7 @@ export class FeedbackService {
 
 
   save(feedback: FeedbackDto): Observable<FeedbackDto> {
-    return this.httpClient.post<FeedbackDto>(this.API_URL, feedback);
+    return this.httpClient.post<FeedbackDto>(this.API_URL_CREATE, feedback);
   }
 
   countEmail(email: string): Observable<number> {
