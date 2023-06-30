@@ -20,6 +20,8 @@ export class SalesComponent implements OnInit {
   billDetailList: IBillDetailListDTO[];
   billChargingList: IBillChargingDTO[];
   messList: Message[] = [];
+  checkNew1: Message[];
+  color = 'green';
 
   constructor(private tableService: TableService,
               private servicesService: ServicesService,
@@ -33,21 +35,19 @@ export class SalesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.servicesService.getMessage().subscribe(data => {
-      this.messList = data;
-    });
-    // setTimeout(() => {
-    //   this.ngOnInit();
-    // }, 1000);
-    setTimeout(() => {
-      for (let i = 0; i < this.messList.length; i++) {
-        this.servicesService.deleteMessage(this.messList[i].id).subscribe();
+    setInterval(() => {
+      this.getMessage();
+    }, 500);
+    setInterval(() => {
+      if (this.messList !== null) {
+        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe();
       }
       this.messList = [];
-      // this.ngOnInit();
+      this.getMessage();
     }, 60000);
     this.getAll();
   }
+
 
   /**
    * <h3>Description: Hiển thị danh sách bàn chưa bị hư</h3>
@@ -58,14 +58,23 @@ export class SalesComponent implements OnInit {
     this.tableService.getAll().subscribe(tableList => this.tableList = tableList);
   }
 
+
+  getMessage() {
+    this.servicesService.getMessage().subscribe(data => {
+      this.checkNew1 = [];
+      if (data !== null) {
+        this.checkNew(data);
+        this.messList = data;
+      } else {
+        this.messList = data;
+      }
+    });
+  }
+
   /**
    * <h3>Description: Hiển thị thông báo bàn không có khách.</h3>
    * @author CuongHM
    */
-  disabled() {
-    this.toastr.warning('Bàn không có khách!', 'Lưu ý');
-    this.getAll();
-  }
 
   /**
    * <h3>Description: Format giá trị số sang định dạng tiền.</h3>
@@ -129,4 +138,21 @@ export class SalesComponent implements OnInit {
       }, 100);
     }
   }
+
+  private checkNew(data: Message[]) {
+    this.checkNew1 = data;
+    if (this.messList !== null) {
+      if (this.checkNew1.length > this.messList.length) {
+        this.toastr.success(this.checkNew1[0].message);
+        // this.toastr.success('Khách gọi');
+      }
+    } else {
+      this.toastr.success(this.checkNew1[0].message);
+    }
+  }
+
+  disabled() {
+    this.toastr.warning('bàn đã có khách', 'lưu ý');
+  }
 }
+

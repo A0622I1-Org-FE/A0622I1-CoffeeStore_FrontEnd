@@ -1,0 +1,8 @@
+.div-content {
+  display:table-cell;
+  vertical-align:middle;
+  text-align:center
+}/* You can add global styles to this file, and also import other style files */
+.background{
+  background-image: linear-gradient(rgba(148, 141, 114, 0.5), rgba(148, 141, 114, 0.5)), url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
+}

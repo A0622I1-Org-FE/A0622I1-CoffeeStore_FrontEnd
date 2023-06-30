@@ -41,7 +41,7 @@ export class ScoketServiceService {
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({}, (frame) => {
       console.log(frame);
-      this.stompClient.subscribe('/topic/table', data => {
+      this.stompClient.subscribe('/topic/tables', data => {
         // this.toastrService.success(JSON.stringify(data));
         // this.toastrService.success(mess);
       });
@@ -62,5 +62,9 @@ export class ScoketServiceService {
 
   sendMessage(message: string) {
     this.stompClient.send('/app/messages', {}, JSON.stringify(message));
+  }
+
+  updateTable(idTable: number) {
+    this.stompClient.send('/app/tables', {}, JSON.stringify(idTable));
   }
 }

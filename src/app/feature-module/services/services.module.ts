@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 
 import { ServicesRoutingModule } from './services-routing.module';
 import {ToastrModule} from 'ngx-toastr';
-import {ReactiveFormsModule} from '@angular/forms';
-import {ServiceComponent} from './service/service.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
+import {ReactiveFormsModule} from '@angular/forms';
+import {BodyComponent} from './body/body.component';
+import {ServiceComponent} from './service/service.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [BodyComponent],
   imports: [
     CommonModule,
     ServicesRoutingModule,
@@ -22,7 +23,6 @@ import {BrowserModule} from '@angular/platform-browser';
       progressAnimation: 'increasing',
       preventDuplicates: true}),
     BrowserAnimationsModule,
-    BrowserModule,
     BrowserModule
   ]
 })
