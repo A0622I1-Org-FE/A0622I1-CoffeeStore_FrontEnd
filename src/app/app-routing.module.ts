@@ -4,18 +4,21 @@ import {BillListComponent} from './feature-module/bill/bill-list/bill-list.compo
 import {FeedbackListComponent} from './feature-module/feedback/feedback-list/feedback-list.component';
 import {UserListComponent} from './feature-module/user/user-list/user-list.component';
 import {ServiceComponent} from './feature-module/services/service/service.component';
-import {TableComponent} from './feature-module/table/table.component';
 import {InforAccountComponent} from './feature-module/user/infor-account/infor-account.component';
+import {TableComponent} from './feature-module/table/table.component';
+import {LoginComponent} from './feature-module/security/login/login.component';
+import {SalesComponent} from './feature-module/sales/sales.component';
+
 
 const routes: Routes = [
   { path: 'quan-ly-phan-hoi', component: FeedbackListComponent},
   { path: 'quan-ly-nguoi-dung', component: UserListComponent},
-  { path: 'service/:id', component: ServiceComponent},
-  { path: 'table', component: TableComponent},
   { path: 'service', component: ServiceComponent},
+  { path: 'table', component: TableComponent},
+  { path: 'login', component: LoginComponent},
   { path: 'change-pass', component: InforAccountComponent},
   { path: 'order', component: BillListComponent},
-  { path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)}
+  { path: 'sales', component: SalesComponent}
 ];
 
 @NgModule({

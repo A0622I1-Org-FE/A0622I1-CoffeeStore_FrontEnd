@@ -82,11 +82,18 @@ export class SalesComponent implements OnInit {
    * @return Giá trị số dưới dạng tiền kèm đơn vị đằng sau.
    * @author CuongHM
    */
-  billDetail(tableId: number, tableName: string) {
-    this.tableService.getBillDetailByTableId(tableId).subscribe(billDetailList => this.billDetailList = billDetailList);
-    this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
-    document.getElementById('modelTitleId').innerText = 'Hóa đơn bàn ' + tableName;
-    this.getAll();
+  billDetail(tableId, tableName: string) {
+    const isPresent = this.tableList.some(el => el.id === +tableId);
+    if (+tableId < 1 || isNaN(+tableId)) {
+      this.toastr.error('Số bàn không hợp lệ!', 'Lỗi tìm bàn');
+    } else if (!isPresent) {
+      this.toastr.error('Bàn không tồn tại!', 'Lỗi tìm bàn');
+    } else {
+      this.tableService.getBillDetailByTableId(tableId).subscribe(billDetailList => this.billDetailList = billDetailList);
+      this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
+      document.getElementById('modelTitleId').innerText = 'Hóa đơn bàn ' + tableName;
+      this.getAll();
+    }
   }
 
   /**
@@ -119,12 +126,12 @@ export class SalesComponent implements OnInit {
     console.log(typeof +tableId);
     console.log(this.tableList);
     const isPresent = this.tableList.some(el => el.id === +tableId);
-    if (+tableId < 1 || !isPresent) {
-      this.toastr.error('Bàn không tồn tại!', 'Lỗi thanh toán');
-    } else if (isNaN(+tableId)) {
-      this.toastr.error('Sai định dạng số bàn', 'Lỗi thanh toán');
+    if (+tableId < 1 || isNaN(+tableId)) {
+      this.toastr.error('Số bàn không hợp lệ!', 'Lỗi tìm bàn');
+    } else if (!isPresent) {
+      this.toastr.error('Bàn không tồn tại!', 'Lỗi tìm bàn');
     } else {
-      this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
+      this.tableService.tinhTien(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
       this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
       setTimeout(() => {
         this.getAll();
