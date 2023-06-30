@@ -8,9 +8,9 @@
     </button>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item" *ngIf="isLoggedIn(); then loggedinMenu else loginMenu"></li>
+        <li class="nav-item"></li>
       </ul>
-      <ng-template #loggedinMenu>
+      <ng-template *ngIf="['admin'].indexOf(role)==-1">
         <li class="nav-item"><a routerLink="/table" class="nav-link">Bàn</a></li>
         <li class="nav-item"><a routerLink="/order" class="nav-link">Quản lý hóa đơn</a></li>
         <li class="nav-item"><a routerLink="/quan-ly-phan-hoi" class="nav-link">Phản Hồi</a></li>
@@ -27,8 +27,9 @@
         </li>
       </ng-template>
 
-      <ng-template #loginMenu>
+      <ng-template >
         <li class="nav-item"><a routerLink="/login" class="nav-link">Đăng Nhập</a></li>
+        <li class="nav-item"><a routerLink="/login" class="nav-link">{{name}}</a></li>
       </ng-template>
     </div>
   </div>
