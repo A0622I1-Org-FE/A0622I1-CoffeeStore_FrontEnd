@@ -1,4 +1,6 @@
 import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from '../../service/token-storage.service';
+import {ShareService} from '../../service/share.service';
 
 @Component({
   selector: 'app-header',
@@ -9,29 +11,35 @@ import {Component, OnInit} from '@angular/core';
     '../../../assets/scss/style.scss']
 })
 export class HeaderComponent implements OnInit {
-  private loggedIn = false;
+  isLoggedIn: boolean = false;
+  name: string;
+  role: string;
 
-  constructor() {
+  constructor(private tokenStrorageService: TokenStorageService,
+              private shareService: ShareService) {
+    this.shareService.getClickEvent().subscribe(() => {
+      this.loadHeader();
+    });
   }
 
   ngOnInit(): void {
+    this.loadHeader();
   }
 
-  login(username: string, password: string): boolean {
-    if (username === 'admin' && password === 'admin') {
-      this.loggedIn = true;
-      sessionStorage.setItem('username', username);
-      return true;
+  loadHeader(): void {
+    if (this.tokenStrorageService.getToken()) {
+      this.name = this.tokenStrorageService.getName();
+      this.role = this.tokenStrorageService.getRole()[0];
+      this.isLoggedIn = true;
+      console.log(this.name);
+      console.log( this.role);
+      console.log( this.isLoggedIn);
+      // isLoggedIn = this.name != null;
     }
-    return false;
   }
 
   logout(): void {
-    this.loggedIn = false;
-    sessionStorage.removeItem('username');
-  }
-
-  isLoggedIn(): boolean {
-    return this.loggedIn;
+    this.tokenStrorageService.signOut();
+    this.ngOnInit();
   }
 }

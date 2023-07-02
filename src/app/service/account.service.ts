@@ -9,7 +9,7 @@ import {AuthInterceptor} from './auth.interceptor';
 })
 export class AccountService {
 
-  private API_ACCOUNT = 'http://localhost:8080/api/';
+  private API_ACCOUNT = 'http://localhost:8080/api/private/change-password-request';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -21,7 +21,7 @@ export class AccountService {
   constructor(private http: HttpClient) {
   }
   changePasswordRequest(obj): Observable<any> {
-    return this.http.post(this.API_ACCOUNT + 'change-password-request', {
+    return this.http.post(this.API_ACCOUNT, {
       userName: '',
       currentPassword: obj.currentPassword,
       newPassword: obj.newPassword,

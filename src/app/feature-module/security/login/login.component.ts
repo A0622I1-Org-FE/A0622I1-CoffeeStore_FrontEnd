@@ -4,6 +4,7 @@ import {ToastrService} from 'ngx-toastr';
 import {TokenStorageService} from '../../../service/token-storage.service';
 import {AuthService} from '../../../service/auth.service';
 import {Title} from '@angular/platform-browser';
+import {ShareService} from '../../../service/share.service';
 
 class AuthhService {
 }
@@ -29,7 +30,8 @@ export class LoginComponent implements OnInit {
               private authService: AuthService,
               private formBuilder: FormBuilder,
               private tokenStrorageService: TokenStorageService,
-              private titleService: Title) {
+              private titleService: Title,
+              private shareService: ShareService) {
     this.titleService.setTitle('Đăng Nhập');
   }
 
@@ -68,6 +70,7 @@ export class LoginComponent implements OnInit {
             console.log(this.tokenStrorageService.getRole());
           }
           this.loginForm.reset();
+          this.shareService.sendClickEvent();
           if (data.changePassword) {
             this.toastr.warning(`Mật khẩu của bạn hiện đã quá 30 ngày. Vui lòng thay đổi mật khẩu mới!`, 'Cảnh báo: ', {
               timeOut: 5000,

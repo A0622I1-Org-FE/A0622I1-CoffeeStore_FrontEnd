@@ -9,10 +9,10 @@ import {IBillChargingDTO} from '../modal/dto/IBillChargingDTO';
   providedIn: 'root'
 })
 export class TableService {
-  private getAllTableAPI = 'http://localhost:8080/api/sales';
-  private getBillDetailAPI = 'http://localhost:8080/api/sales/bill/';
-  private getBillChargingAPI = 'http://localhost:8080/api/sales/bill-charging/';
-  private billChargingAPI = 'http://localhost:8080/api/sales/bill-charge/';
+  private getAllTableAPI = 'http://localhost:8080/api/private/sales';
+  private getBillDetailAPI = 'http://localhost:8080/api/private/sales/bill/';
+  private getBillChargingAPI = 'http://localhost:8080/api/private/sales/bill-charging/';
+  private billChargingAPI = 'http://localhost:8080/api/private/sales/bill-charge/';
 
   constructor(private httpClient: HttpClient) {
   }

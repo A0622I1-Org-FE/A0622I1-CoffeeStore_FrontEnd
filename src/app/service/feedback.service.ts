@@ -9,12 +9,13 @@ import {FeedbackDetail} from '../modal/FeedbackDetail';
   providedIn: 'root'
 })
 export class FeedbackService {
-  private API_URL_CREATE = 'http://localhost:8080/api/feedback/create';
-  private API_URL_LIST = 'http://localhost:8080/api/listFeedback';
-  private API_URL_FEEDBACKDETAIL = 'http://localhost:8080/api/feedbackDetail';
-  private API_URL_FEEDBACKIMG = 'http://localhost:8080/api/feedbackImg';
-  private API_EMAIL = 'http://localhost:8080/api/feedback/count';
-  private API_URL_SEARCHDATE = 'http://localhost:8080/api/getListByRateDate';
+  private API_URL_CREATE = 'http://localhost:8080/api/private/feedback/create';
+  private API_URL_LIST = 'http://localhost:8080/api/private/listFeedback';
+  private API_EMAIL = 'http://localhost:8080/api/private/feedback/count';
+  private API_URL = 'http://localhost:8080/api/private/listFeedback';
+  private API_URL_FEEDBACKDETAIL = 'http://localhost:8080/api/private/feedbackDetail';
+  private API_URL_FEEDBACKIMG = 'http://localhost:8080/api/private/feedbackImg';
+  private API_URL_SEARCHDATE = 'http://localhost:8080/api/private/getListByRateDate';
 
   constructor(private httpClient: HttpClient) {
   }

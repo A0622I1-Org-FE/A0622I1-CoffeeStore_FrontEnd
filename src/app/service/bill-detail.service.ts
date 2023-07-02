@@ -7,8 +7,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class BillDetailService {
-  private API_URL_INSERT_BILL_DETAIL = 'http://localhost:8080/api/insert_bill_detail';
-
+  private API_URL_INSERT_BILL_DETAIL = 'http://localhost:8080/api/private/insert_bill_detail';
 
   constructor(private httpClient: HttpClient) {
   }

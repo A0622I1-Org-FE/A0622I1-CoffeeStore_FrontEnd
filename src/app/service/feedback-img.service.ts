@@ -7,7 +7,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class FeedbackImgService {
-  API_URL = 'http://localhost:8080/api/image/create';
+  API_URL = 'http://localhost:8080/api/private/image/create';
 
   constructor(private httpClient: HttpClient) {
   }

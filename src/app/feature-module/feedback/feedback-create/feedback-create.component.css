@@ -17,7 +17,7 @@ body {
 .containerr {
   position: relative;
   width: 100%;
-  height: 100%;
+  height: 70rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -34,7 +34,7 @@ body {
   position: absolute;
   width: 100%;
   background-attachment: fixed;
-  height: 200rem;
+  height: 70rem;
   left: 0;
   top: 0;
   background-image: linear-gradient(rgba(87, 79, 51, 0.5), rgba(87, 79, 51, 0.5)), url("https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000");
