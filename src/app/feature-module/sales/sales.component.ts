@@ -28,9 +28,9 @@ export class SalesComponent implements OnInit {
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    // setInterval(() => {
-    //   this.ngOnInit();
-    // }, 2000);
+    setInterval(() => {
+      this.ngOnInit();
+    }, 2000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
@@ -144,7 +144,7 @@ export class SalesComponent implements OnInit {
   }
 
   disabled() {
-    this.toastr.warning('bàn đã có khách', 'lưu ý');
+    this.toastr.warning('Bàn không có khách!', 'Lưu ý');
   }
 }
 
