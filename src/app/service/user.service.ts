@@ -8,10 +8,10 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class UserService {
-  private API_USER = 'http://localhost:8080/api';
-  private API_URL = 'http://localhost:8080/api/listUser';
-  private API_URL_DELETEUSER = 'http://localhost:8080/api/userDelete';
-  private API_URL_SEARCHNAMORDATE = 'http://localhost:8080/api/getUserByNameOrBirthday';
+  private API_USER = 'http://localhost:8080/api/private/find-user-infor';
+  private API_URL = 'http://localhost:8080/api/private/listUser';
+  private API_URL_DELETEUSER = 'http://localhost:8080/api/private/userDelete';
+  private API_URL_SEARCHNAMORDATE = 'http://localhost:8080/api/private/getUserByNameOrBirthday';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -38,6 +38,6 @@ export class UserService {
     return this.httpClient.put<string>(`${this.API_URL_DELETEUSER}/${id}`, {});
   }
   findUserInforByToken(): Observable<IUserInforDTO> {
-    return this.httpClient.get<IUserInforDTO>(this. API_USER + '/find-user-infor', this.httpOptions);
+    return this.httpClient.get<IUserInforDTO>(this. API_USER, this.httpOptions);
   }
 }
