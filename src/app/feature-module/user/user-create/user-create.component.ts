@@ -1,15 +1,15 @@
-import { Component, Inject, OnInit, Renderer2 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { IPosition } from 'src/app/modal/IPosition';
-import { ToastrService } from 'ngx-toastr';
-import { ShowMessage } from 'src/app/common/show-message';
-import { UserService } from 'src/app/service/user.service';
-import { checkDateOfBirth } from 'src/app/common/validateBirthDay';
-import { PositionService } from 'src/app/service/position.service';
-import { formatDate } from '@angular/common';
-import { finalize } from 'rxjs/operators';
-import { Title } from '@angular/platform-browser';
+import {Component, Inject, OnInit, Renderer2} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Router} from '@angular/router';
+import {IPosition} from 'src/app/modal/IPosition';
+import {ToastrService} from 'ngx-toastr';
+import {ShowMessage} from 'src/app/common/show-message';
+import {UserService} from 'src/app/service/user.service';
+import {checkDateOfBirth} from 'src/app/common/validateBirthDay';
+import {PositionService} from 'src/app/service/position.service';
+import {formatDate} from '@angular/common';
+import {finalize} from 'rxjs/operators';
+import {Title} from '@angular/platform-browser';
 import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
@@ -35,7 +35,7 @@ export class UserCreateComponent implements OnInit {
     private toastrService: ToastrService,
     private showMessage: ShowMessage,
     @Inject(AngularFireStorage) private storage: AngularFireStorage) {
-    this.titleService.setTitle("Thêm Mới Nhân Viên");
+    this.titleService.setTitle('Thêm Mới Nhân Viên');
   }
 
   ngOnInit(): void {
@@ -59,51 +59,51 @@ export class UserCreateComponent implements OnInit {
         position: new FormControl('', Validators.required),
         salary: new FormControl('', [Validators.required, Validators.pattern('^[1-9][0-9]*$')])
       }
-    )
+    );
   }
 
 
   validation_messages = {
     userName: [
-      { type: 'required', message: 'Vui lòng nhập tên tài khoản.' },
-      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' }
+      {type: 'required', message: 'Vui lòng nhập tên tài khoản.'},
+      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'}
     ],
     name: [
-      { type: 'required', message: 'Vui lòng nhập tên.' },
-      { type: 'maxlength', message: 'Tên phải bé hơn 40 ký tự' },
-      { type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.' },
-      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt hoặc số.' }
+      {type: 'required', message: 'Vui lòng nhập tên.'},
+      {type: 'maxlength', message: 'Tên phải bé hơn 40 ký tự'},
+      {type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.'},
+      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt hoặc số.'}
     ],
     birthday: [
-      { type: 'required', message: 'Vui lòng nhập ngày sinh. ' },
-      { type: 'checkAge', message: 'Tuổi phải từ 18 đến 70.' },
+      {type: 'required', message: 'Vui lòng nhập ngày sinh. '},
+      {type: 'checkAge', message: 'Tuổi phải từ 18 đến 70.'},
     ],
     phoneNumber: [
-      { type: 'required', message: 'Vui lòng nhập số điện thoại.' },
+      {type: 'required', message: 'Vui lòng nhập số điện thoại.'},
       {
         type: 'pattern',
         message: 'Vui lòng nhập số điện thoại đúng định dạng 09xxxxxxx, 03xxxxxxx, 07xxxxxxx, (84) + 90xxxxxxx.'
       }
     ],
     address: [
-      { type: 'required', message: 'Vui lòng nhập địa chỉ.' },
-      { type: 'maxlength', message: 'Vui lòng nhập tên > 100.' },
-      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' }
+      {type: 'required', message: 'Vui lòng nhập địa chỉ.'},
+      {type: 'maxlength', message: 'Vui lòng nhập tên > 100.'},
+      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'}
 
     ],
     email: [
-      { type: 'required', message: 'Vui lòng nhập email.' },
-      { type: 'pattern', message: 'Email tuân thủ theo format ex: abc@gmail.com' }
+      {type: 'required', message: 'Vui lòng nhập email.'},
+      {type: 'pattern', message: 'Email tuân thủ theo format ex: abc@gmail.com'}
     ],
     gender: [
-      { type: 'required', message: 'Vui lòng nhập giới tính.' }
+      {type: 'required', message: 'Vui lòng nhập giới tính.'}
     ],
     position: [
-      { type: 'required', message: 'Vui lòng chọn chức vụ.' },
+      {type: 'required', message: 'Vui lòng chọn chức vụ.'},
     ],
     salary: [
-      { type: 'required', message: 'Vui lòng nhập lương.' },
-      { type: 'pattern', message: 'Không được nhập ký tự.' },
+      {type: 'required', message: 'Vui lòng nhập lương.'},
+      {type: 'pattern', message: 'Không được nhập ký tự.'},
     ],
   };
 

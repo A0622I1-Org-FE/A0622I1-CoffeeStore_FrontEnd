@@ -15,7 +15,7 @@ export class UserService {
   private API_URL = 'http://localhost:8080/api/private/listUser';
   private API_URL_DELETEUSER = 'http://localhost:8080/api/private/userDelete';
   private API_URL_SEARCHNAMORDATE = 'http://localhost:8080/api/private/getUserByNameOrBirthday';
-  private API_USER_PUBLIC = 'http://localhost:8080/api/public';
+  private API_USER_PUBLIC = 'http://localhost:8080/api/private';
 
   httpOptions = {
     headers: new HttpHeaders({

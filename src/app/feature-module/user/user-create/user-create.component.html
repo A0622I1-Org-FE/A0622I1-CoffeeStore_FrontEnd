@@ -129,7 +129,7 @@
 
                     <div class="form-group col-md-6">
                         <label for="position">Vị Trí:</label>
-                        <select class="form-control" formControlName="position">
+                        <select class="form-control" formControlName="position" id="position">
                             <option value="" selected disabled>Chọn</option>
                             <option *ngFor="let position of positionList" [ngValue]="position.id">{{position.name}}
                             </option>

@@ -7,7 +7,7 @@ import { IPosition } from '../modal/IPosition';
   providedIn: 'root'
 })
 export class PositionService {
-  private baseURL = 'http://localhost:8080/api/public/position';
+  private baseURL = 'http://localhost:8080/api/private/position';
   constructor(
     private http: HttpClient
   ) {}

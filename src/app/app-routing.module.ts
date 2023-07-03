@@ -6,12 +6,18 @@ import {UserListComponent} from './feature-module/user/user-list/user-list.compo
 import {ServiceComponent} from './feature-module/services/service/service.component';
 import {TableComponent} from './feature-module/table/table.component';
 import {InforAccountComponent} from './feature-module/user/infor-account/infor-account.component';
+import {AuthGuard} from './service/auth.guard';
+import {BodyComponent} from './feature-module/services/body/body.component';
 
 const routes: Routes = [
   { path: 'quan-ly-phan-hoi', component: FeedbackListComponent},
   { path: 'quan-ly-nguoi-dung', component: UserListComponent},
   { path: 'service/:id', component: ServiceComponent},
-  { path: 'table', component: TableComponent},
+  { path: '', component: BodyComponent},
+  { path: 'table', component: TableComponent, canActivate: [AuthGuard],
+  data: {
+  roles: ['admin']
+}},
   { path: 'service', component: ServiceComponent},
   { path: 'change-pass', component: InforAccountComponent},
   { path: 'order', component: BillListComponent},
