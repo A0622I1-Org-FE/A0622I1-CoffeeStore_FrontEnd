@@ -26,6 +26,7 @@ export class UserCreateComponent implements OnInit {
   selectedImage: any = null;
   isLoading = false;
 
+
   constructor(
     private titleService: Title,
     private renderer: Renderer2,
@@ -129,7 +130,7 @@ export class UserCreateComponent implements OnInit {
               this.toastrService.error(this.error, 'Message');
             } else {
               this.toastrService.success('Thêm thành công!', 'Message');
-              this.router.navigateByUrl('create-user');
+              this.router.navigateByUrl('quan-ly-nguoi-dung');
             }
 
             this.isLoading = false;
@@ -150,4 +151,6 @@ export class UserCreateComponent implements OnInit {
   getCurrentDateTime(): string {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
+
+
 }

@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+
+.container_add {
+  background-image: linear-gradient(rgba(99, 92, 66, 0.5), rgba(99, 92, 66, 0.5)), url("https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000");
+  background-size: cover;
+  background-attachment: fixed;
+  height: 1000px;
+
+}
+
+.content_add {
+  background-color: black;
+  padding: 48px;
+  margin-top: 100px;
+  opacity: 0.9;
+  border-radius: 30px
+}
+
+.title{
+  font-weight: 800;
+  font-size: 2.3rem;
+  color: #c49b63 !important;
+  margin-bottom: 40px;
+  text-align: center;
+}
+label {
+  color: white;
+  font-size: larger;
+  font-weight: 500;
+}
+
+.item-info{
+  font-size: larger;
+  font-weight: 500;
+}
+.info-person {
+  color: white;
+  padding: 13px 0px 13px 5px;
+  font-size: larger;
+}
+
+.form-group {
+  padding-bottom: 20px;
+}
+
+.form-group input,
+.form-group select {
+  height: 50px;
+  border-radius: 0%;
+  background-color: black;
+  border: 1px solid rgba(239, 239, 239, 0.18);
+  transition: border-color 0.3s ease-in-out;
+  color: rgb(255, 255, 255);
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  background-color: black;
+  border-color: #c49b63;
+  outline: none;
+  box-shadow: none;
+  color: rgb(109, 103, 103);
+}
+
+.btn_action {
+  padding: 16px 24px;
+  text-decoration: none;
+  background-color: black;
+  border: 1px solid #c49b63;
+  color: white;
+}
+
+.btn_action:hover {
+  background-color: #c49b63;
+  color: white;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-check-input:checked {
+  background-color: #c49b63 !important;
+  border-color: #c49b63 !important;
+}
+
+.btn-padding-10{
+  padding: 10px !important;
+}
+/* .icon{
+    position: relative;
+    top: 35px;
+    left: 330px;
+    color: #c49b63;
+} */
+
+@media (max-width: 768px) {
+  /*.container_add .avatar{*/
+  /*    width: 100%;*/
+  /*}*/
+  .form-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .d-flex {
+    flex-direction: column;
+  }
+
+  .mr-2 {
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+
+  .btn_action {
+    display: block;
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+  }
+}

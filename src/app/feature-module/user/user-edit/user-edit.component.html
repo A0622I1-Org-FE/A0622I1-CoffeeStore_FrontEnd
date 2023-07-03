@@ -128,7 +128,7 @@
 
                     <div class="form-group col-md-6">
                         <label for="position">Vị Trí:</label>
-                        <select class="form-control" formControlName="position">
+                        <select class="form-control" formControlName="position" id="position">
                             <option *ngFor="let position of positionList" [selected]="position.id == user.position"
                                 [value]="position.id">
                                 {{position.name}}</option>

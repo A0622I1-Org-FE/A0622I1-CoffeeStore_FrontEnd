@@ -6,14 +6,13 @@ import { ToastrService } from 'ngx-toastr';
 import { IPosition } from 'src/app/modal/IPosition';
 import { PositionService } from 'src/app/service/position.service';
 import { UserService } from 'src/app/service/user.service';
-import { AccountService } from '../../../service/account.service';
 import { IAccount } from 'src/app/modal/IAccount';
 import { UserEditDTO } from 'src/app/dto/UserEditDTO';
-import { AngularFireStorage } from '@angular/fire/storage';
 import { finalize } from 'rxjs/operators';
 import { formatDate } from '@angular/common';
 import { checkDateOfBirth } from 'src/app/common/validateBirthDay';
 import { Title } from '@angular/platform-browser';
+import { AngularFireStorage } from '@angular/fire/storage';
 
 @Component({
   selector: 'app-user-edit',
@@ -162,7 +161,7 @@ export class UserEditComponent implements OnInit {
             this.toastr.error(this.error, 'Message');
           } else {
             this.toastr.success('Chỉnh sửa thành công!', 'Message');
-            this.router.navigateByUrl('/edit-user/' + userId);
+            this.router.navigateByUrl('/quan-ly-nguoi-dung');
           }
           this.isLoading = false;
         },
