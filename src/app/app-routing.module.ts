@@ -6,15 +6,17 @@ import {UserListComponent} from './feature-module/user/user-list/user-list.compo
 import {ServiceComponent} from './feature-module/services/service/service.component';
 import {TableComponent} from './feature-module/table/table.component';
 import {InforAccountComponent} from './feature-module/user/infor-account/infor-account.component';
+import {FeedbackCreateComponent} from './feature-module/feedback/feedback-create/feedback-create.component';
 
 const routes: Routes = [
   { path: 'quan-ly-phan-hoi', component: FeedbackListComponent},
   { path: 'quan-ly-nguoi-dung', component: UserListComponent},
   { path: 'service/:id', component: ServiceComponent},
   { path: 'table', component: TableComponent},
-  { path: 'service', component: ServiceComponent},
+  // { path: 'service', component: ServiceComponent},
   { path: 'change-pass', component: InforAccountComponent},
   { path: 'order', component: BillListComponent},
+  { path: 'feedback/create', component: FeedbackCreateComponent},
   { path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)}
 ];
 

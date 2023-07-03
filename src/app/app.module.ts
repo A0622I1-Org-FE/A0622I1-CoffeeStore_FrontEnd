@@ -15,6 +15,8 @@ import { ServiceComponent } from './feature-module/services/service/service.comp
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {TableComponent} from './feature-module/table/table.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment.prod';
 
 
 @NgModule({
@@ -26,7 +28,7 @@ import {TableComponent} from './feature-module/table/table.component';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule,
+    ToastrModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
     BillModule,
@@ -39,7 +41,8 @@ import {TableComponent} from './feature-module/table/table.component';
     BrowserAnimationsModule,
     SharedModuleModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig)
   ],
   providers: [],
   bootstrap: [AppComponent]

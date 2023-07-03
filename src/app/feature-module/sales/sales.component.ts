@@ -28,9 +28,9 @@ export class SalesComponent implements OnInit {
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    setInterval(() => {
-      this.ngOnInit();
-    }, 2000);
+    // setInterval(() => {
+    //   this.ngOnInit();
+    // }, 2000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 

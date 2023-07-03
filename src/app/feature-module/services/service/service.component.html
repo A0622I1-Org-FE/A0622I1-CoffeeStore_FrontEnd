@@ -105,7 +105,11 @@
               <td>{{i + 1}}</td>
               <td>{{order.name}}</td>
               <td>
-                <span>
+                <span *ngIf="order.quantity === 1" >
+                  <input class="tang_giam" type="button" value=" - " (click)="lay(order)" data-bs-toggle="modal"
+                         data-bs-target="#exampleModal1" name="">
+                </span>
+                <span *ngIf="order.quantity !== 1">
                   <button class="tang_giam" (click)="giam(order)">-</button>
                 </span>
                 {{order.quantity}}
@@ -128,7 +132,7 @@
           <button (click)="insertBillDto()">Gọi Món</button>
           <button (click)="tinhTien()">Tính Tiền</button>
           <button (click)="goiPhucVu()">Gọi Phục Vụ</button>
-          <button>Phản Hồi</button>
+          <button routerLink="/feedback/create">Phản Hồi</button>
         </div>
         <div>
           <span style="color: red" *ngFor="let message of messList">{{message.message}}</span>
@@ -249,9 +253,9 @@
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content" style=" background-color: #2c3034; color: white; width: 50%; margin: auto">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel1">Xóa món</h5>
-        <button type="button" class="btn btn-danger btn-close" data-bs-dismiss="modal"
-                aria-label="Close" style="background-color: red"></button>
+        <h5 class="modal-title" style="text-align: center" id="exampleModalLabel1">Xóa món</h5>
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal"
+                aria-label="Close">X</button>
       </div>
       <div class="modal-body" style="color: white;" *ngIf="deleteOrder">
         <p class="text-center">Bạn có chăc muốn xóa món <span style="color: #c49b63">{{deleteOrder.name}}</span> không?</p>

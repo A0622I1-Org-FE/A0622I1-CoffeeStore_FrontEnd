@@ -30,5 +30,6 @@ export class TableComponent implements OnInit {
   }
   updateTable(id: number) {
     this.scoketServiceService.updateTable(id);
+    this.tableService.setIdTable(id);
   }
 }

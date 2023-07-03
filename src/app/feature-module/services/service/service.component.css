@@ -65,6 +65,7 @@
   height: 270px;
   object-fit: cover;
   margin-bottom: 20px;
+  border-radius: 20px;
 }
 
 .menu_text p {

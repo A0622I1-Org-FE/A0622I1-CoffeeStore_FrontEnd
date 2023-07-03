@@ -16,7 +16,7 @@ export class ServicesService {
   private API_URL_BEST_SELLER = 'http://localhost:8080/api/service/body/best';
   private API_URL_NEW_FOOD = 'http://localhost:8080/api/service/body/new';
   private API_URL_TABLE = 'http://localhost:8080/api/list/table';
-
+  private idTable: number;
   constructor(private httpClient: HttpClient) {
   }
 
@@ -51,5 +51,11 @@ export class ServicesService {
   }
   deleteMessage(id: number): Observable<Message> {
     return this.httpClient.delete<Message>('http://localhost:8080/api/delete_message/' + id);
+  }
+  setIdTable(id: number) {
+    this.idTable = id;
+  }
+  getIdTable() {
+    return this.idTable;
   }
 }
