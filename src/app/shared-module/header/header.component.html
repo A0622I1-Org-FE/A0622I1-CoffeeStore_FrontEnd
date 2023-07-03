@@ -9,22 +9,27 @@
     </button>
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item"><a routerLink="/table" class="nav-link">Bàn</a></li>
-        <li class="nav-item"><a routerLink="/order" class="nav-link">Quản lý hóa đơn</a></li>
-        <li class="nav-item"><a routerLink="/quan-ly-phan-hoi" class="nav-link">Phản Hồi</a></li>
-        <li class="nav-item" *ngIf="isLoggedIn(); then loggedinMenu else loginMenu"></li>
-        <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" routerLink="/quan-ly-nguoi-dung" id="navbarDropdown" role="button"
-             data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Quản lý nhân viên
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Thêm nhân viên</a>
-          </div>
-        </li>
+        <li class="nav-item"></li>
       </ul>
+<!--      <ng-template *ngIf="['admin'].indexOf(role)===-1">-->
+      <ng-template>
+        <ul>
+          <li class="nav-item"><a routerLink="/table" class="nav-link">Bàn</a></li>
+          <li class="nav-item"><a routerLink="/order" class="nav-link">Quản lý hóa đơn</a></li>
+          <li class="nav-item"><a routerLink="/quan-ly-phan-hoi" class="nav-link">Phản Hồi</a></li>
+          <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" routerLink="/quan-ly-nguoi-dung" id="navbarDropdown1" role="button"
+               data-toggle="dropdown"
+               aria-haspopup="true" aria-expanded="false">
+              Quản lý nhân viên
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#">Thêm nhân viên</a>
+            </div>
+          </li>
+        </ul>
+      </ng-template>
       <ng-template #loggedinMenu>
         <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
         <li class="nav-item dropdown">
@@ -40,6 +45,10 @@
       </ng-template>
       <ng-template #loginMenu>
         <li class="nav-item"><a href="login.html" class="nav-link">Đăng Nhập</a></li>
+        <ng-template>
+          <li class="nav-item"><a routerLink="/login" class="nav-link">Đăng Nhập</a></li>
+          <li class="nav-item"><a routerLink="/login" class="nav-link">{{name}}</a></li>
+        </ng-template>
       </ng-template>
     </div>
   </div>

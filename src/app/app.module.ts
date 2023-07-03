@@ -10,13 +10,15 @@ import {ServicesModule} from './feature-module/services/services.module';
 import {TableModule} from './feature-module/table/table.module';
 import {UserModule} from './feature-module/user/user.module';
 import {SharedModuleModule} from './shared-module/shared-module.module';
-import {HttpClientModule} from '@angular/common/http';
+import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import { ServiceComponent } from './feature-module/services/service/service.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {TableComponent} from './feature-module/table/table.component';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment.prod';
+import { SalesModule } from './feature-module/sales/sales.module';
+import {AuthInterceptor} from './service/auth.interceptor';
 
 
 @NgModule({
@@ -28,7 +30,6 @@ import {environment} from '../environments/environment.prod';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule.forRoot(),
     AppRoutingModule,
     ReactiveFormsModule,
     BillModule,
@@ -38,13 +39,15 @@ import {environment} from '../environments/environment.prod';
     ServicesModule,
     TableModule,
     UserModule,
+    SalesModule,
     BrowserAnimationsModule,
     SharedModuleModule,
     HttpClientModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    ToastrModule.forRoot()
   ],
-  providers: [],
+  providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule {

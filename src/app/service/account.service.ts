@@ -1,13 +1,15 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {IPasswordChangeDTO} from '../dto/IPasswordChangeDTO';
+import {TokenStorageService} from './token-storage.service';
+import {AuthInterceptor} from './auth.interceptor';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-  private API_ACCOUNT = 'http://localhost:8080/api';
+
+  private API_ACCOUNT = 'http://localhost:8080/api/private/change-password-request';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -18,14 +20,12 @@ export class AccountService {
 
   constructor(private http: HttpClient) {
   }
-
-
-  changePassword(obj): Observable<any> {
-    console.log(obj);
-    return this.http.post(this.API_ACCOUNT + 'change-password', {
-      userName: obj.userName,
+  changePasswordRequest(obj): Observable<any> {
+    return this.http.post(this.API_ACCOUNT, {
+      userName: '',
       currentPassword: obj.currentPassword,
       newPassword: obj.newPassword,
     }, this.httpOptions);
   }
+
 }
