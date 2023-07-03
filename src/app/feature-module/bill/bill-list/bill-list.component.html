@@ -123,9 +123,13 @@
                                     <tr *ngFor="let billDetail of billDetail, index as i">
                                         <td scope="row">{{i+1}}</td>
                                         <td>{{billDetail.name}}</td>
-                                        <td>{{billDetail.price | currency : 'VND'}}</td>
+                                        <td>{{formatCurrency(billDetail.price)}}</td>
                                         <td>{{billDetail.quantity}}</td>
-                                        <td>{{billDetail.total | currency : 'VND' }}</td>
+                                        <td>{{formatCurrency(billDetail.total) }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="4">Tổng tiền</td>
+                                        <td>{{formatCurrency(totalPrice)}}</td>
                                     </tr>
                                 </tbody>
                             </table>

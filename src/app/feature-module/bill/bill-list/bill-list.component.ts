@@ -1,6 +1,6 @@
+import { IBillDetailDto } from './../../../modal/IBillDetailDto';
 import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { IBillDetailDto } from 'src/app/modal/IBillDetailDto';
 import { IBillDto } from 'src/app/modal/IBillDto';
 import { BillService } from 'src/app/service/bill.service';
 
@@ -23,7 +23,7 @@ pageRange: number[];
 date: string;
 noRecord: boolean;
 name: string;
-totalPrice: string;
+totalPrice: number;
 
   constructor(private billService:BillService,
               private title:Title) { 
@@ -116,14 +116,19 @@ totalPrice: string;
   }
 
   sendId(id: number) {
+    this.totalPrice = 0;
     this.billService.findById(id).subscribe(next => {
       this.billDetail = next;
+      console.log(this.billDetail)
+      for (const  key in this.billDetail) {
+        this.totalPrice += this.billDetail[key].total; 
+      }
     });
     
   }
 
-  formatCurrency(currency: string): string {
-    return parseFloat(currency).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+  formatCurrency(currency: number): string {
+    return (currency).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
   }
   
 
