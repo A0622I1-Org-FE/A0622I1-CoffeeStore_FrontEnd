@@ -152,7 +152,7 @@ export class SalesComponent implements OnInit {
   }
 
   disabled() {
-    this.toastr.warning('bàn đã có khách', 'lưu ý');
+    this.toastr.warning('Bàn đã có khách!', 'Lưu ý');
   }
 }
 
