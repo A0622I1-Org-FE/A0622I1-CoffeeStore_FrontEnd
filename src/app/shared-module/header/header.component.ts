@@ -42,6 +42,7 @@ export class HeaderComponent implements OnInit {
 
   logout(): void {
     this.tokenStrorageService.signOut();
-    // this.router.navigateByUrl('');
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('');
   }
 }

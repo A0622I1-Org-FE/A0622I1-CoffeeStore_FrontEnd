@@ -128,7 +128,7 @@
 
                     <div class="form-group col-md-6">
                         <label for="position">Vị Trí:</label>
-                        <select class="form-control" formControlName="position">
+                        <select class="form-control" formControlName="position" id="position">
                             <option *ngFor="let position of positionList" [selected]="position.id == user.position"
                                 [value]="position.id">
                                 {{position.name}}</option>
@@ -168,7 +168,7 @@
                         </button>
                     </div>
                     <div style="margin-top: 17px !important">
-                        <a href="#" class="btn_action" style="padding: 19px 28px;">Quay Lại</a>
+                        <a routerLink="/quan-ly-nguoi-dung" class="btn_action" style="padding: 19px 28px;">Quay Lại</a>
                     </div>
                 </div>
 
