@@ -43,7 +43,7 @@ export class UserEditComponent implements OnInit {
     private renderer: Renderer2,
     @Inject(AngularFireStorage) private storage: AngularFireStorage
   ) {
-    this.titleService.setTitle("Chỉnh Sửa Thông Tin Nhân Viên");
+    this.titleService.setTitle('Chỉnh Sửa Thông Tin Nhân Viên');
   }
 
   ngOnInit(): void {

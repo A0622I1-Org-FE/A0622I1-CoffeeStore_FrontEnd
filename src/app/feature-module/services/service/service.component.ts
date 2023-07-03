@@ -247,7 +247,6 @@ export class ServiceComponent implements OnInit {
             service_id: this.orderList[i].service_id
           };
           this.billDetailService.insertBillDetail(this.billDetail).subscribe(nextB => {
-            this.orderList = [];
           });
         }
       }
@@ -261,6 +260,7 @@ export class ServiceComponent implements OnInit {
       this.tongTien = 0;
       this.getBillTable();
       this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
+      this.orderList = [];
     }
   }
 
