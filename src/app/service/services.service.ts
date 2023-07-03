@@ -47,9 +47,9 @@ export class ServicesService {
     return this.httpClient.get<IServices>(url);
   }
   getMessage(): Observable<Message[]> {
-    return this.httpClient.get<Message[]>('http://localhost:8080/api/message');
+    return this.httpClient.get<Message[]>('http://localhost:8080/api/private/message');
   }
   deleteMessage(id: number): Observable<Message> {
-    return this.httpClient.delete<Message>('http://localhost:8080/api/delete_message/' + id);
+    return this.httpClient.delete<Message>('http://localhost:8080/api/private/delete_message/' + id);
   }
 }

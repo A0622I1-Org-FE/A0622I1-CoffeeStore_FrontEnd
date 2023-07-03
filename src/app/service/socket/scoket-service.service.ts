@@ -1,12 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 // @ts-ignore
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
 import {ToastrService} from 'ngx-toastr';
-import {environment} from '../../../environments/environment';
 import {Message} from '../../modal/message';
-import {Observable} from 'rxjs';
 import {ServicesService} from '../services.service';
 
 
@@ -19,6 +16,10 @@ export class ScoketServiceService {
 
   constructor(private service: ServicesService,
               private toastrService: ToastrService) {
+  }
+
+  get mess() {
+    return this.messList;
   }
 
   connect() {
@@ -61,10 +62,6 @@ export class ScoketServiceService {
 
   sendMessage(message: string) {
     this.stompClient.send('/app/messages', {}, JSON.stringify(message));
-  }
-
-  get mess() {
-    return this.messList;
   }
 
   updateTable(idTable: number) {
