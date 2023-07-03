@@ -12,7 +12,7 @@ import { BillService } from 'src/app/service/bill.service';
 export class BillListComponent implements OnInit {
 
 billLists: IBillDto[];
-bill: IBillDetailDto;
+billDetail: IBillDetailDto;
 currentPage = 0;
 totalPages = 0;
 totalElements = 0;
@@ -23,10 +23,11 @@ pageRange: number[];
 date: string;
 noRecord: boolean;
 name: string;
+totalPrice: string;
 
   constructor(private billService:BillService,
               private title:Title) { 
-                this.title.setTitle("Quản Lý Hóa Đơn  ")
+                this.title.setTitle("Quản Lý Hóa Đơn")
               }
 
   ngOnInit(): void {
@@ -36,7 +37,6 @@ name: string;
       this.totalPages = response.totalPages;
       this.totalElements = response.totalElements;
       this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
-      this.noRecord = response.size === 0;
       this.countPageCanShow();
     },
     error => {
@@ -45,6 +45,7 @@ name: string;
     });
   
   }
+
 
   formatDate(date: string): string {
     const parts = date.split('-');
@@ -76,6 +77,7 @@ name: string;
         this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
         this.noRecord = response.size === 0;
         this.countPageCanShow();
+        debugger
       },
       error => {
         this.noRecord = error.status === 404;
@@ -115,8 +117,9 @@ name: string;
 
   sendId(id: number) {
     this.billService.findById(id).subscribe(next => {
-      this.bill = next;
-    })
+      this.billDetail = next;
+    });
+    
   }
 
   formatCurrency(currency: string): string {

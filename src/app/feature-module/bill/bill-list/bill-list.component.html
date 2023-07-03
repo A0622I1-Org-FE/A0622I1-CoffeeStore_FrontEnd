@@ -100,7 +100,7 @@
         </div>
     </div>
     <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId"
-                aria-hidden="true" *ngIf="bill">
+                aria-hidden="true" *ngIf="billLists">
                 <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -120,7 +120,7 @@
                                     
                                 </thead>
                                 <tbody>
-                                    <tr *ngFor="let billDetail of bill, index as i">
+                                    <tr *ngFor="let billDetail of billDetail, index as i">
                                         <td scope="row">{{i+1}}</td>
                                         <td>{{billDetail.name}}</td>
                                         <td>{{billDetail.price | currency : 'VND'}}</td>
