@@ -86,15 +86,6 @@ export class ServiceComponent implements OnInit {
     });
   }
 
-  // doCheck(quantity: string) {
-  //   if (parseInt(quantity) < 1) {
-  //     this.isShowErrMsg = true;
-  //   } else {
-  //     console.log('Đã vào');
-  //     this.order();
-  //   }
-  // }
-
   goToPage(page: number) {
     this.currentPage = page;
     this.getList();
@@ -167,6 +158,7 @@ export class ServiceComponent implements OnInit {
       sum: service.price
     };
     let addNewService = true;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (this.order1.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity += this.order1.quantity;
@@ -194,6 +186,7 @@ export class ServiceComponent implements OnInit {
 
   tang(orderThem: Order) {
     this.tongTien = 0;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (orderThem.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity += 1;
@@ -206,6 +199,7 @@ export class ServiceComponent implements OnInit {
 
   giam(giamOrder: Order) {
     this.tongTien = 0;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (giamOrder.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity -= 1;
@@ -240,6 +234,7 @@ export class ServiceComponent implements OnInit {
           this.getBillTable();
         });
       } else {
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.orderList.length; i++) {
           this.billDetail = {
             quantity: this.orderList[i].quantity,
@@ -261,6 +256,7 @@ export class ServiceComponent implements OnInit {
       this.tongTien = 0;
       this.getBillTable();
       this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
+      this.toastrService.success('Vui lòng đợi trong ít phút');
     }
   }
 

@@ -11,19 +11,23 @@ import {ServiceComponent} from './service/service.component';
 
 
 @NgModule({
-  declarations: [BodyComponent],
-  imports: [
-    CommonModule,
-    ServicesRoutingModule,
-    ToastrModule.forRoot(),
-    ReactiveFormsModule,
-    ToastrModule.forRoot({
-      timeOut: 10000,
-      progressBar: true,
-      progressAnimation: 'increasing',
-      preventDuplicates: true}),
-    BrowserAnimationsModule,
-    BrowserModule
-  ]
+    declarations: [BodyComponent],
+    exports: [
+        BodyComponent
+    ],
+    imports: [
+        CommonModule,
+        ServicesRoutingModule,
+        ToastrModule.forRoot(),
+        ReactiveFormsModule,
+        ToastrModule.forRoot({
+            timeOut: 10000,
+            progressBar: true,
+            progressAnimation: 'increasing',
+            preventDuplicates: true
+        }),
+        BrowserAnimationsModule,
+        BrowserModule
+    ]
 })
 export class ServicesModule { }

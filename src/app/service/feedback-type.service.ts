@@ -8,7 +8,7 @@ import {FeedbackTypeDto} from '../dto/feedback-type-dto';
 })
 export class FeedbackTypeService {
 
-  private API_URL = 'http://localhost:8080/api/type/list';
+  private API_URL = 'http://localhost:8080/api/private/type/list';
 
   constructor(private httpClient: HttpClient) {
   }

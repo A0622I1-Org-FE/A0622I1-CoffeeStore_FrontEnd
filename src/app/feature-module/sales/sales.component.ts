@@ -28,23 +28,30 @@ export class SalesComponent implements OnInit {
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    setInterval(() => {
-      this.ngOnInit();
-    }, 2000);
+    // setInterval(() => {
+    //   this.ngOnInit();
+    // }, 2000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
   ngOnInit(): void {
     setInterval(() => {
       this.getMessage();
-    }, 500);
+      this.getAll();
+    }, 1000);
     setInterval(() => {
-      if (this.messList !== null) {
-        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe();
+      if (this.messList.length > 0) {
+        // for (let i = 0; i < this.messList.length ; i++) {
+        //   this.servicesService.deleteMessage(this.messList[i].id).subscribe(data => {
+        //     console.log(data);
+        //   });
+        // }
+        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(data => {
+              console.log(data);
+            });
       }
-      this.getMessage();
-    }, 60000);
-    this.getAll();
+    }, 30000);
+
   }
 
 
@@ -130,11 +137,11 @@ export class SalesComponent implements OnInit {
     } else if (!isPresent) {
       this.toastr.error('Bàn không tồn tại!', 'Lỗi tìm bàn');
     } else {
-      this.tableService.tinhTien(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
-      this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
-      setTimeout(() => {
-        this.getAll();
-      }, 100);
+      // this.tableService.tinhTien(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
+      // this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
+      // setTimeout(() => {
+      //   this.getAll();
+      // }, 100);
     }
   }
 
@@ -145,8 +152,6 @@ export class SalesComponent implements OnInit {
         this.toastr.success(this.checkNew1[0].message);
         // this.toastr.success('Khách gọi');
       }
-    } else {
-      this.toastr.success(this.checkNew1[0].message);
     }
   }
 

@@ -1,8 +1,11 @@
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {Observable} from 'rxjs';
 import {UserResponse} from '../modal/UserResponse';
 import {IUserInforDTO} from '../dto/IUserInforDTO';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { UserDTO } from '../dto/UserDTO';
+import { UserEditDTO } from '../dto/UserEditDTO';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +15,12 @@ export class UserService {
   private API_URL = 'http://localhost:8080/api/private/listUser';
   private API_URL_DELETEUSER = 'http://localhost:8080/api/private/userDelete';
   private API_URL_SEARCHNAMORDATE = 'http://localhost:8080/api/private/getUserByNameOrBirthday';
+  private API_USER_PUBLIC = 'http://localhost:8080/api/private';
 
   httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Headers': 'Content-Type'
     }),
     'Access-Control-Allow-Origin': 'http://localhost:4200',
     'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH,OPTIONS'
@@ -39,5 +44,31 @@ export class UserService {
   }
   findUserInforByToken(): Observable<IUserInforDTO> {
     return this.httpClient.get<IUserInforDTO>(this. API_USER, this.httpOptions);
+  }
+
+  errorHandler(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    console.log(errorMessage);
+    return throwError(errorMessage);
+  }
+
+  createUser(userDTO): Observable<UserDTO> {
+    return this.httpClient.post<UserDTO>(this.API_USER_PUBLIC + '/create-user', JSON.stringify(userDTO), this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+
+  editUser(user, id): Observable<UserEditDTO> {
+    return this.httpClient.put<UserEditDTO>(this.API_USER_PUBLIC + '/edit-user/' + id, user, this.httpOptions);
+  }
+
+  findById(id): Observable<UserEditDTO> {
+    return this.httpClient.get<UserEditDTO>(this.API_USER_PUBLIC + '/find-id/' + id, this.httpOptions);
   }
 }

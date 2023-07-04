@@ -107,7 +107,7 @@ export class FeedbackCreateComponent implements OnInit {
             this.toastr.success('Lời phản hồi của bạn góp phần tạo nên thành công của chúng tôi!\n' +
               'Chúc bạn một ngày tốt lành ♥♥♥');
             console.log(this.tableId);
-            this.router.navigateByUrl('service/' + this.tableId);
+            this.router.navigateByUrl('/service/' + this.tableId);
           });
         }
       });

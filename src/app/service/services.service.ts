@@ -14,8 +14,8 @@ export class ServicesService {
   private API_URL = 'http://localhost:8080/api/private/list/service';
   private API_URL_TYPE = 'http://localhost:8080/api/private/type_id';
   private API_URL_SERVICE = 'http://localhost:8080/api/private/list/service_type';
-  private API_URL_BEST_SELLER = 'http://localhost:8080/private/api/service/body/best';
-  private API_URL_NEW_FOOD = 'http://localhost:8080/api/private/service/body/new';
+  private API_URL_BEST_SELLER = 'http://localhost:8080/api/public/body/best';
+  private API_URL_NEW_FOOD = 'http://localhost:8080/api/public/body/new';
   private API_URL_TABLE = 'http://localhost:8080/api/private/list/table';
 
   constructor(private httpClient: HttpClient) {
