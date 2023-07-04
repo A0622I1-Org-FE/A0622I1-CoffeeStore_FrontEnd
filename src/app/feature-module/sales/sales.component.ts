@@ -123,8 +123,6 @@ export class SalesComponent implements OnInit {
   chargeTheBill() {
     this.getAll();
     const tableId = document.getElementById('tableId1').innerText;
-    console.log(typeof +tableId);
-    console.log(this.tableList);
     const isPresent = this.tableList.some(el => el.id === +tableId);
     if (+tableId < 1 || isNaN(+tableId)) {
       this.toastr.error('Số bàn không hợp lệ!', 'Lỗi tìm bàn');

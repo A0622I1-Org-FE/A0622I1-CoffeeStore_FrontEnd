@@ -13,8 +13,8 @@ import {SalesComponent} from './feature-module/sales/sales.component';
 
 
 const routes: Routes = [
-  { path: 'quan-ly-phan-hoi', component: FeedbackListComponent},
-  { path: 'quan-ly-nguoi-dung', component: UserListComponent},
+  { path: 'feedbackList', component: FeedbackListComponent},
+  { path: 'userList', component: UserListComponent},
   { path: 'service/:id', component: ServiceComponent},
   { path: '', component: BodyComponent},
   { path: 'table', component: TableComponent, canActivate: [AuthGuard],
