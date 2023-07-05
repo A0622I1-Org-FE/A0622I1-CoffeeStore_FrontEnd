@@ -78,10 +78,10 @@
           <table class="table table-striped" id="bill" style=" color: white; opacity: 100%">
             <tr style=" color: white; background-color: #c49b63;">
               <th>STT</th>
-              <th>Tên món</th>
+              <th style="padding-left: 90px">Tên món</th>
               <th>Số lượng</th>
               <th style="padding-left: 30px">Giá</th>
-              <th>Tổng tiền</th>
+              <th style="padding-left: 10px">Tổng tiền</th>
             </tr>
 
             <tr *ngIf="billDetailList == null">
@@ -90,21 +90,21 @@
 
             <tbody *ngIf="billDetailList != null">
             <tr *ngFor="let billDetail of billDetailList; index as i">
-              <td>{{i + 1}}</td>
+              <td style="width: 30px; padding-top: 30px">{{i + 1}}</td>
               <td>
                 <img alt="Ảnh nền" height="70px" src="{{billDetail.imgUrl}}" width="70px"> {{billDetail.serviceName}}
               </td>
-              <td style="padding-top: 30px">{{billDetail.quantity}}</td>
+              <td style="padding-top: 30px; padding-left: 20px">{{formatter1(billDetail.quantity, billDetail.serviceName)}}</td>
               <td style="padding-top: 30px">{{formatter(billDetail.price)}}</td>
               <td style="padding-top: 30px">{{formatter(billDetail.sum)}}</td>
             </tr>
             <tr class="payment">
-              <th>Thành tiền:</th>
+              <td></td>
               <td></td>
               <td id="tableId" hidden>{{billChargingList[0].tableId}}</td>
               <td></td>
-              <td></td>
-              <td id="payment">{{formatter(billChargingList[0].sum)}}</td>
+              <th>Thành tiền:</th>
+              <th id="payment">{{formatter(billChargingList[0].sum)}}</th>
             </tr>
             </tbody>
           </table>
@@ -134,7 +134,7 @@
              data-bs-toggle="modal"
              style="color: #ffffff; margin-top: 5px"></i>
         </div>
-        <div class="modal-body" style=" color: white">
+        <div class="modal-body" style=" color: white" id="confirm-body">
           <p>Bạn có muốn tính tiền bàn này không?</p>
         </div>
         <div class="modal-footer">
