@@ -14,7 +14,7 @@ import { BodyComponent } from './body/body.component';
     imports: [
         CommonModule,
         ServicesRoutingModule,
-        ToastrModule.forRoot(),
+        ToastrModule.forRoot()
     ]
 })
 export class ServicesModule { }

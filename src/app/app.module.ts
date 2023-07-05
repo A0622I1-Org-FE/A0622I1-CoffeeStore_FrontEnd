@@ -13,7 +13,6 @@ import {UserModule} from './feature-module/user/user.module';
 import {SharedModuleModule} from './shared-module/shared-module.module';
 import {HttpClientModule} from '@angular/common/http';
 
-
 @NgModule({
   declarations: [
     AppComponent
@@ -29,7 +28,8 @@ import {HttpClientModule} from '@angular/common/http';
     TableModule,
     UserModule,
     SharedModuleModule,
-    HttpClientModule
+    HttpClientModule,
+
   ],
   providers: [],
   bootstrap: [AppComponent]

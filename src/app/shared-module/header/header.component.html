@@ -1,5 +1,5 @@
-
-<nav class="navbar navbar-expand-lg  navbar-dark ftco-navbar-light" style="background-color: black!important; opacity: 0.9!important">
+<nav class="navbar navbar-expand-lg  navbar-dark ftco-navbar-light"
+     style="background-color: black!important; opacity: 0.9!important">
   <div class="container">
     <img src="assets/img/White%20Simple%20Trendy%20Coffee%20Line%20Art%20Logo%20(1).png"
          style="max-width: 100px;  height: auto;">
@@ -8,41 +8,27 @@
       <span class="oi oi-menu"></span> Menu
     </button>
     <div class="collapse navbar-collapse">
-      <ul class="navbar-nav ml-auto">
+      <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
         <li class="nav-item"><a routerLink="/table" class="nav-link">Bàn</a></li>
         <li class="nav-item"><a routerLink="/order" class="nav-link">Quản lý hóa đơn</a></li>
         <li class="nav-item"><a routerLink="/quan-ly-phan-hoi" class="nav-link">Phản Hồi</a></li>
-        <li class="nav-item" *ngIf="isLoggedIn(); then loggedinMenu else loginMenu"></li>
         <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" routerLink="/quan-ly-nguoi-dung" id="navbarDropdown" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" routerLink="/quan-ly-nguoi-dung" id="navbarDropdown" role="button"
+             data-bs-toggle="dropdown" aria-expanded="false">
             Quản lý nhân viên
           </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Thêm nhân viên</a>
-          </div>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            <li><a class="dropdown-item text-end" routerLink="/create-user">Thêm nhân viên</a></li>
+          </ul>
         </li>
+        <li class="nav-item"><a class="nav-link" (click)="logout()">logout</a></li>
       </ul>
-      <ng-template #loggedinMenu>
-        <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" routerLink="/quan-ly-nguoi-dung" id="navbarDropdown" role="button" data-toggle="dropdown"
-             aria-haspopup="true" aria-expanded="false">
-            Quản lý nhân viên
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="#">Thêm nhân viên</a>
-          </div>
-        </li>
-      </ng-template>
-
-      <ng-template #loginMenu>
-        <li class="nav-item"><a href="login.html" class="nav-link">Đăng Nhập</a></li>
-      </ng-template>
+      <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+        <li class="nav-item"><a routerLink="/login" class="nav-link">Đăng Nhập</a></li>
+      </ul>
     </div>
   </div>
 </nav>
-
 
 

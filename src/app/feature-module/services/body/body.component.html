@@ -1,12 +1,56 @@
-<body class="background container-fluid">
+
+<body class="background container-fluid px-0">
+<section>
+  <div class="video-container">
+    <video autoplay [muted]="true" loop>
+      <source src="assets/img/video.mp4" type="video/mp4">
+    </video>
+
+    <div class="caption">
+      <header id="fh5co-header" class="js-fullheight  pt-5" role="banner"
+              data-stellar-background-ratio="0.5">
+        <!--    <div></div>-->
+        <div class=""></div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12 text-center">
+              <div class="display-t js-fullheight">
+                <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
+                  <img src="assets/img/White%20Simple%20Trendy%20Coffee%20Line%20Art%20Logo%20(1).png" height="300" width="330">
+                  <h1 class="lec_gold lec_title_counter" style="line-height: 90px">
+                    <span class="char1 lec_letter_E">E</span>
+                    <span class="char2 lec_letter_n">n</span>
+                    <span class="char3 lec_letter_j">j</span>
+                    <span class="char4 lec_letter_o">o</span>
+                    <span class="char2 lec_letter_y" id="y1">y</span>
+
+                    <span class="char2 lec_letter_y" id="y2">y</span>
+                    <span class="char3 lec_letter_o">o</span>
+                    <span class="char3 lec_letter_u">u</span>
+                    <span class="char3 lec_letter_r">r</span>
+
+                    <span class="char3 lec_letter_L">L</span>
+                    <span class="char3 lec_letter_i">i</span>
+                    <span class="char3 lec_letter_f">f</span>
+                    <span class="char3 lec_letter_e">e</span>
+                  </h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </div>
+  </div>
+</section>
 <section style="padding-bottom: 30px; margin-top: 90px">
   <div class="row">
     <div class="col-md-12 text-center">
       <div class="display-t js-fullheight">
         <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
-          <div class="font-Dancing-script" style="color: white;margin-bottom: 50px;line-height: 10px">Khám
+          <h2 class="font-Dancing-script" style="color: white;margin-bottom: 50px;">Khám
             phá top <span class="badge badge-warning">5</span> món mới
-          </div>
+          </h2>
         </div>
       </div>
     </div>
@@ -15,7 +59,7 @@
   <div class="container-fluid">
     <div class="row justify-content-center " *ngIf="newFoodList.length != 0; else isEmty">
       <div class="col-lg-2 col-md-2 div-content" *ngFor="let item of newFoodList">
-        <img [src]="item.imgUrl" width="80%" height="200px" style="margin: auto">
+        <img [src]="item.imgUrl" width="80%" height="220px" style="margin: auto">
         <h3 style="text-align: center">{{item.name}}</h3>
       </div>
     </div>
@@ -33,9 +77,9 @@
     <div class="col-md-12 text-center">
       <div class="display-t js-fullheight">
         <div class="display-tc js-fullheight animate-box" data-animate-effect="fadeIn">
-          <div class="font-Dancing-script" style="color: white;margin-bottom: 50px;line-height: 10px">Khám
+          <h2 class="font-Dancing-script" style="color: white;margin-bottom: 50px;line-height: 10px">Khám
             phá top <span class="badge badge-warning">5</span> món bán chạy nhất
-          </div>
+          </h2>
         </div>
       </div>
     </div>
@@ -44,7 +88,7 @@
   <div class="container-fluid">
     <div class="row justify-content-center align-items-center" *ngIf="bestSellerList.length != 0; else isEmty">
       <div class="col-lg-2 col-md-2 div-content" *ngFor="let item of bestSellerList">
-        <img [src]="item.imgUrl" width="80%" height="200px" style="margin: auto">
+        <img [src]="item.imgUrl" width="80%" height="220px" style="margin: auto">
         <h3 style="text-align: center">{{item.name}}</h3>
       </div>
     </div>
