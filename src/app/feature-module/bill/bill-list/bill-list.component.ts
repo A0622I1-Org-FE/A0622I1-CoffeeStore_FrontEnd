@@ -131,7 +131,7 @@ nameOrder: string;
   }
 
   formatCurrency(currency: number): string {
-    return currency.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+    return currency.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
   }
   
 
