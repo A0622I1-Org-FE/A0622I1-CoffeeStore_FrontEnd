@@ -24,6 +24,7 @@ date: string;
 noRecord: boolean;
 name: string;
 totalPrice: number;
+nameOrder: string;
 
   constructor(private billService:BillService,
               private title:Title) { 
@@ -37,10 +38,11 @@ totalPrice: number;
       this.totalPages = response.totalPages;
       this.totalElements = response.totalElements;
       this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
+      this.noRecord = response.size === 0;
       this.countPageCanShow();
     },
     error => {
-      this.noRecord =error.status ===404;
+      this.noRecord = error.status === 404;
       this.billLists =[];
     });
   
@@ -117,9 +119,10 @@ totalPrice: number;
 
   sendId(id: number) {
     this.totalPrice = 0;
+    this.nameOrder = '';
     this.billService.findById(id).subscribe(next => {
       this.billDetail = next;
-      console.log(this.billDetail)
+      
       for (const  key in this.billDetail) {
         this.totalPrice += this.billDetail[key].total; 
       }
@@ -128,7 +131,7 @@ totalPrice: number;
   }
 
   formatCurrency(currency: number): string {
-    return (currency).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+    return currency.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
   }
   
 
