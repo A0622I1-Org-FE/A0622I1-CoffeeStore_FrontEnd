@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {ServicesService} from '../../service/services.service';
 import {Message} from '../../modal/message';
 import {Title} from '@angular/platform-browser';
+import {BillDetailService} from '../../service/bill-detail.service';
 
 
 @Component({
@@ -52,8 +53,8 @@ export class SalesComponent implements OnInit {
         //   });
         // }
         this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(data => {
-              console.log(data);
-            });
+          console.log(data);
+        });
       }
     }, 30000);
 
@@ -142,11 +143,11 @@ export class SalesComponent implements OnInit {
     } else if (!isPresent) {
       this.toastr.error('Bàn không tồn tại!', 'Lỗi tìm bàn');
     } else {
-      // this.tableService.tinhTien(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
-      // this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
-      // setTimeout(() => {
-      //   this.getAll();
-      // }, 100);
+      this.tableService.tinhTien(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
+      this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
+      setTimeout(() => {
+        this.getAll();
+      }, 100);
     }
   }
 
