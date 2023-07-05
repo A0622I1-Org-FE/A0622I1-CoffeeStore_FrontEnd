@@ -266,6 +266,7 @@ export class ServiceComponent implements OnInit {
       this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
     }
   }
+
   goiPhucVu() {
     this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ. ');
     this.toastrService.success('Vui lòng đợi trong ít phút');
@@ -292,7 +293,13 @@ export class ServiceComponent implements OnInit {
   }
 
   tinhTien() {
-    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
-    this.toastrService.success('Vui lòng đợi trong ít phút');
+    this.billService.getBill(this.tableId).subscribe(next => {
+      if (next === null) {
+        this.toastrService.warning('Không thể tính tiên vì bạn chưa chọn món');
+      } else {
+        this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
+        this.toastrService.success('Vui lòng đợi trong ít phút');
+      }
+    });
   }
 }

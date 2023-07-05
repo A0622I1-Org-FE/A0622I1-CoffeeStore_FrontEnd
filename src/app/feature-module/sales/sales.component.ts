@@ -42,7 +42,6 @@ export class SalesComponent implements OnInit {
       if (this.messList !== null) {
         this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe();
       }
-      this.messList = [];
       this.getMessage();
     }, 60000);
     this.getAll();
