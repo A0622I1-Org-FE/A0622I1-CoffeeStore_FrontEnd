@@ -1,5 +1,6 @@
+import { IBillDetailDto } from './../../../modal/IBillDetailDto';
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
-import { IBillDetailDto } from 'src/app/modal/IBillDetailDto';
 import { IBillDto } from 'src/app/modal/IBillDto';
 import { BillService } from 'src/app/service/bill.service';
 
@@ -11,7 +12,7 @@ import { BillService } from 'src/app/service/bill.service';
 export class BillListComponent implements OnInit {
 
 billLists: IBillDto[];
-bill: IBillDetailDto;
+billDetail: IBillDetailDto;
 currentPage = 0;
 totalPages = 0;
 totalElements = 0;
@@ -22,8 +23,13 @@ pageRange: number[];
 date: string;
 noRecord: boolean;
 name: string;
+totalPrice: number;
+nameOrder: string;
 
-  constructor(private billService:BillService) { }
+  constructor(private billService:BillService,
+              private title:Title) { 
+                this.title.setTitle("Quản Lý Hóa Đơn")
+              }
 
   ngOnInit(): void {
     this.name ='';
@@ -36,11 +42,12 @@ name: string;
       this.countPageCanShow();
     },
     error => {
-      this.noRecord =error.status ===404;
+      this.noRecord = error.status === 404;
       this.billLists =[];
     });
   
   }
+
 
   formatDate(date: string): string {
     const parts = date.split('-');
@@ -52,10 +59,11 @@ name: string;
 
   searchUser(name: string) {
     this.name = name;
+    this.currentPage = 0;
     this.getList();
   }
 
-  getList() {
+    getList() {
     if (this.name === '') {
       this.ngOnInit();
     } else {
@@ -64,7 +72,6 @@ name: string;
   }
 
   getListByUser() {
-    
     this.billService.searchUser(this.name, this.currentPage, this.pageSize).subscribe(response => {
         this.billLists = response.content;
         this.totalPages = response.totalPages;
@@ -111,13 +118,20 @@ name: string;
   }
 
   sendId(id: number) {
+    this.totalPrice = 0;
+    this.nameOrder = '';
     this.billService.findById(id).subscribe(next => {
-      this.bill = next;
-    })
+      this.billDetail = next;
+      
+      for (const  key in this.billDetail) {
+        this.totalPrice += this.billDetail[key].total; 
+      }
+    });
+    
   }
 
-  formatCurrency(currency: string): string {
-    return parseFloat(currency).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
+  formatCurrency(currency: number): string {
+    return currency.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'});
   }
   
 
