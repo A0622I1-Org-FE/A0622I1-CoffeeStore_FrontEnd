@@ -98,9 +98,9 @@ export class FeedbackListComponent implements OnInit {
 
   formatDate(date: string): string {
     const parts = date.split('-');
-    const day = parts[2];
+    const day = parts[0];
     const month = parts[1];
-    const year = parts[0];
+    const year = parts[2];
     return `${day}-${month}-${year}`;
   }
 

@@ -104,4 +104,3 @@ function hideImagePreview() {
   var imagePreview = updateImagePreviewContainer();
   imagePreview.style.display = "none";
 }
-

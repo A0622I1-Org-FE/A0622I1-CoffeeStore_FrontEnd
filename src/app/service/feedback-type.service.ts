@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {FeedbackTypeDto} from '../dto/feedback-type-dto';
@@ -7,6 +7,7 @@ import {FeedbackTypeDto} from '../dto/feedback-type-dto';
   providedIn: 'root'
 })
 export class FeedbackTypeService {
+
   private API_URL = 'http://localhost:8080/api/private/type/list';
 
   constructor(private httpClient: HttpClient) {

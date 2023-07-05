@@ -29,8 +29,8 @@ export class TableService {
     return this.httpClient.get<IBillChargingDTO[]>(this.getBillChargingAPI + tableId);
   }
 
-  tinhTien(tableId, userId) {
-    const url = this.billChargingAPI + tableId + '/' + userId;
+  tinhTien(tableId) {
+    const url = this.billChargingAPI + tableId;
     console.log(url);
     return this.httpClient.get<IBillChargingDTO[]>(url);
   }

@@ -1,9 +1,9 @@
-import {FeedbackDto} from '../dto/feedback-dto';
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient} from '@angular/common/http';
 import {FeedbackResponse} from '../modal/FeedbackResponse';
 import {FeedbackDetail} from '../modal/FeedbackDetail';
+import {FeedbackDto} from '../dto/feedback-dto';
 
 @Injectable({
   providedIn: 'root'

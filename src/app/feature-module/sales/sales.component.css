@@ -208,7 +208,9 @@
   }
 
   .content_main {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    grid-gap: 0;
     align-items: center;
     padding-right: 0 !important;
   }

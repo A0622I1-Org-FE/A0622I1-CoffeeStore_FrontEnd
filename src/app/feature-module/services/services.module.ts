@@ -1,15 +1,19 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
+
 import {ServicesRoutingModule} from './services-routing.module';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
-import {BodyComponent} from './body/body.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import {BodyComponent} from './body/body.component';
 
 
 @NgModule({
   declarations: [BodyComponent],
+  exports: [
+    BodyComponent
+  ],
   imports: [
     CommonModule,
     ServicesRoutingModule,

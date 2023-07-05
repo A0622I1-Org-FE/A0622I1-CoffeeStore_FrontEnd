@@ -1,14 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {IServices} from '../../../modal/IServices';
 import {ServicesService} from '../../../service/services.service';
-import {IBillDetail} from '../../../modal/IBillDetail';
 import {ServiceTypeService} from '../../../service/service-type.service';
 import {IServiceType} from '../../../modal/IServiceType';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormGroup} from '@angular/forms';
 import {Order} from '../../../modal/order';
 import {InsertBillDTO} from '../../../dto/insert-bill-dto';
 import {BillService} from '../../../service/bill.service';
-import {formatDate} from '@angular/common';
 import {BillDTO} from '../../../dto/bill-dto';
 import {InsertBillDetailDTO} from '../../../dto/insert-bill-detail-dto';
 import {BillDetailService} from '../../../service/bill-detail.service';
@@ -58,6 +56,7 @@ export class ServiceComponent implements OnInit {
               public scoketServiceService: ScoketServiceService,
               private titleService: Title,
               private activateRouter: ActivatedRoute,
+              private elementRef: ElementRef,
               private toastrService: ToastrService) {
     this.scoketServiceService.connect();
     this.titleService.setTitle('Màn hình menu');
@@ -88,15 +87,6 @@ export class ServiceComponent implements OnInit {
       this.serviceTypeList = response;
     });
   }
-
-  // doCheck(quantity: string) {
-  //   if (parseInt(quantity) < 1) {
-  //     this.isShowErrMsg = true;
-  //   } else {
-  //     console.log('Đã vào');
-  //     this.order();
-  //   }
-  // }
 
   goToPage(page: number) {
     this.currentPage = page;
@@ -170,6 +160,7 @@ export class ServiceComponent implements OnInit {
       sum: service.price
     };
     let addNewService = true;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (this.order1.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity += this.order1.quantity;
@@ -197,6 +188,7 @@ export class ServiceComponent implements OnInit {
 
   tang(orderThem: Order) {
     this.tongTien = 0;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (orderThem.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity += 1;
@@ -209,6 +201,7 @@ export class ServiceComponent implements OnInit {
 
   giam(giamOrder: Order) {
     this.tongTien = 0;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (giamOrder.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity -= 1;
@@ -237,12 +230,13 @@ export class ServiceComponent implements OnInit {
           payment_status: 0,
           payment_time: '',
           table_id: this.tableId,
-          user_id: 123
+          user_id: 1
         };
         this.billService.insertBill(this.insertBill).subscribe(item => {
           this.getBillTable();
         });
       } else {
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.orderList.length; i++) {
           this.billDetail = {
             quantity: this.orderList[i].quantity,
@@ -261,15 +255,20 @@ export class ServiceComponent implements OnInit {
     if (this.orderList.length === 0) {
       this.toastrService.warning('Vui lòng chọn món');
     } else {
+      this.scoketServiceService.updateTable(this.tableId);
       this.tongTien = 0;
       this.getBillTable();
       this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
+      this.toastrService.success('Vui lòng đợi trong ít phút');
+      this.servicesService.setChange('true');
     }
   }
 
   goiPhucVu() {
     this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ. ');
     this.toastrService.success('Vui lòng đợi trong ít phút');
+    this.servicesService.setChange('true');
+    console.log(this.servicesService.getChange());
     // this.servicesService.getMessage().subscribe(data => {
     //   this.messList = data;
     // });
@@ -299,7 +298,13 @@ export class ServiceComponent implements OnInit {
       } else {
         this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
         this.toastrService.success('Vui lòng đợi trong ít phút');
+        this.servicesService.setChange('true');
       }
     });
+  }
+
+  handleClick() {
+    const element = this.elementRef.nativeElement as HTMLElement;
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 }
