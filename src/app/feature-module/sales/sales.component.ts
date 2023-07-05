@@ -5,6 +5,8 @@ import {IBillDetailListDTO} from '../../modal/dto/IBillDetailListDTO';
 import {IBillChargingDTO} from '../../modal/dto/IBillChargingDTO';
 import {ToastrService} from 'ngx-toastr';
 import {Router} from '@angular/router';
+import {ServicesService} from '../../service/services.service';
+import {Message} from '../../modal/message';
 import {Title} from '@angular/platform-browser';
 
 
@@ -17,20 +19,46 @@ export class SalesComponent implements OnInit {
   tableList: ITable[];
   billDetailList: IBillDetailListDTO[];
   billChargingList: IBillChargingDTO[];
+  messList: Message[] = [];
+  checkNew1: Message[];
+  color = 'white';
+  change: string;
 
   constructor(private tableService: TableService,
+              private servicesService: ServicesService,
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    setInterval(() => {
-      this.ngOnInit();
-    }, 2000);            
+    // setInterval(() => {
+    //   this.ngOnInit();
+    // }, 2000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
   ngOnInit(): void {
-    this.getAll();
+    // this.change = this.servicesService.getChange();
+    setInterval(() => {
+      this.getAll();
+      this.getMessage();
+      // if (this.servicesService.getChange() === 'true') {
+      //   this.ngOnInit();
+      // }
+    }, 1000);
+    setInterval(() => {
+      if (this.messList.length > 0) {
+        // for (let i = 0; i < this.messList.length ; i++) {
+        //   this.servicesService.deleteMessage(this.messList[i].id).subscribe(data => {
+        //     console.log(data);
+        //   });
+        // }
+        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(data => {
+              console.log(data);
+            });
+      }
+    }, 30000);
+
   }
+
 
   /**
    * <h3>Description: Hiển thị danh sách bàn chưa bị hư</h3>
@@ -41,14 +69,23 @@ export class SalesComponent implements OnInit {
     this.tableService.getAll().subscribe(tableList => this.tableList = tableList);
   }
 
+
+  getMessage() {
+    this.servicesService.getMessage().subscribe(data => {
+      this.checkNew1 = [];
+      if (data !== null) {
+        this.checkNew(data);
+        this.messList = data;
+      } else {
+        this.messList = data;
+      }
+    });
+  }
+
   /**
    * <h3>Description: Hiển thị thông báo bàn không có khách.</h3>
    * @author CuongHM
    */
-  disabled() {
-    this.toastr.warning('Bàn không có khách!', 'Lưu ý');
-    this.getAll();
-  }
 
   /**
    * <h3>Description: Format giá trị số sang định dạng tiền.</h3>
@@ -56,11 +93,18 @@ export class SalesComponent implements OnInit {
    * @return Giá trị số dưới dạng tiền kèm đơn vị đằng sau.
    * @author CuongHM
    */
-  billDetail(tableId: number, tableName: string) {
-    this.tableService.getBillDetailByTableId(tableId).subscribe(billDetailList => this.billDetailList = billDetailList);
-    this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
-    document.getElementById('modelTitleId').innerText = 'Hóa đơn bàn ' + tableName;
-    this.getAll();
+  billDetail(tableId, tableName: string) {
+    const isPresent = this.tableList.some(el => el.id === +tableId);
+    if (+tableId < 1 || isNaN(+tableId)) {
+      this.toastr.error('Số bàn không hợp lệ!', 'Lỗi tìm bàn');
+    } else if (!isPresent) {
+      this.toastr.error('Bàn không tồn tại!', 'Lỗi tìm bàn');
+    } else {
+      this.tableService.getBillDetailByTableId(tableId).subscribe(billDetailList => this.billDetailList = billDetailList);
+      this.tableService.getBillChargingByTableId(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
+      document.getElementById('modelTitleId').innerText = 'Hóa đơn bàn ' + tableName;
+      this.getAll();
+    }
   }
 
   /**
@@ -93,16 +137,31 @@ export class SalesComponent implements OnInit {
     console.log(typeof +tableId);
     console.log(this.tableList);
     const isPresent = this.tableList.some(el => el.id === +tableId);
-    if (+tableId < 1 || !isPresent) {
-      this.toastr.error('Bàn không tồn tại!', 'Lỗi thanh toán');
-    } else if (isNaN(+tableId)) {
-      this.toastr.error('Sai định dạng số bàn', 'Lỗi thanh toán');
+    if (+tableId < 1 || isNaN(+tableId)) {
+      this.toastr.error('Số bàn không hợp lệ!', 'Lỗi tìm bàn');
+    } else if (!isPresent) {
+      this.toastr.error('Bàn không tồn tại!', 'Lỗi tìm bàn');
     } else {
-      this.tableService.tinhTien(tableId, 1).subscribe(billChargingList => this.billChargingList = billChargingList);
-      this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
-      setTimeout(() => {
-        this.getAll();
-      }, 100);
+      // this.tableService.tinhTien(tableId).subscribe(billChargingList => this.billChargingList = billChargingList);
+      // this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
+      // setTimeout(() => {
+      //   this.getAll();
+      // }, 100);
     }
   }
+
+  private checkNew(data: Message[]) {
+    this.checkNew1 = data;
+    if (this.messList !== null) {
+      if (this.checkNew1.length > this.messList.length) {
+        this.toastr.success(this.checkNew1[0].message);
+        // this.toastr.success('Khách gọi');
+      }
+    }
+  }
+
+  disabled() {
+    this.toastr.warning('Bàn không có khách!', 'Lưu ý');
+  }
 }
+

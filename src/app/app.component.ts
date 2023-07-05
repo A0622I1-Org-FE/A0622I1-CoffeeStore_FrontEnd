@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {ScoketServiceService} from './service/socket/scoket-service.service';
 
 @Component({
   selector: 'app-root',

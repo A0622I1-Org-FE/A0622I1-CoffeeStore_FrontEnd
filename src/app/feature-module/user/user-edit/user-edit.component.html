@@ -1,0 +1,180 @@
+<div class="container_add">
+    <div class="d-flex justify-content-center">
+        <div class="content_add col-xl-6">
+            <h2>CHỈNH SỬA THÔNG TIN</h2>
+
+            <form [formGroup]="userForm" (ngSubmit)="edit()" *ngIf="user">
+                <div class="row align-items-end">
+                    <div class="form-group col-md-4">
+                        <div class="avt_img d-flex flex-column">
+                            <div class="avt_overlay">
+                                <label for="fileInput" class="upload-label">
+                                    <img src="{{urlImg}}" id="previewImage" alt="Preview Image">
+                                    <span>Chọn Ảnh</span>
+                                </label>
+                            </div>
+                            <input (change)="showPreview($event)" formControlName="imgUrl" type="file" id="fileInput"
+                                accept=".png, .jpg, .jpeg, .gif" class="file-input">
+                            <!-- <p class="text-danger">Bắt buộc nhập. </p> -->
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md -8">
+                        <div class="form-group">
+                            <label for="userName">Tên Tài Khoản:</label>
+                            <input formControlName="username" type="text" class="form-control" id="userName" required
+                                readonly>
+                            <span class="d-flex">
+                                <!-- Thêm mã xử lý lỗi ở đây -->
+                            </span>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="name">Họ Và Tên:</label>
+                            <input formControlName="name" type="text" class="form-control" id="name" required
+                                placeholder="Nhập họ và tên">
+                            <span class="d-flex">
+                                <div class="text-danger" *ngFor="let validation of validation_messages.name">
+                                    <div class="error-message"
+                                        *ngIf="userForm.get('name').hasError(validation.type) && (userForm.get('name').dirty || userForm.get('name').touched)">
+                                        {{validation.message}}</div>
+                                </div>
+                            </span>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" style="margin-right: 20px;">Giới Tính: </label>
+                            <div class="form-check form-check-inline">
+                                <input formControlName="gender" class="form-check-input " type="radio" name="gender"
+                                    style="height: 20px !important; width: 20px;border-radius: 50% !important;"
+                                    id="male" value="1">
+                                <label class="form-check-label" for="male">Nam</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input formControlName="gender" class="form-check-input" type="radio" name="gender"
+                                    style="height: 20px !important; width: 20px;border-radius: 50% !important;"
+                                    id="female" value="2">
+                                <label class="form-check-label" for="female">Nữ</label>
+                            </div>
+                            <div class="form-check form-check-inline">
+                                <input formControlName="gender" class="form-check-input" type="radio" name="gender"
+                                    style="height: 20px !important; width: 20px;border-radius: 50% !important;"
+                                    id="other" value="3">
+                                <label class="form-check-label" for="other">Khác</label>
+                            </div>
+                            <span class="d-flex">
+                                <div class="text-danger" *ngFor="let validation of validation_messages.gender">
+                                    <div class="error-message"
+                                        *ngIf="userForm.get('gender').hasError(validation.type) && (userForm.get('gender').dirty || userForm.get('gender').touched)">
+                                        {{validation.message}}
+                                    </div>
+                                </div>
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="form-group col-md-12">
+                        <label for="email">Email:</label>
+
+                        <input type="email" class="form-control" id="email" required formControlName="email"
+                            furlplaceholder="Nhập email">
+                        <span class="d-flex">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.email">
+                                <div class="error-message"
+                                    *ngIf="userForm.get('email').hasError(validation.type) && (userForm.get('email').dirty || userForm.get('email').touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </span>
+                    </div>
+                    <div class="form-group col-md-12">
+                        <label for="address">Địa Chỉ:</label>
+                        <input formControlName="address" type="text" class="form-control" id="address" required
+                            placeholder="Nhập địa chỉ">
+                        <span class="d-flex">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.address">
+                                <div class="error-message"
+                                    *ngIf="userForm.get('address').hasError(validation.type) && (userForm.get('address').dirty || userForm.get('address').touched)">
+                                    {{validation.message}}
+                                </div>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="birthday">Ngày Sinh:</label>
+                        <input formControlName="birthday" style="height: 50px;" type="date" class="form-control"
+                            id="birthday" required>
+                        <span class="d-flex">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.birthday">
+                                <div class="error-message"
+                                    *ngIf="userForm.get('birthday').hasError(validation.type) && (userForm.get('birthday').dirty || userForm.get('birthday').touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="phoneNumber">Số Điện Thoại:</label>
+                        <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" required
+                            placeholder="Nhập số điện thoại">
+                        <span class="d-flex">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.phoneNumber">
+                                <div class="error-message"
+                                    *ngIf="userForm.get('phoneNumber').hasError(validation.type) && (userForm.get('phoneNumber').dirty || userForm.get('phoneNumber').touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="position">Vị Trí:</label>
+                        <select class="form-control" formControlName="position" id="position">
+                            <option *ngFor="let position of positionList" [selected]="position.id == user.position"
+                                [value]="position.id">
+                                {{position.name}}</option>
+                        </select>
+                        <span class="d-flex">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.position">
+                                <div class="error-message"
+                                    *ngIf="userForm.get('position').hasError(validation.type) && (userForm.get('position').dirty || userForm.get('position').touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="salary">Lương:</label>
+                        <input formControlName="salary" type="text" class="form-control" id="salary" required
+                            placeholder="Nhập lương">
+                        <span class="d-flex">
+                            <div class="text-danger" *ngFor="let validation of validation_messages.salary">
+                                <div class="error-message"
+                                    *ngIf="userForm.get('salary').hasError(validation.type) && (userForm.get('salary').dirty || userForm.get('salary').touched)">
+                                    {{validation.message}}</div>
+                            </div>
+                        </span>
+                    </div>
+
+                </div>
+
+                <div class="d-flex justify-content-end">
+                    <div class="mr-2">
+                        <button class="btn_action" style="margin-right: 15px !important;" type="submit"
+                            [disabled]="isLoading">
+                            <span *ngIf="!isLoading">Xác Nhận</span>
+                            <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                                aria-hidden="true"></span>
+                            <span *ngIf="isLoading" class="ms-2">Đang chỉnh sửa...</span>
+                        </button>
+                    </div>
+                    <div style="margin-top: 17px !important">
+                        <a routerLink="/quan-ly-nguoi-dung" class="btn_action" style="padding: 19px 28px;">Quay Lại</a>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="../../../../assets/js/index.js"></script>

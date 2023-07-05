@@ -1,15 +1,15 @@
+
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {TokenStorageService} from './token-storage.service';
-import {AuthInterceptor} from './auth.interceptor';
+import { IAccount } from '../modal/IAccount';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
-
-  private API_ACCOUNT = 'http://localhost:8080/api/';
+  private API_ACCOUNT = 'http://localhost:8080/api/private/change-password-request';
+  private baseURL = 'http://localhost:8080/api/public/account';
   httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
@@ -21,11 +21,14 @@ export class AccountService {
   constructor(private http: HttpClient) {
   }
   changePasswordRequest(obj): Observable<any> {
-    return this.http.post(this.API_ACCOUNT + 'change-password-request', {
+    return this.http.post(this.API_ACCOUNT, {
       userName: '',
       currentPassword: obj.currentPassword,
       newPassword: obj.newPassword,
     }, this.httpOptions);
   }
 
+  findAll(): Observable<IAccount[]> {
+    return this.http.get<IAccount[]>(this.baseURL);
+  }
 }

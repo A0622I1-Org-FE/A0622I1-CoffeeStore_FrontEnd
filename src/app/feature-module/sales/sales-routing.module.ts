@@ -5,7 +5,7 @@ import {SalesComponent} from './sales.component';
 
 const routes: Routes = [
   {
-    path: 'sales',
+    path: '',
     component: SalesComponent,
   }
 ];
