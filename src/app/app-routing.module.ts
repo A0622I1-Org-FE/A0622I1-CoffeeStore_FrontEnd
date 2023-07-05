@@ -12,6 +12,7 @@ import {LoginComponent} from './feature-module/security/login/login.component';
 import {SalesComponent} from './feature-module/sales/sales.component';
 
 
+
 const routes: Routes = [
   { path: 'quan-ly-phan-hoi', component: FeedbackListComponent},
   { path: 'quan-ly-nguoi-dung', component: UserListComponent},

@@ -16,7 +16,7 @@ export class ShowMessage {
 
 
   showMessageCreateError() {
-    this.toastr.error('Thêm mới thất bại', 'Thêm mới');
+    this.toastr.error('Cần nhập đầy đủ các trường!!!', 'Thêm mới');
   }
 
 
