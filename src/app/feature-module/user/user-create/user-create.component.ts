@@ -48,7 +48,7 @@ export class UserCreateComponent implements OnInit {
     });
     this.userForm = new FormGroup(
       {
-        userName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]),
+        userName: new FormControl('', [Validators.required,Validators.maxLength(20), Validators.pattern('^[a-zA-Z0-9]+$')]),
         imgUrl: new FormControl(),
         name: new FormControl('', [Validators.required, Validators.maxLength(40), Validators.minLength(6),
         Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]),
@@ -67,7 +67,8 @@ export class UserCreateComponent implements OnInit {
   validation_messages = {
     userName: [
       { type: 'required', message: 'Vui lòng nhập tên tài khoản.' },
-      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' }
+      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' },
+      { type: 'maxlength', message: 'Tên tài khoản phải bé hơn 20 ký tự.' }
     ],
     name: [
       { type: 'required', message: 'Vui lòng nhập tên.' },
@@ -88,7 +89,7 @@ export class UserCreateComponent implements OnInit {
     ],
     address: [
       { type: 'required', message: 'Vui lòng nhập địa chỉ.' },
-      { type: 'maxlength', message: 'Vui lòng nhập tên > 100.' },
+      { type: 'maxlength', message: 'Vui lòng nhập địa chỉ bé hơn 100 ký tự.' },
       { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' }
 
     ],
@@ -104,7 +105,7 @@ export class UserCreateComponent implements OnInit {
     ],
     salary: [
       { type: 'required', message: 'Vui lòng nhập lương.' },
-      { type: 'pattern', message: 'Không được nhập ký tự.' },
+      { type: 'pattern', message: 'Không được nhập ký tự.' }
     ],
   };
 
