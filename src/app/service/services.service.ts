@@ -11,6 +11,7 @@ import {ITable} from '../modal/ITable';
 })
 export class ServicesService {
   private idTable: number;
+  private change = 'false';
   private API_URL = 'http://localhost:8080/api/private/list/service';
   private API_URL_TYPE = 'http://localhost:8080/api/private/type_id';
   private API_URL_SERVICE = 'http://localhost:8080/api/private/list/service_type';
@@ -62,5 +63,11 @@ export class ServicesService {
 
   getIdTable() {
     return this.idTable;
+  }
+  setChange(status: string) {
+    this.change = status;
+  }
+  getChange() {
+    return this.change;
   }
 }

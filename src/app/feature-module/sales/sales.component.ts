@@ -22,6 +22,7 @@ export class SalesComponent implements OnInit {
   messList: Message[] = [];
   checkNew1: Message[];
   color = 'white';
+  change: string;
 
   constructor(private tableService: TableService,
               private servicesService: ServicesService,
@@ -35,9 +36,13 @@ export class SalesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.change = this.servicesService.getChange();
     setInterval(() => {
-      this.getMessage();
       this.getAll();
+      this.getMessage();
+      // if (this.servicesService.getChange() === 'true') {
+      //   this.ngOnInit();
+      // }
     }, 1000);
     setInterval(() => {
       if (this.messList.length > 0) {

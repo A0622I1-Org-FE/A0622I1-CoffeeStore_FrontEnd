@@ -10,6 +10,7 @@ import {formatDate} from '@angular/common';
 import {ServicesService} from '../../../service/services.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {FeedbackTypeDto} from '../../../dto/feedback-type-dto';
+import {FeedbackImageDto} from '../../../dto/feedback-image-dto';
 
 @Component({
   selector: 'app-feedback-create',
@@ -120,12 +121,12 @@ export class FeedbackCreateComponent implements OnInit {
   }
 
   callApiAndSaveUrl(url: string) {
-    // const feedbackImg: FeedbackImageDto = {
-    //   feedbackId: null,
-    //   imgUrl: url
-    // };
-    // this.feedbackImageService.save(feedbackImg).subscribe(() => {
-    // });
+    const feedbackImg: FeedbackImageDto = {
+      feedbackId: null,
+      imgUrl: url
+    };
+    this.feedbackImageService.save(feedbackImg).subscribe(() => {
+    });
   }
 
   resetError() {
