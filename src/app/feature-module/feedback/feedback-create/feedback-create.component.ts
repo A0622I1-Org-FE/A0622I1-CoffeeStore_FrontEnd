@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {FeedbackTypeService} from 'src/app/service/feedback-type.service';
 import {FeedbackService} from '../../../service/feedback.service';
@@ -26,6 +26,7 @@ export class FeedbackCreateComponent implements OnInit {
               private router: Router,
               private serviceService: ServicesService,
               private toastr: ToastrService,
+              private elementRef: ElementRef,
               @Inject(AngularFireStorage) private storage: AngularFireStorage) {
   }
 
@@ -131,4 +132,8 @@ export class FeedbackCreateComponent implements OnInit {
     this.error = '';
   }
 
+  handleClick() {
+    const element = this.elementRef.nativeElement as HTMLElement;
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
 }

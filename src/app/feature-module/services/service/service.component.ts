@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {IServices} from '../../../modal/IServices';
 import {ServicesService} from '../../../service/services.service';
 import {ServiceTypeService} from '../../../service/service-type.service';
@@ -56,6 +56,7 @@ export class ServiceComponent implements OnInit {
               public scoketServiceService: ScoketServiceService,
               private titleService: Title,
               private activateRouter: ActivatedRoute,
+              private elementRef: ElementRef,
               private toastrService: ToastrService) {
     this.scoketServiceService.connect();
     this.titleService.setTitle('Màn hình menu');
@@ -253,6 +254,7 @@ export class ServiceComponent implements OnInit {
     if (this.orderList.length === 0) {
       this.toastrService.warning('Vui lòng chọn món');
     } else {
+      this.scoketServiceService.updateTable(this.tableId);
       this.tongTien = 0;
       this.getBillTable();
       this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
@@ -294,5 +296,10 @@ export class ServiceComponent implements OnInit {
         this.toastrService.success('Vui lòng đợi trong ít phút');
       }
     });
+  }
+
+  handleClick() {
+    const element = this.elementRef.nativeElement as HTMLElement;
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 }

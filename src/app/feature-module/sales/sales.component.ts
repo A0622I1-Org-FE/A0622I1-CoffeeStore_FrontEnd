@@ -21,7 +21,7 @@ export class SalesComponent implements OnInit {
   billChargingList: IBillChargingDTO[];
   messList: Message[] = [];
   checkNew1: Message[];
-  color = 'green';
+  color = 'white';
 
   constructor(private tableService: TableService,
               private servicesService: ServicesService,
