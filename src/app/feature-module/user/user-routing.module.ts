@@ -9,7 +9,7 @@ import {NgModule} from '@angular/core';
 const routes: Routes = [
   { path: 'infor-account', component: InforAccountComponent, canActivate: [AuthGuard],
     data: {
-      roles: ['admin']
+      roles: ['admin', 'user']
     }},
   { path: 'create-user', component: UserCreateComponent ,
     data: {
