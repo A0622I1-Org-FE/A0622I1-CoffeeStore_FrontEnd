@@ -1,4 +1,4 @@
-import {Component, Inject, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, Renderer2} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {FeedbackTypeService} from 'src/app/service/feedback-type.service';
 import {FeedbackService} from '../../../service/feedback.service';
@@ -10,6 +10,7 @@ import {formatDate} from '@angular/common';
 import {ServicesService} from '../../../service/services.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {FeedbackTypeDto} from '../../../dto/feedback-type-dto';
+import {FeedbackImageDto} from '../../../dto/feedback-image-dto';
 
 @Component({
   selector: 'app-feedback-create',
@@ -26,6 +27,7 @@ export class FeedbackCreateComponent implements OnInit {
               private router: Router,
               private serviceService: ServicesService,
               private toastr: ToastrService,
+              private elementRef: ElementRef,
               @Inject(AngularFireStorage) private storage: AngularFireStorage) {
   }
 
@@ -119,16 +121,20 @@ export class FeedbackCreateComponent implements OnInit {
   }
 
   callApiAndSaveUrl(url: string) {
-    // const feedbackImg: FeedbackImageDto = {
-    //   feedbackId: null,
-    //   imgUrl: url
-    // };
-    // this.feedbackImageService.save(feedbackImg).subscribe(() => {
-    // });
+    const feedbackImg: FeedbackImageDto = {
+      feedbackId: null,
+      imgUrl: url
+    };
+    this.feedbackImageService.save(feedbackImg).subscribe(() => {
+    });
   }
 
   resetError() {
     this.error = '';
   }
 
+  handleClick() {
+    const element = this.elementRef.nativeElement as HTMLElement;
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
+  }
 }
