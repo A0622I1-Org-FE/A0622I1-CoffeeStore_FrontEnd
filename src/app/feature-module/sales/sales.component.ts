@@ -21,7 +21,7 @@ export class SalesComponent implements OnInit {
   billChargingList: IBillChargingDTO[];
   messList: Message[] = [];
   checkNew1: Message[];
-  color = 'green';
+  color = 'white';
 
   constructor(private tableService: TableService,
               private servicesService: ServicesService,
@@ -37,15 +37,21 @@ export class SalesComponent implements OnInit {
   ngOnInit(): void {
     setInterval(() => {
       this.getMessage();
-    }, 500);
+      this.getAll();
+    }, 1000);
     setInterval(() => {
-      if (this.messList !== null) {
-        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe();
+      if (this.messList.length > 0) {
+        // for (let i = 0; i < this.messList.length ; i++) {
+        //   this.servicesService.deleteMessage(this.messList[i].id).subscribe(data => {
+        //     console.log(data);
+        //   });
+        // }
+        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(data => {
+              console.log(data);
+            });
       }
-      this.messList = [];
-      this.getMessage();
-    }, 60000);
-    this.getAll();
+    }, 30000);
+
   }
 
 
@@ -146,8 +152,6 @@ export class SalesComponent implements OnInit {
         this.toastr.success(this.checkNew1[0].message);
         // this.toastr.success('Khách gọi');
       }
-    } else {
-      this.toastr.success(this.checkNew1[0].message);
     }
   }
 

@@ -29,6 +29,7 @@ export class TableComponent implements OnInit {
     console.log(this.tableList);
   }
   updateTable(id: number) {
-    this.scoketServiceService.updateTable(id);
+    // this.scoketServiceService.updateTable(id);
+    this.tableService.setIdTable(id);
   }
 }

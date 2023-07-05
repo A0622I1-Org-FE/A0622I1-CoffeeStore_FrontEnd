@@ -15,8 +15,10 @@ import { ServiceComponent } from './feature-module/services/service/service.comp
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ToastrModule} from 'ngx-toastr';
 import {TableComponent} from './feature-module/table/table.component';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from '../environments/environment.prod';
+import { SalesModule } from './feature-module/sales/sales.module';
 import {AuthInterceptor} from './service/auth.interceptor';
-import {SalesModule} from './feature-module/sales/sales.module';
 
 
 @NgModule({
@@ -28,7 +30,6 @@ import {SalesModule} from './feature-module/sales/sales.module';
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    ToastrModule,
     AppRoutingModule,
     ReactiveFormsModule,
     BillModule,
@@ -42,7 +43,8 @@ import {SalesModule} from './feature-module/sales/sales.module';
     BrowserAnimationsModule,
     SharedModuleModule,
     HttpClientModule,
-    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
     ToastrModule.forRoot()
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true}],
