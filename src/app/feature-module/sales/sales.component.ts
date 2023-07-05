@@ -29,8 +29,8 @@ export class SalesComponent implements OnInit {
               private titleService: Title,
               private router: Router) {
     setInterval(() => {
-      this.ngOnInit();
-    }, 2000);
+      this.getAll();
+    }, 5000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
@@ -135,7 +135,7 @@ export class SalesComponent implements OnInit {
       this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
       setTimeout(() => {
         this.getAll();
-      }, 100);
+      }, 1000);
     }
   }
 

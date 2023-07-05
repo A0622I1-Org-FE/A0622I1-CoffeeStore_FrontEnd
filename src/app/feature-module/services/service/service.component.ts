@@ -234,7 +234,7 @@ export class ServiceComponent implements OnInit {
           payment_status: 0,
           payment_time: '',
           table_id: this.tableId,
-          user_id: 123
+          user_id: 99
         };
         this.billService.insertBill(this.insertBill).subscribe(item => {
           this.getBillTable();
