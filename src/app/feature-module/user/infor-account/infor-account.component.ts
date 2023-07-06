@@ -55,7 +55,6 @@ export class InforAccountComponent implements OnInit {
 
   loadRole() {
     this.role = this.tokenStorageService.getRole()[0];
-    console.log(this.role);
   }
 
   formatSalary(salary: number): string {

@@ -163,16 +163,13 @@ export class ServiceComponent implements OnInit {
     for (let i = 0; i < this.orderList.length; i++) {
       if (this.order1.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity += this.order1.quantity;
-        console.log(this.orderList[i].quantity);
         this.orderList[i].sum = this.orderList[i].quantity * this.orderList[i].price;
-        console.log(this.orderList[i].sum);
         addNewService = false;
       }
     }
     if (addNewService) {
       this.orderList.push(this.order1);
     }
-    console.log(this.orderList);
     this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
   }
 
@@ -195,7 +192,6 @@ export class ServiceComponent implements OnInit {
       }
     }
     this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
-    console.log(this.orderList);
   }
 
   giam(giamOrder: Order) {
@@ -229,7 +225,7 @@ export class ServiceComponent implements OnInit {
           payment_status: 0,
           payment_time: '',
           table_id: this.tableId,
-          user_id: 123
+          user_id: 1
         };
         this.billService.insertBill(this.insertBill).subscribe(item => {
           this.getBillTable();

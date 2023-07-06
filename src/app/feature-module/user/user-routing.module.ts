@@ -15,7 +15,7 @@ const routes: Routes = [
     data: {
       roles: ['admin', 'user']
     }},
-  { path: 'quan-ly-nguoi-dung/edit-user/:id', component: UserEditComponent,
+  { path: 'userList/edit-user/:id', component: UserEditComponent,
     data: {
       roles: ['admin']
     }},

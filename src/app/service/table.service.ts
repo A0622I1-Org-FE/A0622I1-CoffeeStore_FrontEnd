@@ -31,7 +31,6 @@ export class TableService {
 
   tinhTien(tableId) {
     const url = this.billChargingAPI + tableId;
-    console.log(url);
     return this.httpClient.get<IBillChargingDTO[]>(url);
   }
 }

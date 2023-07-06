@@ -33,9 +33,6 @@ export class HeaderComponent implements OnInit {
       this.name = this.tokenStrorageService.getName();
       this.role = this.tokenStrorageService.getRole()[0];
       this.isLoggedIn = true;
-      console.log(this.name);
-      console.log( this.role);
-      console.log( this.isLoggedIn);
       // isLoggedIn = this.name != null;
     }
   }

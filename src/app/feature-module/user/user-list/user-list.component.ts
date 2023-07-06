@@ -24,6 +24,7 @@ export class UserListComponent implements OnInit {
   date: string;
   name: string;
   noRecord: boolean;
+  firstTimeSearch = false;
 
   constructor(private service: UserService, private message: ToastrService) {
   }
@@ -47,20 +48,28 @@ export class UserListComponent implements OnInit {
 
   getList() {
     if (this.date === '' && this.name === '') {
+      this.firstTimeSearch = true;
       this.ngOnInit();
     } else {
+      if (this.firstTimeSearch) {
+        this.currentPage = 0;
+        this.firstTimeSearch = false;
+      }
       this.getListByDateOrName();
     }
   }
 
   sendDateName(date: string, name: string) {
+    if (this.date !== date || this.name !== name) {
+      this.currentPage = 0;
+      this.firstTimeSearch = false;
+    }
     this.date = date;
     this.name = name;
     this.getListByDateOrName();
   }
 
   getListByDateOrName() {
-    this.currentPage = 0;
     this.service.searchDateOrName(this.date, this.currentPage, this.pageSize, this.name).subscribe(response => {
         this.users = response.content;
         this.totalPages = response.totalPages;
