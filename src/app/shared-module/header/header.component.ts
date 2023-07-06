@@ -10,11 +10,14 @@ import {Component, OnInit} from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   private loggedIn = false;
+  avatarUrl = '../../../assets/img/tải xuống.png';
+  showDropdown = false;
 
   constructor() {
   }
 
   ngOnInit(): void {
+    this.avatarUrl;
   }
 
   login(username: string, password: string): boolean {
@@ -33,5 +36,8 @@ export class HeaderComponent implements OnInit {
 
   isLoggedIn(): boolean {
     return this.loggedIn;
+  }
+  toggleDropdown() {
+    this.showDropdown = !this.showDropdown;
   }
 }
