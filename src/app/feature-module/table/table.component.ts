@@ -26,9 +26,9 @@ export class TableComponent implements OnInit {
 
   getAll() {
     this.tableService.findAllTable().subscribe(tableList => this.tableList = tableList);
-    console.log(this.tableList);
   }
   updateTable(id: number) {
-    this.scoketServiceService.updateTable(id);
+    // this.scoketServiceService.updateTable(id);
+    this.tableService.setIdTable(id);
   }
 }

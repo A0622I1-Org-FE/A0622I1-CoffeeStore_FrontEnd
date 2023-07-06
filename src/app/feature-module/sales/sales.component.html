@@ -24,131 +24,133 @@
 <div class="row background">
   <div class="col-12">
     <div class="row container-fluid contain" style="margin-top: 30px;">
-      <div class="col-lg-12 container_table" style="background-color: #51391f; border-radius: 30px; opacity: 0.92">
-        <p class="title" style="color: #c49b63 !important;">DANH SÁCH BÀN</p>
-        <div class="row container-fluid content_main">
-          <ng-container *ngFor="let table of tableList; index as i">
-            <div (click)="billDetail(table.id, table.name)" *ngIf="table.enableFlag"
-                 class="card card-table" data-bs-target="#modelId" data-bs-toggle="modal"
-                 style="background-color: transparent; border: 3px solid #c49b63;">
-              <img *ngIf="table.enableFlag == true" alt="Card image cap"
-                   class="card-img-top"
-                   src="../../../assets/image/table1.png">
-              <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
-              <div class="card-body" style=" height: 3rem">
-                <h4 class="card-title text-center">{{table.name}}</h4>
+        <div class="col-lg-12 container_table" style="background-color: #51391f; border-radius: 30px; opacity: 0.92">
+          <p class="title" style="color: #c49b63 !important;">DANH SÁCH BÀN</p>
+          <div class="row container-fluid content_main">
+            <ng-container *ngFor="let table of tableList; index as i">
+              <div (click)="billDetail(table.id, table.name)" *ngIf="table.enableFlag"
+                   class="card card-table" data-bs-target="#modelId" data-bs-toggle="modal"
+                   style="background-color: transparent; border: 3px solid #c49b63;">
+                <img *ngIf="table.enableFlag == true" alt="Card image cap"
+                     class="card-img-top"
+                     src="../../../assets/image/table1.png">
+                <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
+                <div class="card-body" style=" height: 3rem">
+                  <h4 class="card-title text-center">{{table.name}}</h4>
+                </div>
               </div>
-            </div>
-            <div (click)="disabled()" *ngIf="!table.enableFlag"
-                 class="card card-table"
-                 style="background-color: transparent; border: 3px solid #c49b63;">
-              <img *ngIf="table.enableFlag == false" alt="Card image cap"
-                   class="card-img-top"
-                   src="../../../assets/image/table_disabled1.png">
-              <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
-              <div class="card-body" style=" height: 3rem">
-                <h4 class="card-title text-center" style="color: grey">{{table.name}}</h4>
+              <div (click)="disabled()" *ngIf="!table.enableFlag"
+                   class="card card-table"
+                   style="background-color: transparent; border: 3px solid #c49b63;">
+                <img *ngIf="table.enableFlag == false" alt="Card image cap"
+                     class="card-img-top"
+                     src="../../../assets/image/table_disabled1.png">
+                <hr style="color: #c49b63; margin-top: 10px; margin-bottom: 20px;">
+                <div class="card-body" style=" height: 3rem">
+                  <h4 class="card-title text-center" style="color: grey">{{table.name}}</h4>
+                </div>
               </div>
+            </ng-container>
+            <div>
+              <p [style.color]="color" *ngFor="let message of messList">{{message.message}}</p>
             </div>
-          </ng-container>
-          <div>
-            <p [style.color]="color" *ngFor="let message of messList">{{message.message}}</p>
+            <ng-container *ngIf="tableList === null">
+              <h5 style="color: yellow; text-align: center">Không có bàn nào!</h5>
+            </ng-container>
           </div>
-          <ng-container *ngIf="tableList === null">
-            <h5 style="color: yellow; text-align: center">Không có bàn nào!</h5>
-          </ng-container>
         </div>
       </div>
     </div>
   </div>
-</div>
 
-<!-- Modal -->
-<div aria-hidden="true" aria-labelledby="modelTitleId" class="modal fade" id="modelId" role="dialog"
-     style="opacity: 0.92"
-     tabindex="-1">
-  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
-    <div class="modal-content" style="background-color: #2c3034; color: white">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modelTitleId">Hóa đơn bàn </h4>
-        <i aria-label="Close" class="fas fa-times fa-lg closebtn" data-bs-dismiss="modal"
-           style="color: #ffffff; margin-top: 5px"></i>
-      </div>
-      <div class="modal-body" style=" color: white">
-        <table class="table table-striped" id="bill" style=" color: white; opacity: 100%">
-          <tr style=" color: white; background-color: #c49b63;">
-            <th>STT</th>
-            <th>Tên món</th>
-            <th>Số lượng</th>
-            <th style="padding-left: 30px">Giá</th>
-            <th>Tổng tiền</th>
-          </tr>
+  <!-- Modal -->
+  <div aria-hidden="true" aria-labelledby="modelTitleId" class="modal fade" id="modelId" role="dialog"
+       style="opacity: 0.92"
+       tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+      <div class="modal-content" style="background-color: #2c3034; color: white">
+        <div class="modal-header">
+          <h4 class="modal-title" id="modelTitleId">Hóa đơn bàn </h4>
+          <i aria-label="Close" class="fas fa-times fa-lg closebtn" data-bs-dismiss="modal"
+             style="color: #ffffff; margin-top: 5px"></i>
+        </div>
+        <div class="modal-body" style=" color: white">
+          <table class="table table-striped" id="bill" style=" color: white; opacity: 100%">
+            <tr style=" color: white; background-color: #c49b63;">
+              <th>STT</th>
+              <th>Tên món</th>
+              <th>Số lượng</th>
+              <th style="padding-left: 30px">Giá</th>
+              <th>Tổng tiền</th>
+            </tr>
 
-          <tr *ngIf="billDetailList == null">
-            <td class="text-center" colspan="7" style="padding-top: 30px"><h5>Không có món nào</h5></td>
-          </tr>
+            <tr *ngIf="billDetailList == null">
+              <td class="text-center" colspan="7" style="padding-top: 30px"><h5>Không có món nào</h5></td>
+            </tr>
 
-          <tbody *ngIf="billDetailList != null">
-          <tr *ngFor="let billDetail of billDetailList; index as i">
-            <td>{{i + 1}}</td>
-            <td>
-              <img alt="Ảnh nền" height="70px" src="{{billDetail.imgUrl}}" width="70px"> {{billDetail.serviceName}}
-            </td>
-            <td style="padding-top: 30px">{{billDetail.quantity}}</td>
-            <td style="padding-top: 30px">{{formatter(billDetail.price)}}</td>
-            <td style="padding-top: 30px">{{formatter(billDetail.sum)}}</td>
-          </tr>
-          <tr class="payment">
-            <th>Thành tiền:</th>
-            <td></td>
-            <td id="tableId" hidden>{{billChargingList[0].tableId}}</td>
-            <td></td>
-            <td></td>
-            <td id="payment">{{formatter(billChargingList[0].sum)}}</td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="modal-footer" *ngIf="billDetailList != null">
-        <button class="btn btn-primary" data-bs-target="#modelId1" data-bs-toggle="modal" data-bs-dismiss="modal"
-                (click)="confirmModal()" style="background-color: #c49b63" type="button">
-          Tính tiền
-        </button>
-      </div>
-      <div class="modal-footer" *ngIf="billDetailList == null">
-        <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
-          Đóng
-        </button>
+            <tbody *ngIf="billDetailList != null">
+            <tr *ngFor="let billDetail of billDetailList; index as i">
+              <td>{{i + 1}}</td>
+              <td>
+                <img alt="Ảnh nền" height="70px" src="{{billDetail.imgUrl}}" width="70px"> {{billDetail.serviceName}}
+              </td>
+              <td style="padding-top: 30px">{{billDetail.quantity}}</td>
+              <td style="padding-top: 30px">{{formatter(billDetail.price)}}</td>
+              <td style="padding-top: 30px">{{formatter(billDetail.sum)}}</td>
+            </tr>
+            <tr class="payment">
+              <th>Thành tiền:</th>
+              <td></td>
+              <td *ngIf="billChargingList[0].tableId" id="tableId" hidden>{{billChargingList[0].tableId}}</td>
+              <td></td>
+              <td></td>
+              <td id="payment">{{formatter(billChargingList[0].sum)}}</td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="modal-footer" *ngIf="billDetailList != null">
+          <button class="btn btn-primary" data-bs-target="#modelId1" data-bs-toggle="modal" data-bs-dismiss="modal"
+                  (click)="confirmModal()" style="background-color: #c49b63" type="button">
+            Tính tiền
+          </button>
+        </div>
+        <div class="modal-footer" *ngIf="billDetailList == null">
+          <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">
+            Đóng
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
-<!-- Modal1 -->
-<div aria-hidden="true" aria-labelledby="modelTitleId" class="modal fade" id="modelId1" role="dialog"
-     tabindex="-1">
-  <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-    <div class="modal-content" style="background-color: #2c3034; color: white">
-      <div class="modal-header">
-        <h4 class="modal-title" style="text-align: center !important;" id="modelTitleId1">Xác nhận tính tiền</h4>
-        <i aria-label="Close" class="fas fa-times fa-lg closebtn" data-bs-dismiss="modal" data-bs-target="#modelId" data-bs-toggle="modal"
-           style="color: #ffffff; margin-top: 5px"></i>
-      </div>
-      <div class="modal-body" style=" color: white">
-        <p>Bạn có muốn tính tiền bàn này không?</p>
-      </div>
-      <div class="modal-footer">
-        <button class="btn btn-primary" data-bs-dismiss="modal" (click)="chargeTheBill()" style="background-color: #c49b63"
-                type="button">
-          Đồng ý
-        </button>
-        <p id="tableId1" hidden></p>
-        <button class="btn btn-secondary" data-bs-target="#modelId" data-bs-toggle="modal" data-bs-dismiss="modal"
-                role="button">
-          Không
-        </button>
+  <!-- Modal1 -->
+  <div aria-hidden="true" aria-labelledby="modelTitleId" class="modal fade" id="modelId1" role="dialog"
+       tabindex="-1">
+    <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+      <div class="modal-content" style="background-color: #2c3034; color: white">
+        <div class="modal-header">
+          <h4 class="modal-title" style="text-align: center !important;" id="modelTitleId1">Xác nhận tính tiền</h4>
+          <i aria-label="Close" class="fas fa-times fa-lg closebtn" data-bs-dismiss="modal" data-bs-target="#modelId"
+             data-bs-toggle="modal"
+             style="color: #ffffff; margin-top: 5px"></i>
+        </div>
+        <div class="modal-body" style=" color: white">
+          <p>Bạn có muốn tính tiền bàn này không?</p>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" data-bs-dismiss="modal" (click)="chargeTheBill()"
+                  style="background-color: #c49b63"
+                  type="button">
+            Đồng ý
+          </button>
+          <p id="tableId1" hidden></p>
+          <button class="btn btn-secondary" data-bs-target="#modelId" data-bs-toggle="modal" data-bs-dismiss="modal"
+                  role="button">
+            Không
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </body>
 </html>

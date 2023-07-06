@@ -10,6 +10,8 @@ import {ITable} from '../modal/ITable';
   providedIn: 'root'
 })
 export class ServicesService {
+  private idTable: number;
+  private change = 'false';
   private API_URL = 'http://localhost:8080/api/private/list/service';
   private API_URL_TYPE = 'http://localhost:8080/api/private/type_id';
   private API_URL_SERVICE = 'http://localhost:8080/api/private/list/service_type';
@@ -46,10 +48,26 @@ export class ServicesService {
     const url = `${this.API_URL}/${id}`;
     return this.httpClient.get<IServices>(url);
   }
+
   getMessage(): Observable<Message[]> {
     return this.httpClient.get<Message[]>('http://localhost:8080/api/private/message');
   }
+
   deleteMessage(id: number): Observable<Message> {
     return this.httpClient.delete<Message>('http://localhost:8080/api/private/delete_message/' + id);
+  }
+
+  setIdTable(id: number) {
+    this.idTable = id;
+  }
+
+  getIdTable() {
+    return this.idTable;
+  }
+  setChange(status: string) {
+    this.change = status;
+  }
+  getChange() {
+    return this.change;
   }
 }

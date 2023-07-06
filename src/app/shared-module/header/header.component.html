@@ -12,11 +12,11 @@
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
         <li class="nav-item"><a routerLink="/table" class="nav-link">Bàn</a></li>
-        <li class="nav-item"><a routerLink="/order" class="nav-link">Quản lý hóa đơn</a></li>
-        <li class="nav-item"><a routerLink="/quan-ly-phan-hoi" class="nav-link">Phản Hồi</a></li>
         <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
+        <li class="nav-item"><a routerLink="/order" class="nav-link">Hóa đơn</a></li>
+        <li class="nav-item"><a routerLink="/feedbackList" class="nav-link">Phản Hồi</a></li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" routerLink="/quan-ly-nguoi-dung" id="navbarDropdown" role="button"
+          <a class="nav-link dropdown-toggle" routerLink="/userList" id="navbarDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
             Quản lý nhân viên
           </a>
@@ -24,7 +24,8 @@
             <li><a class="dropdown-item text-end" routerLink="/create-user">Thêm nhân viên</a></li>
           </ul>
         </li>
-        <li class="nav-item"><a class="nav-link" (click)="logout()">logout</a></li>
+        <li class="nav-item"><a routerLink="/infor-account" class="nav-link">Thông tin cá nhân</a></li>
+        <li class="nav-item"><a class="nav-link" style="cursor: pointer" (click)="logout()">logout</a></li>
       </ul>
       <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
         <li class="nav-item"><a routerLink="/login" class="nav-link">Đăng Nhập</a></li>
@@ -32,6 +33,5 @@
     </div>
   </div>
 </nav>
-
 
 

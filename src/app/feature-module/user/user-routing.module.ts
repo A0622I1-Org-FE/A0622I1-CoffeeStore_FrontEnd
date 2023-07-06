@@ -7,16 +7,18 @@ import {AuthGuard} from '../../service/auth.guard';
 
 
 const routes: Routes = [
-  { path: 'create-user', component: UserCreateComponent },
-  { path: 'edit-user/:id', component: UserEditComponent },
-
-{
-  path: 'infor-account', component: InforAccountComponent, canActivate: [AuthGuard],
-  data: {
-    roles: ['admin', 'user']
-  }
-},
-
+  { path: 'infor-account', component: InforAccountComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'user']
+    }},
+  { path: 'create-user', component: UserCreateComponent ,
+    data: {
+      roles: ['admin', 'user']
+    }},
+  { path: 'userList/edit-user/:id', component: UserEditComponent,
+    data: {
+      roles: ['admin']
+    }},
 ];
 
 @NgModule({

@@ -132,7 +132,6 @@ export class UserEditComponent implements OnInit {
             this.userForm.value.imgUrl = url;
             this.userService.editUser(updatedUser, userId).subscribe(
               (data) => {
-                console.log(data);
                 if (data != null) {
                   this.error = data[0].defaultMessage;
                   this.toastr.error(this.error, 'Message');
@@ -143,7 +142,6 @@ export class UserEditComponent implements OnInit {
                 this.isLoading = false;
               },
               (error) => {
-                console.log(error);
                 this.toastr.error('Chỉnh sửa thất bại.', 'Message');
                 this.isLoading = false;
               }
@@ -155,7 +153,6 @@ export class UserEditComponent implements OnInit {
       this.isLoading = true;
       this.userService.editUser(updatedUser, userId).subscribe(
         (data) => {
-          console.log(data);
           if (data != null) {
             this.error = data[0].defaultMessage;
             this.toastr.error(this.error, 'Message');
@@ -166,7 +163,6 @@ export class UserEditComponent implements OnInit {
           this.isLoading = false;
         },
         (error) => {
-          console.log(error);
           this.toastr.error('Chỉnh sửa thất bại.', 'Message');
           this.isLoading = false;
         }

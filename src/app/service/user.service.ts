@@ -13,7 +13,7 @@ import { catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UserService {
-  private API_USER: string = 'http://localhost:8080/api/public';
+  private API_USER = 'http://localhost:8080/api/public';
   private API_URL = 'http://localhost:8080/api/listUser';
   private API_URL_DELETEUSER = 'http://localhost:8080/api/userDelete';
   private API_URL_SEARCHNAMORDATE = 'http://localhost:8080/api/getUserByNameOrBirthday';
@@ -56,8 +56,6 @@ export class UserService {
   findById(id): Observable<UserEditDTO> {
     return this.httpClient.get<UserEditDTO>(this.API_USER + '/find-id/' + id, this.httpOptions);
   }
-
-
 
   findAll(page: number, pageSize: number): Observable<UserResponse> {
     const url = `${this.API_URL}?page=${page}&size=${pageSize}`;

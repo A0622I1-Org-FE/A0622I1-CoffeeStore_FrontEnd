@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {ServicesService} from '../../service/services.service';
 import {Message} from '../../modal/message';
 import {Title} from '@angular/platform-browser';
+import {BillDetailService} from '../../service/bill-detail.service';
 
 
 @Component({
@@ -21,31 +22,42 @@ export class SalesComponent implements OnInit {
   billChargingList: IBillChargingDTO[];
   messList: Message[] = [];
   checkNew1: Message[];
-  color = 'green';
+  color = 'white';
+  change: string;
 
   constructor(private tableService: TableService,
               private servicesService: ServicesService,
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    setInterval(() => {
-      this.ngOnInit();
-    }, 2000);
+    // setInterval(() => {
+    //   this.ngOnInit();
+    // }, 2000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
   ngOnInit(): void {
+    // this.change = this.servicesService.getChange();
     setInterval(() => {
+      this.getAll();
       this.getMessage();
-    }, 500);
+      // if (this.servicesService.getChange() === 'true') {
+      //   this.ngOnInit();
+      // }
+    }, 1000);
     setInterval(() => {
-      if (this.messList !== null) {
-        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe();
+      if (this.messList.length > 0) {
+        // for (let i = 0; i < this.messList.length ; i++) {
+        //   this.servicesService.deleteMessage(this.messList[i].id).subscribe(data => {
+        //     console.log(data);
+        //   });
+        // }
+        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(data => {
+          console.log(data);
+        });
       }
-      this.messList = [];
-      this.getMessage();
-    }, 60000);
-    this.getAll();
+    }, 30000);
+
   }
 
 
@@ -123,8 +135,6 @@ export class SalesComponent implements OnInit {
   chargeTheBill() {
     this.getAll();
     const tableId = document.getElementById('tableId1').innerText;
-    console.log(typeof +tableId);
-    console.log(this.tableList);
     const isPresent = this.tableList.some(el => el.id === +tableId);
     if (+tableId < 1 || isNaN(+tableId)) {
       this.toastr.error('Số bàn không hợp lệ!', 'Lỗi tìm bàn');
@@ -146,13 +156,11 @@ export class SalesComponent implements OnInit {
         this.toastr.success(this.checkNew1[0].message);
         // this.toastr.success('Khách gọi');
       }
-    } else {
-      this.toastr.success(this.checkNew1[0].message);
     }
   }
 
   disabled() {
-    this.toastr.warning('bàn đã có khách', 'lưu ý');
+    this.toastr.warning('Bàn không có khách!', 'Lưu ý');
   }
 }
 
