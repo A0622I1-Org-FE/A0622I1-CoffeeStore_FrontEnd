@@ -126,7 +126,6 @@ export class ChangePasswordComponent implements OnInit {
       this.toastr.warning('Các trường điển chưa hợp lệ', 'Thông báo');
       return;
     } else {
-      console.log(this.passwordChangeForm.value);
       this.accountService.changePasswordRequest(this.passwordChangeForm.value).subscribe(data => {
         this.toastr.success('Đổi mật khẩu thành công', 'Thông báo');
         this.router.navigateByUrl('infor-account');
