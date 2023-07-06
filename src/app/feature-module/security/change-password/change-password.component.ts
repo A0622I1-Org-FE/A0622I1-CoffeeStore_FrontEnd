@@ -14,9 +14,7 @@ import {Title} from '@angular/platform-browser';
 })
 export class ChangePasswordComponent implements OnInit {
   passwordChangeForm: FormGroup;
-  passwordDTO: IPasswordChangeDTO;
   username: string;
-  isLoading = false;
 
   constructor(private router: Router,
               private toastr: ToastrService,
@@ -35,7 +33,7 @@ export class ChangePasswordComponent implements OnInit {
       {type: 'pattern', message: 'Từ 6-15 ký tự, gồm chữ thường, chữ hoa, ký tự đặc biệt.'}
     ],
     confirmPassword: [
-      {type: 'required', message: 'Xác nhận lại mật khẩu.'},
+      {type: 'required', message: 'Nhập lại mật khẩu mới.'},
     ]
   };
 
@@ -126,7 +124,6 @@ export class ChangePasswordComponent implements OnInit {
       this.toastr.warning('Các trường điển chưa hợp lệ', 'Thông báo');
       return;
     } else {
-      console.log(this.passwordChangeForm.value);
       this.accountService.changePasswordRequest(this.passwordChangeForm.value).subscribe(data => {
         this.toastr.success('Đổi mật khẩu thành công', 'Thông báo');
         this.router.navigateByUrl('infor-account');

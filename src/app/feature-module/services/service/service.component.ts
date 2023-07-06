@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit} from '@angular/core';
 import {IServices} from '../../../modal/IServices';
 import {ServicesService} from '../../../service/services.service';
 import {ServiceTypeService} from '../../../service/service-type.service';
@@ -56,6 +56,7 @@ export class ServiceComponent implements OnInit {
               public scoketServiceService: ScoketServiceService,
               private titleService: Title,
               private activateRouter: ActivatedRoute,
+              private elementRef: ElementRef,
               private toastrService: ToastrService) {
     this.scoketServiceService.connect();
     this.titleService.setTitle('Màn hình menu');
@@ -85,15 +86,6 @@ export class ServiceComponent implements OnInit {
       this.serviceTypeList = response;
     });
   }
-
-  // doCheck(quantity: string) {
-  //   if (parseInt(quantity) < 1) {
-  //     this.isShowErrMsg = true;
-  //   } else {
-  //     console.log('Đã vào');
-  //     this.order();
-  //   }
-  // }
 
   goToPage(page: number) {
     this.currentPage = page;
@@ -167,19 +159,17 @@ export class ServiceComponent implements OnInit {
       sum: service.price
     };
     let addNewService = true;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (this.order1.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity += this.order1.quantity;
-        console.log(this.orderList[i].quantity);
         this.orderList[i].sum = this.orderList[i].quantity * this.orderList[i].price;
-        console.log(this.orderList[i].sum);
         addNewService = false;
       }
     }
     if (addNewService) {
       this.orderList.push(this.order1);
     }
-    console.log(this.orderList);
     this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
   }
 
@@ -194,6 +184,7 @@ export class ServiceComponent implements OnInit {
 
   tang(orderThem: Order) {
     this.tongTien = 0;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (orderThem.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity += 1;
@@ -201,11 +192,11 @@ export class ServiceComponent implements OnInit {
       }
     }
     this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
-    console.log(this.orderList);
   }
 
   giam(giamOrder: Order) {
     this.tongTien = 0;
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < this.orderList.length; i++) {
       if (giamOrder.service_id === this.orderList[i].service_id) {
         this.orderList[i].quantity -= 1;
@@ -234,12 +225,13 @@ export class ServiceComponent implements OnInit {
           payment_status: 0,
           payment_time: '',
           table_id: this.tableId,
-          user_id: 123
+          user_id: 1
         };
         this.billService.insertBill(this.insertBill).subscribe(item => {
           this.getBillTable();
         });
       } else {
+        // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < this.orderList.length; i++) {
           this.billDetail = {
             quantity: this.orderList[i].quantity,
@@ -247,6 +239,7 @@ export class ServiceComponent implements OnInit {
             service_id: this.orderList[i].service_id
           };
           this.billDetailService.insertBillDetail(this.billDetail).subscribe(nextB => {
+            this.orderList = [];
           });
         }
       }
@@ -257,16 +250,20 @@ export class ServiceComponent implements OnInit {
     if (this.orderList.length === 0) {
       this.toastrService.warning('Vui lòng chọn món');
     } else {
+      this.scoketServiceService.updateTable(this.tableId);
       this.tongTien = 0;
       this.getBillTable();
       this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi order món');
-      this.orderList = [];
+      this.toastrService.success('Vui lòng đợi trong ít phút');
+      this.servicesService.setChange('true');
     }
   }
 
   goiPhucVu() {
     this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi phục vụ. ');
     this.toastrService.success('Vui lòng đợi trong ít phút');
+    this.servicesService.setChange('true');
+    console.log(this.servicesService.getChange());
     // this.servicesService.getMessage().subscribe(data => {
     //   this.messList = data;
     // });
@@ -290,7 +287,19 @@ export class ServiceComponent implements OnInit {
   }
 
   tinhTien() {
-    this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
-    this.toastrService.success('Vui lòng đợi trong ít phút');
+    this.billService.getBill(this.tableId).subscribe(next => {
+      if (next === null) {
+        this.toastrService.warning('Không thể tính tiên vì bạn chưa chọn món');
+      } else {
+        this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
+        this.toastrService.success('Vui lòng đợi trong ít phút');
+        this.servicesService.setChange('true');
+      }
+    });
+  }
+
+  handleClick() {
+    const element = this.elementRef.nativeElement as HTMLElement;
+    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 }

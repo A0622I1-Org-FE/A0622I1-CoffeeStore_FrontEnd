@@ -9,13 +9,13 @@ import {NgModule} from '@angular/core';
 const routes: Routes = [
   { path: 'infor-account', component: InforAccountComponent, canActivate: [AuthGuard],
     data: {
-      roles: ['admin']
+      roles: ['admin', 'user']
     }},
   { path: 'create-user', component: UserCreateComponent ,
     data: {
       roles: ['admin', 'user']
     }},
-  { path: 'quan-ly-nguoi-dung/edit-user/:id', component: UserEditComponent,
+  { path: 'userList/edit-user/:id', component: UserEditComponent,
     data: {
       roles: ['admin']
     }},

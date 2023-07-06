@@ -26,7 +26,6 @@ export class ScoketServiceService {
     const ws = new SockJS('http://localhost:8080/ws');
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({}, (frame) => {
-      console.log(frame);
       this.stompClient.subscribe('/topic/messages', data => {
         // this.toastrService.success(JSON.stringify(data));
         const mess1 = JSON.parse(data.body);
@@ -40,7 +39,6 @@ export class ScoketServiceService {
     const ws = new SockJS('http://localhost:8080/ws');
     this.stompClient = Stomp.over(ws);
     this.stompClient.connect({}, (frame) => {
-      console.log(frame);
       this.stompClient.subscribe('/topic/tables', data => {
         // this.toastrService.success(JSON.stringify(data));
         // this.toastrService.success(mess);
