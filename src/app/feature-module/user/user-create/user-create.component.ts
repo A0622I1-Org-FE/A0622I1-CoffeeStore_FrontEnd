@@ -40,7 +40,7 @@ export class UserCreateComponent implements OnInit {
 
   ngOnInit(): void {
     const script = this.renderer.createElement('script');
-    script.src = '/assets/js/index.js';
+    script.src = '/assets/js/index1.js';
     this.renderer.appendChild(document.body, script);
     this.positionService.findAll().subscribe(next => {
       this.positionList = next;
@@ -87,7 +87,7 @@ export class UserCreateComponent implements OnInit {
     ],
     address: [
       {type: 'required', message: 'Vui lòng nhập địa chỉ.'},
-      {type: 'maxlength', message: 'Vui lòng nhập tên > 100.'},
+      {type: 'maxlength', message: 'Vui lòng nhập địa chỉ bé hơn 100 kí tự.'},
       {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'}
 
     ],
@@ -127,7 +127,7 @@ export class UserCreateComponent implements OnInit {
               this.toastrService.error(this.error, 'Message');
             } else {
               this.toastrService.success('Thêm thành công!', 'Message');
-              this.router.navigateByUrl('create-user');
+              this.router.navigateByUrl('userList');
             }
 
             this.isLoading = false;

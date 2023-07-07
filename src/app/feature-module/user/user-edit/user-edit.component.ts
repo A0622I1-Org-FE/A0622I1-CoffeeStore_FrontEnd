@@ -48,7 +48,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
     const script = this.renderer.createElement('script');
-    script.src = '/assets/js/index.js';
+    script.src = '/assets/js/index1.js';
     this.renderer.appendChild(document.body, script);
     this.activatedRoute.paramMap.subscribe((data: ParamMap) => {
       const id = data.get('id');
@@ -138,7 +138,7 @@ export class UserEditComponent implements OnInit {
                   this.toastr.error(this.error, 'Message');
                 } else {
                   this.toastr.success('Chỉnh sửa thành công!', 'Message');
-                  this.router.navigateByUrl('/edit-user/' + userId);
+                  this.router.navigateByUrl('userList');
                 }
                 this.isLoading = false;
               },
