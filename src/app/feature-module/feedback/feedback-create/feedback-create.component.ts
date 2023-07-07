@@ -1,4 +1,4 @@
-import {Component, ElementRef, Inject, OnInit, Renderer2} from '@angular/core';
+import {Component, ElementRef, Inject, OnInit, Renderer2, ViewChild} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, ValidatorFn, Validators} from '@angular/forms';
 import {FeedbackTypeService} from 'src/app/service/feedback-type.service';
 import {FeedbackService} from '../../../service/feedback.service';
@@ -10,6 +10,7 @@ import {formatDate} from '@angular/common';
 import {ServicesService} from '../../../service/services.service';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {FeedbackTypeDto} from '../../../dto/feedback-type-dto';
+import {FeedbackImageDto} from '../../../dto/feedback-image-dto';
 
 @Component({
   selector: 'app-feedback-create',
@@ -38,6 +39,10 @@ export class FeedbackCreateComponent implements OnInit {
   error: string;
   tableId: number;
   function;
+  @ViewChild('emailInput', {static: false}) emailInput: ElementRef;
+  @ViewChild('nameInput', {static: false}) nameInput: ElementRef;
+  @ViewChild('typeInput', {static: false}) typeInput: ElementRef;
+  @ViewChild('contentInput', {static: false}) contentInput: ElementRef;
 
   ngOnInit(): void {
     this.tableId = this.serviceService.getIdTable();
@@ -94,6 +99,26 @@ export class FeedbackCreateComponent implements OnInit {
     }
     if (this.rfCreate.invalid) {
       this.toastr.error('Vui lòng điền tất cả các thông tin cần thiết');
+      const name = this.rfCreate.get('name').value;
+      const email = this.rfCreate.get('email').value;
+      const type = this.rfCreate.get('feedbackType').value;
+      const content = this.rfCreate.get('content').value;
+      if (name === '') {
+        this.nameInput.nativeElement.focus();
+        return;
+      }
+      if (email === '') {
+        this.emailInput.nativeElement.focus();
+        return;
+      }
+      if (type === '') {
+        this.typeInput.nativeElement.focus();
+        return;
+      }
+      if (content === '') {
+        this.contentInput.nativeElement.focus();
+        return;
+      }
       return;
     } else {
       const email = this.rfCreate.get('email').value;
@@ -101,6 +126,7 @@ export class FeedbackCreateComponent implements OnInit {
       this.feedbackService.countEmail(email).subscribe(count => {
         if (count > 0) {
           this.toastr.error('Vui lòng điền tất cả các thông tin cần thiết');
+          this.emailInput.nativeElement.focus();
           this.error = 'Email này đã có trong hệ thống';
           return;
         } else {
@@ -120,20 +146,15 @@ export class FeedbackCreateComponent implements OnInit {
   }
 
   callApiAndSaveUrl(url: string) {
-    // const feedbackImg: FeedbackImageDto = {
-    //   feedbackId: null,
-    //   imgUrl: url
-    // };
-    // this.feedbackImageService.save(feedbackImg).subscribe(() => {
-    // });
+    const feedbackImg: FeedbackImageDto = {
+      feedbackId: null,
+      imgUrl: url
+    };
+    this.feedbackImageService.save(feedbackImg).subscribe(() => {
+    });
   }
 
   resetError() {
     this.error = '';
-  }
-
-  handleClick() {
-    const element = this.elementRef.nativeElement as HTMLElement;
-    element.scrollIntoView({behavior: 'smooth', block: 'start'});
   }
 }

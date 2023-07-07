@@ -121,9 +121,7 @@ export class UserCreateComponent implements OnInit {
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.userForm.value.imgUrl = url;
-          console.log(url);
           this.userService.createUser(this.userForm.value).subscribe(data => {
-            console.log(this.userForm.value);
             if (data != null) {
               this.error = data[0].defaultMessage;
               this.toastrService.error(this.error, 'Message');
@@ -134,7 +132,6 @@ export class UserCreateComponent implements OnInit {
 
             this.isLoading = false;
           }, error => {
-            console.log(error);
             this.isLoading = false;
           });
         });

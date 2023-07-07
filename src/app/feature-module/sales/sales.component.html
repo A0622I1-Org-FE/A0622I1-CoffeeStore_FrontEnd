@@ -101,7 +101,7 @@
             <tr class="payment">
               <td></td>
               <td></td>
-              <td id="tableId" hidden>{{billChargingList[0].tableId}}</td>
+              <td *ngIf="billChargingList[0].tableId" id="tableId" hidden>{{billChargingList[0].tableId}}</td>
               <td></td>
               <th>Thành tiền:</th>
               <th id="payment">{{formatter(billChargingList[0].sum)}}</th>

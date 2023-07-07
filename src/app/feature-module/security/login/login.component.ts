@@ -64,12 +64,10 @@ export class LoginComponent implements OnInit {
             this.tokenStrorageService.saveTokenLocal(data.token);
             this.tokenStrorageService.saveNameLocal(data.name);
             this.tokenStrorageService.saveRoleLocal(data.roles);
-            console.log(this.tokenStrorageService.getRole());
           } else {
             this.tokenStrorageService.saveTokenSession(data.token);
             this.tokenStrorageService.saveNameSession(data.name);
             this.tokenStrorageService.saveRoleSession(data.roles);
-            console.log(this.tokenStrorageService.getRole());
           }
           this.loginForm.reset();
           this.shareService.sendClickEvent();

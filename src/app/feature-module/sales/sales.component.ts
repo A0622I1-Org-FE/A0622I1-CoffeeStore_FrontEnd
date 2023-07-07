@@ -8,6 +8,7 @@ import {Router} from '@angular/router';
 import {ServicesService} from '../../service/services.service';
 import {Message} from '../../modal/message';
 import {Title} from '@angular/platform-browser';
+import {BillDetailService} from '../../service/bill-detail.service';
 
 
 @Component({
@@ -22,6 +23,7 @@ export class SalesComponent implements OnInit {
   messList: Message[] = [];
   checkNew1: Message[];
   color = 'white';
+  change: string;
 
   constructor(private tableService: TableService,
               private servicesService: ServicesService,
@@ -35,9 +37,13 @@ export class SalesComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // this.change = this.servicesService.getChange();
     setInterval(() => {
-      this.getMessage();
       this.getAll();
+      this.getMessage();
+      // if (this.servicesService.getChange() === 'true') {
+      //   this.ngOnInit();
+      // }
     }, 1000);
     setInterval(() => {
       if (this.messList.length > 0) {
@@ -47,8 +53,8 @@ export class SalesComponent implements OnInit {
         //   });
         // }
         this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(data => {
-              console.log(data);
-            });
+          console.log(data);
+        });
       }
     }, 30000);
 
@@ -137,8 +143,6 @@ export class SalesComponent implements OnInit {
   chargeTheBill() {
     this.getAll();
     const tableId = document.getElementById('tableId1').innerText;
-    console.log(typeof +tableId);
-    console.log(this.tableList);
     const isPresent = this.tableList.some(el => el.id === +tableId);
     if (+tableId < 1 || isNaN(+tableId)) {
       this.toastr.error('Số bàn không hợp lệ!', 'Lỗi tìm bàn');
@@ -149,7 +153,7 @@ export class SalesComponent implements OnInit {
       this.toastr.success('Tính tiền thành công!', 'Đã tính tiền');
       setTimeout(() => {
         this.getAll();
-      }, 1000);
+      }, 100);
     }
   }
 

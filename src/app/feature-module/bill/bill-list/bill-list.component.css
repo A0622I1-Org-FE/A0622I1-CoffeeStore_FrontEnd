@@ -11750,7 +11750,6 @@ prototype * {
     padding: 0;
 }
 
-
 .content_add {
     background-color: #51391f;
     padding: 48px;
@@ -11763,7 +11762,6 @@ prototype * {
     background-color: #c49b63;
     color: white;
 }
-
 
 tbody {
     color: white;
@@ -11950,7 +11948,6 @@ h5 {
     border-radius: 50%;
     text-decoration: none;
     color: #c49b63;
-
 }
 
 .paging li a:hover {

@@ -7,16 +7,14 @@
           <div class="mb-3 col-md-6">
             <label for="name" class="form-label">Họ và tên<span style="color:red;">(*)</span></label>
             <input type=" text" class=" feedback-box_right-item" name="" id="name" aria-describedby="helpId"
-                   placeholder="" formControlName="name">
+                   placeholder="" formControlName="name" #nameInput>
             <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name.value === ''">
               Vui lòng nhập họ và tên</p>
             <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.pattern">
               Tên không chứa số hoặc các kí tự đặc biệt</p>
             <p class="text-warning"
                *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.minlength && !rfCreate.controls.name?.errors?.whitespace">
-              Vui lòng nhập họ và
-              tên dài
-              hơn 5 kí tự</p>
+              Vui lòng nhập họ và tên dài hơn 5 kí tự</p>
             <p class="text-warning"
                *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.maxlength">Vui lòng nhập họ và
               tên
@@ -29,7 +27,7 @@
           <div class="mb-3 col-md-6">
             <label for="email" class="form-label">Email<span style="color:red;">(*)</span></label>
             <input type=" text" class=" feedback-box_right-item" name="" id="email" aria-describedby="helpId"
-                   placeholder="" formControlName="email" (click)="resetError()">
+                   placeholder="" formControlName="email" (click)="resetError()" #emailInput>
             <p class="text-warning"
                *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.required">Vui lòng nhập
               email</p>
@@ -49,7 +47,7 @@
 
         <div class="mb-3">
           <label for="typeFeedback" class="form-label">Loại phản hồi</label>
-          <select class="feedback-box_right-item " name="" id="typeFeedback" formControlName="feedbackType">
+          <select class="feedback-box_right-item " name="" id="typeFeedback" formControlName="feedbackType" #typeInput>
             <option value="" selected disabled>Chọn</option>
             <option *ngFor="let items of feedbackTypeList" [ngValue]="items.id">{{items.type}}</option>
           </select>
@@ -61,7 +59,7 @@
           <label for="feedback" class="form-label">Nội dung phản hồi<span style="color:red;">(*)</span></label>
           <textarea type="" class=" feedback-box_right-item" name="" id="feedback" aria-describedby="helpId"
                     placeholder="" rows="5" style="resize: none;"
-                    formControlName="content"></textarea>
+                    formControlName="content" #contentInput></textarea>
           <p class="text-warning"
              *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.required">Vui lòng nhập nội
             dung phục vụ</p>
@@ -98,10 +96,10 @@
         <div class="mb-3">
           <div class="feedback-box_right-button">
             <div class="feedback-box_right-button">
-              <button name="" id="" class="feedback-box_right-button-item btn1" routerLink="/service">Quay lại</button>
+              <button name="" id="" class="feedback-box_right-button-item btn1" routerLink="/service/{{tableId}}">Quay lại</button>
             </div>
             <div class="feedback-box_right-button">
-              <button name="" id="" class="feedback-box_right-button-item btn2" (click)="handleClick()">Xác nhận</button>
+              <button name="" id="" class="feedback-box_right-button-item btn2">Xác nhận</button>
             </div>
           </div>
         </div>
