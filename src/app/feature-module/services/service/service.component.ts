@@ -212,6 +212,7 @@ export class ServiceComponent implements OnInit {
         this.orderList[i].sum = this.orderList[i].quantity * this.orderList[i].price;
       }
     }
+    this.orderList.forEach(item => this.tongTien += (item.quantity * item.price));
   }
 
   delete() {
@@ -292,7 +293,9 @@ export class ServiceComponent implements OnInit {
 
   tinhTien() {
     this.billService.getBill(this.tableId).subscribe(next => {
-      if (next === null) {
+      if (this.orderList.length > 0) {
+        this.toastrService.warning('Bạn có muốn gọi các món đã chọn không');
+      } else if (next === null) {
         this.toastrService.warning('Không thể tính tiên vì bạn chưa chọn món');
       } else {
         this.scoketServiceService.sendMessage('Bàn ' + this.tableId + ' gọi tính tiền');
