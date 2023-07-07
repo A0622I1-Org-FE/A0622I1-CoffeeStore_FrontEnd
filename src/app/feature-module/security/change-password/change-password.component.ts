@@ -133,6 +133,5 @@ export class ChangePasswordComponent implements OnInit {
       });
     }
     this.tokenStrorageService.signOut();
-    window.location.reload();
   }
 }
