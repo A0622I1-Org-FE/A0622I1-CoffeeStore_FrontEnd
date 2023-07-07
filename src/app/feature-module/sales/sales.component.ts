@@ -30,9 +30,9 @@ export class SalesComponent implements OnInit {
               private toastr: ToastrService,
               private titleService: Title,
               private router: Router) {
-    // setInterval(() => {
-    //   this.ngOnInit();
-    // }, 2000);
+    setInterval(() => {
+      this.getAll();
+    }, 5000);
     this.titleService.setTitle('Quản lý bán hàng');
   }
 
@@ -119,11 +119,19 @@ export class SalesComponent implements OnInit {
       .replace('₫', 'VNĐ');
   }
 
+  formatter1(quantity, serviceName) {
+    if (serviceName.includes('BÁNH')) {
+      return quantity + ' cái';
+    } else { return quantity + ' ly'; }
+  }
+
   /**
-   * <h3>Description: Truyền tableId sang modal confirm.</h3>
+   * <h3>Description: Truyền tableId và tableName sang modal confirm.</h3>
    * @author CuongHM
    */
   confirmModal() {
+    const tableName = document.getElementById('modelTitleId').innerText.replace('Hóa đơn bàn ', '');
+    document.getElementById('confirm-body').innerText = 'Bạn có muốn tinh tiền bàn ' + tableName + ' không?';
     document.getElementById('tableId1').innerText = document.getElementById('tableId').innerText;
   }
 
