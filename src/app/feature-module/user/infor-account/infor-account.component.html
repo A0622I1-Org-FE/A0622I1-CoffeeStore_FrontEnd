@@ -39,7 +39,7 @@
             </div>
             <div class="col">
               <img class="avatar mx-auto d-block " *ngIf="userInfor.img" style="width: 120px" src="{{userInfor.img}}" alt="{{userInfor.img}}" >
-              <img class="avatar mx-auto d-block " *ngIf="userInfor.img == ''" style="width: 120px" src="https://cdn.icon-icons.com/icons2/3446/PNG/512/account_profile_user_avatar_icon_219236.png" alt="Ảnh đại diện" >
+              <img class="avatar mx-auto d-block " *ngIf="userInfor.img === null" style="width: 120px" src="https://cdn.icon-icons.com/icons2/3446/PNG/512/account_profile_user_avatar_icon_219236.png" alt="Ảnh đại diện" >
             </div>
           </div>
           <div class="row col-md-12">
@@ -98,7 +98,7 @@
               <a type="button" class="btn btn-outline-danger btn-padding-10" routerLink="">Quay lại</a>
             </div>
             <div *ngIf="role == 'admin'">
-              <a type="button" class="btn btn-outline-info btn-padding-10" routerLink="/quan-ly-nguoi-dung/edit-user/{{userInfor.id}}">Cập nhật thông tin</a>
+              <a type="button" class="btn btn-outline-info btn-padding-10" routerLink="/userList/edit-user/{{userInfor.id}}">Cập nhật thông tin</a>
             </div>
             <div>
               <a routerLink="/change-password" type="button"
