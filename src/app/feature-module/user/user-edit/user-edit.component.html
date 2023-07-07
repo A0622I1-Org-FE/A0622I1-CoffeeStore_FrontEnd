@@ -33,7 +33,7 @@
                         <div class="form-group">
                             <label for="name">Họ Và Tên:</label>
                             <input formControlName="name" type="text" class="form-control" id="name" required
-                                placeholder="Nhập họ và tên">
+                                placeholder="Nhập họ và tên" maxlength="40">
                             <span class="d-flex">
                                 <div class="text-danger" *ngFor="let validation of validation_messages.name">
                                     <div class="error-message"
@@ -77,7 +77,7 @@
                         <label for="email">Email:</label>
 
                         <input type="email" class="form-control" id="email" required formControlName="email"
-                            furlplaceholder="Nhập email">
+                            furlplaceholder="Nhập email" maxlength="40">
                         <span class="d-flex">
                             <div class="text-danger" *ngFor="let validation of validation_messages.email">
                                 <div class="error-message"
@@ -89,7 +89,7 @@
                     <div class="form-group col-md-12">
                         <label for="address">Địa Chỉ:</label>
                         <input formControlName="address" type="text" class="form-control" id="address" required
-                            placeholder="Nhập địa chỉ">
+                            placeholder="Nhập địa chỉ" maxlength="100">
                         <span class="d-flex">
                             <div class="text-danger" *ngFor="let validation of validation_messages.address">
                                 <div class="error-message"
@@ -116,7 +116,7 @@
                     <div class="form-group col-md-6">
                         <label for="phoneNumber">Số Điện Thoại:</label>
                         <input formControlName="phoneNumber" type="text" class="form-control" id="phoneNumber" required
-                            placeholder="Nhập số điện thoại">
+                            placeholder="Nhập số điện thoại" maxlength="11">
                         <span class="d-flex">
                             <div class="text-danger" *ngFor="let validation of validation_messages.phoneNumber">
                                 <div class="error-message"
@@ -145,7 +145,7 @@
                     <div class="form-group col-md-6">
                         <label for="salary">Lương:</label>
                         <input formControlName="salary" type="text" class="form-control" id="salary" required
-                            placeholder="Nhập lương">
+                            placeholder="Nhập lương" maxlength="20">
                         <span class="d-flex">
                             <div class="text-danger" *ngFor="let validation of validation_messages.salary">
                                 <div class="error-message"

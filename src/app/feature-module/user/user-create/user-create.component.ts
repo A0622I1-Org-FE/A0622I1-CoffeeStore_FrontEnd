@@ -47,13 +47,13 @@ export class UserCreateComponent implements OnInit {
     });
     this.userForm = new FormGroup(
       {
-        userName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]),
+        userName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z0-9]+$')]),
         imgUrl: new FormControl(),
         name: new FormControl('', [Validators.required, Validators.maxLength(40), Validators.minLength(6),
         Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]),
         gender: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
-        address: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]),
+        address: new FormControl('', [Validators.required,Validators.minLength(6), Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]),
         birthday: new FormControl('', [Validators.required, checkDateOfBirth]),
         phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^(\\+?84|0)(3[2-9]|5[689]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$')]),
         position: new FormControl('', Validators.required),
@@ -66,7 +66,9 @@ export class UserCreateComponent implements OnInit {
   validation_messages = {
     userName: [
       {type: 'required', message: 'Vui lòng nhập tên tài khoản.'},
-      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'}
+      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'},
+      {type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.'},
+
     ],
     name: [
       {type: 'required', message: 'Vui lòng nhập tên.'},
@@ -88,8 +90,8 @@ export class UserCreateComponent implements OnInit {
     address: [
       {type: 'required', message: 'Vui lòng nhập địa chỉ.'},
       {type: 'maxlength', message: 'Vui lòng nhập địa chỉ bé hơn 100 kí tự.'},
-      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'}
-
+      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'},
+      { type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.' },
     ],
     email: [
       {type: 'required', message: 'Vui lòng nhập email.'},

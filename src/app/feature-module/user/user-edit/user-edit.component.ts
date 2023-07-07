@@ -65,7 +65,7 @@ export class UserEditComponent implements OnInit {
           name: [this.user.name, [Validators.required, Validators.maxLength(40), Validators.minLength(6),
           Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳúủýũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪÝẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]],
           gender: [this.user.gender, [Validators.required]],
-          address: [this.user.address, [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]],
+          address: [this.user.address, [Validators.required,Validators.minLength(6), Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]],
           birthday: [this.user.birthday, [Validators.required, checkDateOfBirth]],
           phoneNumber: [this.user.phoneNumber, [Validators.required, Validators.pattern('^(\\+?84|0)(3[2-9]|5[689]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$')]],
           position: [this.user.position, [Validators.required]],
@@ -101,8 +101,8 @@ export class UserEditComponent implements OnInit {
     address: [
       { type: 'required', message: 'Vui lòng nhập địa chỉ.' },
       { type: 'maxlength', message: 'Vui lòng nhập tên > 100.' },
-      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' }
-
+      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' },
+      { type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.' },
     ],
     email: [
       { type: 'required', message: 'Vui lòng nhập email.' },
@@ -152,6 +152,8 @@ export class UserEditComponent implements OnInit {
       ).subscribe();
     } else {
       this.isLoading = true;
+      // Lấy dữ liệu ở dứoi lên(lúc findById) lưu vô một Object, so sánh với dữ liệu trong form. Nếu giống nhau thì toast Warning......
+      // nếu không giống nhau thì vô 
       this.userService.editUser(updatedUser, userId).subscribe(
         (data) => {
           if (data != null) {
@@ -159,7 +161,7 @@ export class UserEditComponent implements OnInit {
             this.toastr.error(this.error, 'Message');
           } else {
             this.toastr.success('Chỉnh sửa thành công!', 'Message');
-            this.router.navigateByUrl('/edit-user/' + userId);
+            this.router.navigateByUrl('userList');
           }
           this.isLoading = false;
         },
