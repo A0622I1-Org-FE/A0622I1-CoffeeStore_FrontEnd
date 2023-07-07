@@ -1,4 +1,7 @@
 import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from '../../service/token-storage.service';
+import {ShareService} from '../../service/share.service';
+import {Router, RouterModule} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -9,35 +12,34 @@ import {Component, OnInit} from '@angular/core';
     '../../../assets/scss/style.scss']
 })
 export class HeaderComponent implements OnInit {
-  private loggedIn = false;
-  avatarUrl = '../../../assets/img/tải xuống.png';
-  showDropdown = false;
+  isLoggedIn: boolean;
+  name: string;
+  role: string;
 
-  constructor() {
+  constructor(private tokenStrorageService: TokenStorageService,
+              private shareService: ShareService,
+              private router: Router) {
+    this.shareService.getClickEvent().subscribe(() => {
+      this.loadHeader();
+    });
   }
 
   ngOnInit(): void {
-    this.avatarUrl;
+    this.loadHeader();
   }
 
-  login(username: string, password: string): boolean {
-    if (username === 'admin' && password === 'admin') {
-      this.loggedIn = true;
-      sessionStorage.setItem('username', username);
-      return true;
+  loadHeader(): void {
+    if (this.tokenStrorageService.getToken()) {
+      this.name = this.tokenStrorageService.getName();
+      this.role = this.tokenStrorageService.getRole()[0];
+      this.isLoggedIn = true;
+      // isLoggedIn = this.name != null;
     }
-    return false;
   }
 
   logout(): void {
-    this.loggedIn = false;
-    sessionStorage.removeItem('username');
-  }
-
-  isLoggedIn(): boolean {
-    return this.loggedIn;
-  }
-  toggleDropdown() {
-    this.showDropdown = !this.showDropdown;
+    this.tokenStrorageService.signOut();
+    this.isLoggedIn = false;
+    this.router.navigateByUrl('');
   }
 }

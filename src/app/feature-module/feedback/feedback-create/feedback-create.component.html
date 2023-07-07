@@ -1,0 +1,110 @@
+<div class="containerr">
+  <div class="feedback-box">
+    <div class="feedback-box_right">
+      <h2 class="feedback-box_right-title">PHẢN HỒI</h2>
+      <form [formGroup]="rfCreate" (ngSubmit)="save()">
+        <div class="row">
+          <div class="mb-3 col-md-6">
+            <label for="name" class="form-label">Họ và tên<span style="color:red;">(*)</span></label>
+            <input type=" text" class=" feedback-box_right-item" name="" id="name" aria-describedby="helpId"
+                   placeholder="" formControlName="name" #nameInput>
+            <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name.value === ''">
+              Vui lòng nhập họ và tên</p>
+            <p class="text-warning" *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.pattern">
+              Tên không chứa số hoặc các kí tự đặc biệt</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.minlength && !rfCreate.controls.name?.errors?.whitespace">
+              Vui lòng nhập họ và tên dài hơn 5 kí tự</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.name.touched && rfCreate.controls.name?.errors?.maxlength">Vui lòng nhập họ và
+              tên
+              không vượt quá 50 kí tự</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.name.touched && !rfCreate.controls.name.errors?.required && rfCreate.controls.name?.errors?.whitespace">
+              Tên không được chứa toàn kí tự trắng</p>
+
+          </div>
+          <div class="mb-3 col-md-6">
+            <label for="email" class="form-label">Email<span style="color:red;">(*)</span></label>
+            <input type=" text" class=" feedback-box_right-item" name="" id="email" aria-describedby="helpId"
+                   placeholder="" formControlName="email" (click)="resetError()" #emailInput>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.required">Vui lòng nhập
+              email</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.pattern">Vui lòng nhập
+              email đúng định dạng</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.minlength && !rfCreate.controls.email?.errors?.pattern">
+              Vui lòng nhập email
+              dài hơn 10 kí tự</p>
+            <p class="text-warning"
+               *ngIf="rfCreate.controls.email.touched && rfCreate.controls.email?.errors?.maxlength">Vui lòng nhập email
+              không vượt quá 254 kí tự</p>
+            <p style="color: #ffc107">{{error}}</p>
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label for="typeFeedback" class="form-label">Loại phản hồi</label>
+          <select class="feedback-box_right-item " name="" id="typeFeedback" formControlName="feedbackType" #typeInput>
+            <option value="" selected disabled>Chọn</option>
+            <option *ngFor="let items of feedbackTypeList" [ngValue]="items.id">{{items.type}}</option>
+          </select>
+          <p class="text-warning"
+             *ngIf="rfCreate.controls.feedbackType.touched && rfCreate.controls.feedbackType?.errors?.required">Vui
+            lòng chọn loại phục vụ</p>
+        </div>
+        <div class="mb-3">
+          <label for="feedback" class="form-label">Nội dung phản hồi<span style="color:red;">(*)</span></label>
+          <textarea type="" class=" feedback-box_right-item" name="" id="feedback" aria-describedby="helpId"
+                    placeholder="" rows="5" style="resize: none;"
+                    formControlName="content" #contentInput></textarea>
+          <p class="text-warning"
+             *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.required">Vui lòng nhập nội
+            dung phục vụ</p>
+          <p class="text-warning"
+             *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.minlength">Vui lòng nhập nội
+            dung phục vụ dài hơn 10 kí tự</p>
+          <p class="text-warning"
+             *ngIf="rfCreate.controls.content.touched && rfCreate.controls.content?.errors?.maxlength">Vui lòng nhập nội
+            dung phục vụ không vượt quá 1000 kí tự</p>
+        </div>
+        <div class="stars">
+          <header>Đánh giá của bạn</header>
+          <input class="star star-5" id="star-5" type="radio" name="rate" formControlName="rate" value="5"/>
+          <label class="star star-5" for="star-5"></label>
+          <input class="star star-4" id="star-4" type="radio" name="rate" formControlName="rate" value="4"/>
+          <label class="star star-4" for="star-4"></label>
+          <input class="star star-3" id="star-3" type="radio" name="rate" formControlName="rate" value="3"/>
+          <label class="star star-3" for="star-3"></label>
+          <input class="star star-2" id="star-2" type="radio" name="rate" formControlName="rate" value="2"/>
+          <label class="star star-2" for="star-2"></label>
+          <input class="star star-1" id="star-1" type="radio" name="rate" formControlName="rate" value="1"/>
+          <label class="star star-1" for="star-1"></label>
+        </div>
+        <div class="mb-3">
+          <div id="file-input-container">
+            <label class="upload-icon" for="image-input">Chọn hình ảnh</label>
+            <input type="file" id="image-input" multiple (change)="showPreview($event)">
+          </div>
+          <div id="image-preview"></div>
+          <div class="loading-overlay">
+            <div class="loading-spinner"></div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <div class="feedback-box_right-button">
+            <div class="feedback-box_right-button">
+              <button name="" id="" class="feedback-box_right-button-item btn1" routerLink="/service/{{tableId}}">Quay lại</button>
+            </div>
+            <div class="feedback-box_right-button">
+              <button name="" id="" class="feedback-box_right-button-item btn2">Xác nhận</button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<script src="../../../../assets/js/index.js"></script>

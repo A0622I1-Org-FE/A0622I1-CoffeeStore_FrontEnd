@@ -3,10 +3,11 @@ import { CommonModule } from '@angular/common';
 
 import { BillRoutingModule } from './bill-routing.module';
 import {ToastrModule} from 'ngx-toastr';
+import { BillListComponent } from './bill-list/bill-list.component';
 
 
 @NgModule({
-  declarations: [],
+  declarations: [BillListComponent],
   imports: [
     CommonModule,
     BillRoutingModule,
