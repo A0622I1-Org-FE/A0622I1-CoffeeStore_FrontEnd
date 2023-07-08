@@ -1,4 +1,8 @@
-// let imagePreview = null;
+var hideTimeout;
+var fadeOutInterval;
+var totalSelectedFiles = 0;
+var errorContainerHTML = '<div id="error-container" style="display: none; position: fixed; top: 20px; right: 20px; padding: 10px; background-color: red; color: white; font-weight: bold; border-radius: 5px; z-index: 9999;"></div>';
+document.body.insertAdjacentHTML("beforeend", errorContainerHTML);
 
 function updateImagePreviewContainer() {
   return document.getElementById("image-preview");
@@ -10,28 +14,62 @@ function updateLoadingOverplay() {
 
 function checkMaxImageSize(file, maxSizeInBytes) {
   if (file.size > maxSizeInBytes) {
-    var maxSizeInMB = maxSizeInBytes / (1024 * 1024); // Chuyển đổi thành đơn vị MB
-    var fileSizeInMB = file.size / (1024 * 1024); // Chuyển đổi dung lượng ảnh thành đơn vị MB
+    var maxSizeInMB = maxSizeInBytes / (1024 * 1024);
+    var fileSizeInMB = file.size / (1024 * 1024);
     var message = "Tiệm cafe A0622I1: Dung lượng của ảnh không được vượt quá " + maxSizeInMB + " MB. Dung lượng hiện tại: " + fileSizeInMB + " MB.";
-    window.alert(message);
+    showAlertMessage(message);
     return false;
   }
   return true;
 }
+function showAlertMessage(message) {
+  var errorContainer = document.getElementById("error-container");
+  errorContainer.textContent = message;
+  errorContainer.style.display = "block";
+  clearTimeout(hideTimeout); // Xóa timeout hiện tại (nếu có)
 
-// const loadingOverlay = document.querySelector(".loading-overlay");
-var totalSelectedFiles = 0;
+  // Hiển thị thông báo trong 5 giây
+  hideTimeout = setTimeout(function () {
+    startFadeOut(errorContainer); // Bắt đầu quá trình ẩn đi
+  }, 5000); // 5000 milliseconds = 5 seconds
+
+  errorContainer.addEventListener("mouseenter", function () {
+    clearTimeout(hideTimeout); // Xóa timeout khi hover vào thông báo
+    clearInterval(fadeOutInterval); // Xóa interval khi hover vào thông báo
+    errorContainer.style.opacity = 1; // Đảm bảo thông báo hiển thị toàn bộ khi hover vào
+  });
+
+  errorContainer.addEventListener("mouseleave", function () {
+    startFadeOut(errorContainer); // Bắt đầu quá trình ẩn đi khi không hover vào thông báo
+  });
+}
+
+function startFadeOut(errorContainer) {
+  var opacity = 1;
+  var duration = 2000; // 2000 milliseconds = 2 seconds
+  var intervalTime = 100; // 100 milliseconds = 0.1 seconds
+  var step = intervalTime / duration;
+  clearInterval(fadeOutInterval); // Xóa interval hiện tại (nếu có)
+  fadeOutInterval = setInterval(function () {
+    if (opacity <= 0) {
+      clearInterval(fadeOutInterval);
+      errorContainer.style.display = "none";
+    }
+    errorContainer.style.opacity = opacity;
+    opacity -= step;
+  }, intervalTime);
+}
 document.getElementById("image-input").addEventListener("change", function (event) {
   var files = event.target.files;
   var maxAllowedFiles = 3;
   if (files.length > 3) {
-    window.alert("Tiệm cafe A0622I1: Bạn chỉ được phép upload tối đa 3 file ảnh.");
+    showAlertMessage("Tiệm cafe A0622I1: Bạn chỉ được phép upload tối đa 3 file ảnh.");
     return;
   }
   if (totalSelectedFiles + files.length > maxAllowedFiles) {
     var remainingSlots = maxAllowedFiles - totalSelectedFiles;
     var message = "Bạn chỉ được phép upload tối đa " + maxAllowedFiles + " file ảnh. Bạn còn " + remainingSlots + " lượt upload.";
-    window.alert("Tiệm cafe A0622I1:" + message);
+    showAlertMessage("Tiệm cafe A0622I1:" + message);
     return;
   }
   if (files.length > 0) {
@@ -40,7 +78,8 @@ document.getElementById("image-input").addEventListener("change", function (even
       for (let i = 0; i < files.length; i++) {
         var file = files[i];
         if (!file.type.match("image.*")) {
-          window.alert("Tiệm cafe A0622I1: Vui lòng chỉ chọn các tệp tin ảnh.");
+          var mess = "Tiệm cafe A0622I1: Vui lòng chỉ chọn các tệp tin ảnh.";
+          showAlertMessage(mess);
           continue;
         }
         if (!checkMaxImageSize(file, 5 * 1024 * 1024)) { // Kiểm tra dung lượng tối đa là 5MB
