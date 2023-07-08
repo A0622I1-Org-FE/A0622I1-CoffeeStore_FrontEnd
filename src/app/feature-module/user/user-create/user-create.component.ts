@@ -25,6 +25,8 @@ export class UserCreateComponent implements OnInit {
   private error: string;
   selectedImage: any = null;
   isLoading = false;
+  file: any;
+
 
   constructor(
     private titleService: Title,
@@ -144,6 +146,29 @@ export class UserCreateComponent implements OnInit {
 
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
+    if (this.selectedImage != null) {
+      const fileSizeInMB = this.selectedImage.size / (1024 * 1024);
+      const maxFileSizeInMB = 5; 
+      if (fileSizeInMB > maxFileSizeInMB) {
+        this.toastrService.error('Giới hạn dung lượng ảnh là 5MB', 'Cảnh Báo');
+        this.selectedImage = null;
+        return;
+      }
+
+      const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+      const fileExtension = this.selectedImage.name.toLowerCase().substring(this.selectedImage.name.lastIndexOf('.'));
+      if (!allowedExtensions.includes(fileExtension)) {
+        this.toastrService.error('Tệp tin không phải là ảnh.', 'Cảnh Báo');
+        this.selectedImage = null;
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(this.file);
+      reader.onload = (e: any) => {
+        this.selectedImage = e.target.result;
+      };
+    }
   }
 
   getCurrentDateTime(): string {
