@@ -1,14 +1,13 @@
 var hideTimeout;
-var fadeOutInterval;
 var totalSelectedFiles = 0;
-var errorContainerHTML = '<div id="error-container" style="display: none; position: fixed; top: 20px; right: 20px; padding: 10px; background-color: red; color: white; font-weight: bold; border-radius: 5px; z-index: 9999;"></div>';
+var errorContainerHTML = '<div id="error-container" style="display: none; position: fixed; top: 80px; right: 20px; padding: 30px 10px; background: linear-gradient(to right, #FF4B2B, #FF416C); color: white; font-weight: bold; z-index: 9999;box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);"></div>';
 document.body.insertAdjacentHTML("beforeend", errorContainerHTML);
 
 function updateImagePreviewContainer() {
   return document.getElementById("image-preview");
 }
 
-function updateLoadingOverplay() {
+function updateLoadingOverlay() {
   return document.querySelector(".loading-overlay");
 }
 
@@ -22,47 +21,34 @@ function checkMaxImageSize(file, maxSizeInBytes) {
   }
   return true;
 }
+
 function showAlertMessage(message) {
   var errorContainer = document.getElementById("error-container");
   errorContainer.textContent = message;
   errorContainer.style.display = "block";
   clearTimeout(hideTimeout); // Xóa timeout hiện tại (nếu có)
-
-  // Hiển thị thông báo trong 5 giây
   hideTimeout = setTimeout(function () {
-    startFadeOut(errorContainer); // Bắt đầu quá trình ẩn đi
-  }, 5000); // 5000 milliseconds = 5 seconds
+    errorContainer.style.display = "none";
+  }, 5000); // Tự động ẩn thông báo lỗi sau 5 giây
 
   errorContainer.addEventListener("mouseenter", function () {
     clearTimeout(hideTimeout); // Xóa timeout khi hover vào thông báo
-    clearInterval(fadeOutInterval); // Xóa interval khi hover vào thông báo
-    errorContainer.style.opacity = 1; // Đảm bảo thông báo hiển thị toàn bộ khi hover vào
   });
 
   errorContainer.addEventListener("mouseleave", function () {
-    startFadeOut(errorContainer); // Bắt đầu quá trình ẩn đi khi không hover vào thông báo
+    hideTimeout = setTimeout(function () {
+      errorContainer.style.display = "none";
+    }, 5000); // Tự động ẩn thông báo lỗi sau 5 giây khi không hover vào thông báo
+  });
+  errorContainer.addEventListener("click", function () {
+    errorContainer.style.display = "none"; // Đóng thông báo khi người dùng click vào tiêu đề
   });
 }
 
-function startFadeOut(errorContainer) {
-  var opacity = 1;
-  var duration = 2000; // 2000 milliseconds = 2 seconds
-  var intervalTime = 100; // 100 milliseconds = 0.1 seconds
-  var step = intervalTime / duration;
-  clearInterval(fadeOutInterval); // Xóa interval hiện tại (nếu có)
-  fadeOutInterval = setInterval(function () {
-    if (opacity <= 0) {
-      clearInterval(fadeOutInterval);
-      errorContainer.style.display = "none";
-    }
-    errorContainer.style.opacity = opacity;
-    opacity -= step;
-  }, intervalTime);
-}
 document.getElementById("image-input").addEventListener("change", function (event) {
   var files = event.target.files;
   var maxAllowedFiles = 3;
-  if (files.length > 3) {
+  if (files.length > maxAllowedFiles) {
     showAlertMessage("Tiệm cafe A0622I1: Bạn chỉ được phép upload tối đa 3 file ảnh.");
     return;
   }
@@ -73,7 +59,6 @@ document.getElementById("image-input").addEventListener("change", function (even
     return;
   }
   if (files.length > 0) {
-    showLoadingOverlay();
     setTimeout(function () {
       for (let i = 0; i < files.length; i++) {
         var file = files[i];
@@ -85,6 +70,7 @@ document.getElementById("image-input").addEventListener("change", function (even
         if (!checkMaxImageSize(file, 5 * 1024 * 1024)) { // Kiểm tra dung lượng tối đa là 5MB
           continue;
         }
+        showLoadingOverlay();
         var reader = new FileReader();
         reader.onload = function (e) {
           var deleteButton = document.createElement("div");
@@ -116,7 +102,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var imagePreview = updateImagePreviewContainer();
 });
 document.addEventListener("DOMContentLoaded", function () {
-  var loadingOverplay = updateLoadingOverplay();
+  var loadingOverlay = updateLoadingOverlay();
 });
 
 // updateImagePreviewContainer();
@@ -125,12 +111,12 @@ function updateTotalSelectedFiles(count) {
 }
 
 function showLoadingOverlay() {
-  var loadingOverlay = updateLoadingOverplay();
+  var loadingOverlay = updateLoadingOverlay();
   loadingOverlay.classList.add("show");
 }
 
 function hideLoadingOverlay() {
-  var loadingOverlay = updateLoadingOverplay();
+  var loadingOverlay = updateLoadingOverlay();
   loadingOverlay.classList.remove("show");
 }
 
