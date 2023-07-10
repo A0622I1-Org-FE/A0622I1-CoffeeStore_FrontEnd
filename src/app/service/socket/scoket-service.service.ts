@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 // @ts-ignore
 import * as Stomp from 'stompjs';
 import * as SockJS from 'sockjs-client';
-import {ToastrService} from 'ngx-toastr';
-import {Message} from '../../modal/message';
-import {ServicesService} from '../services.service';
+import { ToastrService } from 'ngx-toastr';
+import { Message } from '../../modal/message';
+import { ServicesService } from '../services.service';
 
 
 @Injectable({
@@ -15,7 +15,7 @@ export class ScoketServiceService {
   messList: Message[] = [];
 
   constructor(private service: ServicesService,
-              private toastrService: ToastrService) {
+    private toastrService: ToastrService) {
   }
 
   get mess() {

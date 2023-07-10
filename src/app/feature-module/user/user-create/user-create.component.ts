@@ -25,6 +25,8 @@ export class UserCreateComponent implements OnInit {
   private error: string;
   selectedImage: any = null;
   isLoading = false;
+  file: any;
+
 
   constructor(
     private titleService: Title,
@@ -40,20 +42,20 @@ export class UserCreateComponent implements OnInit {
 
   ngOnInit(): void {
     const script = this.renderer.createElement('script');
-    script.src = '/assets/js/index.js';
+    script.src = '/assets/js/index1.js';
     this.renderer.appendChild(document.body, script);
     this.positionService.findAll().subscribe(next => {
       this.positionList = next;
     });
     this.userForm = new FormGroup(
       {
-        userName: new FormControl('', [Validators.required, Validators.pattern('^[a-zA-Z0-9]+$')]),
+        userName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z0-9]+$')]),
         imgUrl: new FormControl(),
         name: new FormControl('', [Validators.required, Validators.maxLength(40), Validators.minLength(6),
         Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]),
         gender: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
-        address: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]),
+        address: new FormControl('', [Validators.required,Validators.minLength(6), Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]),
         birthday: new FormControl('', [Validators.required, checkDateOfBirth]),
         phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^(\\+?84|0)(3[2-9]|5[689]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$')]),
         position: new FormControl('', Validators.required),
@@ -66,7 +68,9 @@ export class UserCreateComponent implements OnInit {
   validation_messages = {
     userName: [
       {type: 'required', message: 'Vui lòng nhập tên tài khoản.'},
-      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'}
+      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'},
+      {type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.'},
+
     ],
     name: [
       {type: 'required', message: 'Vui lòng nhập tên.'},
@@ -87,9 +91,9 @@ export class UserCreateComponent implements OnInit {
     ],
     address: [
       {type: 'required', message: 'Vui lòng nhập địa chỉ.'},
-      {type: 'maxlength', message: 'Vui lòng nhập tên > 100.'},
-      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'}
-
+      {type: 'maxlength', message: 'Vui lòng nhập địa chỉ bé hơn 100 kí tự.'},
+      {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'},
+      { type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.' },
     ],
     email: [
       {type: 'required', message: 'Vui lòng nhập email.'},
@@ -127,7 +131,7 @@ export class UserCreateComponent implements OnInit {
               this.toastrService.error(this.error, 'Message');
             } else {
               this.toastrService.success('Thêm thành công!', 'Message');
-              this.router.navigateByUrl('create-user');
+              this.router.navigateByUrl('userList');
             }
 
             this.isLoading = false;
@@ -142,6 +146,29 @@ export class UserCreateComponent implements OnInit {
 
   showPreview(event: any) {
     this.selectedImage = event.target.files[0];
+    if (this.selectedImage != null) {
+      const fileSizeInMB = this.selectedImage.size / (1024 * 1024);
+      const maxFileSizeInMB = 5; 
+      if (fileSizeInMB > maxFileSizeInMB) {
+        this.toastrService.error('Giới hạn dung lượng ảnh là 5MB', 'Cảnh Báo');
+        this.selectedImage = null;
+        return;
+      }
+
+      const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+      const fileExtension = this.selectedImage.name.toLowerCase().substring(this.selectedImage.name.lastIndexOf('.'));
+      if (!allowedExtensions.includes(fileExtension)) {
+        this.toastrService.error('Tệp tin không phải là ảnh.', 'Cảnh Báo');
+        this.selectedImage = null;
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.readAsDataURL(this.file);
+      reader.onload = (e: any) => {
+        this.selectedImage = e.target.result;
+      };
+    }
   }
 
   getCurrentDateTime(): string {

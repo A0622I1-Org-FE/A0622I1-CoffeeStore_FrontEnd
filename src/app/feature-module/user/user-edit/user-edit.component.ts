@@ -48,7 +48,7 @@ export class UserEditComponent implements OnInit {
 
   ngOnInit(): void {
     const script = this.renderer.createElement('script');
-    script.src = '/assets/js/index.js';
+    script.src = '/assets/js/index1.js';
     this.renderer.appendChild(document.body, script);
     this.activatedRoute.paramMap.subscribe((data: ParamMap) => {
       const id = data.get('id');
@@ -65,7 +65,7 @@ export class UserEditComponent implements OnInit {
           name: [this.user.name, [Validators.required, Validators.maxLength(40), Validators.minLength(6),
           Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳúủýũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪÝẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]],
           gender: [this.user.gender, [Validators.required]],
-          address: [this.user.address, [Validators.required, Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]],
+          address: [this.user.address, [Validators.required, Validators.minLength(6), Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]],
           birthday: [this.user.birthday, [Validators.required, checkDateOfBirth]],
           phoneNumber: [this.user.phoneNumber, [Validators.required, Validators.pattern('^(\\+?84|0)(3[2-9]|5[689]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$')]],
           position: [this.user.position, [Validators.required]],
@@ -101,8 +101,8 @@ export class UserEditComponent implements OnInit {
     address: [
       { type: 'required', message: 'Vui lòng nhập địa chỉ.' },
       { type: 'maxlength', message: 'Vui lòng nhập tên > 100.' },
-      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' }
-
+      { type: 'pattern', message: 'Không được nhập ký tự đặt biệt.' },
+      { type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.' },
     ],
     email: [
       { type: 'required', message: 'Vui lòng nhập email.' },
@@ -123,53 +123,53 @@ export class UserEditComponent implements OnInit {
   edit() {
     const updatedUser = this.userForm.value;
     const userId = this.user.id;
-    if (this.selectedImage) {
-      const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
-      const fileRef = this.storage.ref(nameImg);
-      this.isLoading = true;
-      this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
-        finalize(() => {
-          fileRef.getDownloadURL().subscribe((url) => {
-            this.userForm.value.imgUrl = url;
-            this.userService.editUser(updatedUser, userId).subscribe(
-              (data) => {
-                if (data != null) {
-                  this.error = data[0].defaultMessage;
-                  this.toastr.error(this.error, 'Message');
-                } else {
-                  this.toastr.success('Chỉnh sửa thành công!', 'Message');
-                  this.router.navigateByUrl('/edit-user/' + userId);
-                }
-                this.isLoading = false;
-              },
-              (error) => {
-                this.toastr.error('Chỉnh sửa thất bại.', 'Message');
-                this.isLoading = false;
-              }
-            );
-          });
-        })
-      ).subscribe();
-    } else {
-      this.isLoading = true;
-      this.userService.editUser(updatedUser, userId).subscribe(
-        (data) => {
-          if (data != null) {
-            this.error = data[0].defaultMessage;
-            this.toastr.error(this.error, 'Message');
-          } else {
-            this.toastr.success('Chỉnh sửa thành công!', 'Message');
-            this.router.navigateByUrl('/edit-user/' + userId);
-          }
+
+    if (this.userForm.dirty && this.userForm.valid) {
+      if (this.selectedImage) {
+        const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
+        const fileRef = this.storage.ref(nameImg);
+        this.isLoading = true;
+        this.storage.upload(nameImg, this.selectedImage).snapshotChanges().pipe(
+          finalize(() => {
+            fileRef.getDownloadURL().subscribe((url) => {
+              updatedUser.imgUrl = url;
+              this.updateUser(updatedUser, userId);
+            });
+          })
+        ).subscribe();
+      } else {
+        this.isLoading = true;
+        if (JSON.stringify(updatedUser) === JSON.stringify(this.user)) {
+          this.toastr.warning('Dữ liệu không có thay đổi.', 'Message');
           this.isLoading = false;
-        },
-        (error) => {
-          this.toastr.error('Chỉnh sửa thất bại.', 'Message');
-          this.isLoading = false;
+          return;
         }
-      );
+        this.updateUser(updatedUser, userId);
+      }
+    } else {
+      this.toastr.warning('Vui lòng điền thông tin cần chỉnh sửa.', 'Message');
     }
   }
+
+  private updateUser(updatedUser: any, userId: number) {
+    this.userService.editUser(updatedUser, userId).subscribe(
+      (data) => {
+        if (data != null) {
+          this.error = data[0].defaultMessage;
+          this.toastr.error(this.error, 'Message');
+        } else {
+          this.toastr.success('Chỉnh sửa thành công!', 'Message');
+          this.router.navigateByUrl('userList');
+        }
+        this.isLoading = false;
+      },
+      (error) => {
+        this.toastr.error('Chỉnh sửa thất bại.', 'Message');
+        this.isLoading = false;
+      }
+    );
+  }
+
 
 
 
