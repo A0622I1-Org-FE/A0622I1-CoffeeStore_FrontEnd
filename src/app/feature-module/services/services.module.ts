@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ServicesRoutingModule } from './services-routing.module';
 import {ToastrModule} from 'ngx-toastr';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BodyComponent} from './body/body.component';
-import {ServiceComponent} from './service/service.component';
 
 
 @NgModule({
@@ -27,7 +25,7 @@ import {ServiceComponent} from './service/service.component';
             preventDuplicates: true
         }),
         BrowserAnimationsModule,
-        BrowserModule
+        BrowserModule,
     ]
 })
 export class ServicesModule { }

@@ -25,7 +25,7 @@
           </ul>
         </li>
         <li class="nav-item"><a routerLink="/infor-account" class="nav-link">Thông tin cá nhân</a></li>
-        <li class="nav-item"><a class="nav-link" style="cursor: pointer" (click)="logout()">logout</a></li>
+        <li class="nav-item"><a id='logout' class="nav-link" style="cursor: pointer" (click)="logout()">logout</a></li>
       </ul>
       <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
         <li class="nav-item"><a routerLink="/login" class="nav-link">Đăng Nhập</a></li>

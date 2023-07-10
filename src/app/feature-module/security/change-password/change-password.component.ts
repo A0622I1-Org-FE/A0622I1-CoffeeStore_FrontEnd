@@ -144,5 +144,6 @@ export class ChangePasswordComponent implements OnInit {
         this.toastr.error('Mật khẩu hiện tại không chính xác', 'Thông báo');
       });
     }
+    this.tokenStorageService.signOut();
   }
 }
