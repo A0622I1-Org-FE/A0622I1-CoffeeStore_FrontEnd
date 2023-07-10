@@ -46,6 +46,9 @@ export class FeedbackCreateComponent implements OnInit {
 
   ngOnInit(): void {
     this.tableId = this.serviceService.getIdTable();
+    if (this.tableId === undefined) {
+      this.tableId = 1;
+    }
     console.log(this.tableId);
     this.loadJavaScriptFile('/assets/js/index.js');
     this.feedbackTypeService.findAll().subscribe(next => {
