@@ -12,13 +12,13 @@ import {BillDTO} from '../dto/bill-dto';
   providedIn: 'root'
 })
 export class BillService {
-  private API_URL = 'http://localhost:8080/api/bill/list';
-  private API_URL_BILL_DETAIL = 'http://localhost:8080/api/bill/billDetail';
-  private API_URL_SEARCH_USER = 'http://localhost:8080/api/bill/getListByUser';
-  private API_URL_INSERT_BILL = 'http://localhost:8080/api/insert_bill';
-  private API_URL_GET_BILL = 'http://localhost:8080/api/bill/table_id';
+  private API_URL = 'http://localhost:8080/api/private/bill/list';
+  private API_URL_BILL_DETAIL = 'http://localhost:8080/api/private/bill/billDetail';
+  private API_URL_SEARCH_USER = 'http://localhost:8080/api/private/bill/getListByUser';
+  private API_URL_INSERT_BILL = 'http://localhost:8080/api/private/insert_bill';
+  private API_URL_GET_BILL = 'http://localhost:8080/api/private/bill/table_id';
 
-  constructor(private httpClient:HttpClient) { }
+  constructor(private httpClient: HttpClient) { }
 
   findAll(page: number, pageSize: number): Observable<BillResponse> {
     const url = `${this.API_URL}?page=${page}&size=${pageSize}`;
@@ -38,7 +38,7 @@ export class BillService {
     const url = `${this.API_URL_INSERT_BILL}`;
     return this.httpClient.post<InsertBillDTO>(url, billDTO);
   }
-  
+
   getBill(tableId: number): Observable<BillDTO> {
     const url = `${this.API_URL_GET_BILL}/${tableId}`;
     return this.httpClient.get<BillDTO>(url);
