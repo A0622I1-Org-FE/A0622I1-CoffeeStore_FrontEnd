@@ -79,7 +79,7 @@
   }
 }
 
-@media (max-width: 540px) and (min-width: 460px){
+@media (max-width: 540px) and (min-width: 460px) {
   .content_main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -120,7 +120,7 @@
   }
 }
 
-@media (max-width: 460px) and (min-width: 420px){
+@media (max-width: 460px) and (min-width: 420px) {
   .content_main {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -161,7 +161,7 @@
   }
 }
 
-@media (max-width: 420px){
+@media (max-width: 420px) {
   .content_main {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -397,4 +397,10 @@ tr {
 
 #modelId1 {
   margin-top: -50px !important;
+}
+
+body.modal-open {
+  width: 100% !important;
+  padding-right: 0 !important;
+  overflow-y: scroll !important;
 }
