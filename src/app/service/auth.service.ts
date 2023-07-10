@@ -40,7 +40,7 @@ export class AuthService {
   }
 
   changePassword(obj, code: string): Observable<any> {
-    return this.http.post(AUTH_API + 'change-password', {
+    return this.http.post(AUTH_API + 'do-change-password', {
       newPassword: obj.newPassword,
       code,
     });
