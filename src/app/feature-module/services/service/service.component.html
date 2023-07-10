@@ -101,7 +101,7 @@
               </td>
               <td class="text">{{i + 1}}</td>
               <td class="text">{{order.name}}</td>
-              <td class="text">
+              <td class="text" style="width: 17%">
                 <span *ngIf="order.quantity === 1" >
                   <input class="tang_giam" type="button" value=" - " (click)="lay(order)" data-bs-toggle="modal"
                          data-bs-target="#exampleModal1" name="">
@@ -115,11 +115,11 @@
                 </span>
               </td>
               <td class="text">{{formatter(order.price)}} VNĐ</td>
-              <td class="text">{{formatter(order.sum)}} VNĐ</td>
+              <td class="text" style="width: 17%">{{formatter(order.sum)}} VNĐ</td>
             </tr>
             <tr>
               <td class="text" style="font-size: 20px" colspan="5">Tổng tiền</td>
-              <td class="text">{{formatter(tongTien)}} VNĐ</td>
+              <td class="text" style="width: 17%">{{formatter(tongTien)}} VNĐ</td>
             </tr>
             </tbody>
           </table>
