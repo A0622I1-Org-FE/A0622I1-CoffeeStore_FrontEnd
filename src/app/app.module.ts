@@ -20,7 +20,6 @@ import {environment} from '../environments/environment.prod';
 import { SalesModule } from './feature-module/sales/sales.module';
 import {AuthInterceptor} from './service/auth.interceptor';
 
-
 @NgModule({
   declarations: [
     AppComponent,

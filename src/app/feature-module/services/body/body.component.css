@@ -3,6 +3,26 @@
   vertical-align:middle;
   text-align:center
 }/* You can add global styles to this file, and also import other style files */
-.background{
-  background-image: linear-gradient(rgba(148, 141, 114, 0.5), rgba(148, 141, 114, 0.5)), url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
+.background {
+  background-image: linear-gradient(rgba(148, 141, 114, 0.9), rgba(148, 141, 114, 0.9)), url('https://img.freepik.com/free-vector/realistic-coffee-background-with-drawings_79603-607.jpg?w=2000');
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+.menu_content {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 20px;
+  margin-top: 40px;
+  padding: 0 80px;
+}
+.div-content {
+  background-color: rgba(255, 255, 180, 0.5);
+  border-radius: 10px;
+  padding: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.div-content:hover {
+  transform: scale(1.05);
 }

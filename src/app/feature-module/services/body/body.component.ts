@@ -34,4 +34,17 @@ export class BodyComponent implements OnInit {
       this.bestSellerList = data;
     });
   }
+  // subString( s: string) {
+  //   let num = 0;
+  //   for (let i = 0; i < s.length; i++) {
+  //     if (s[i] === '(') {
+  //       num = i;
+  //     }
+  //   }
+  //   if (num > 0) {
+  //     return s.slice(0, num);
+  //   } else {
+  //     return s;
+  //   }
+  // }
 }

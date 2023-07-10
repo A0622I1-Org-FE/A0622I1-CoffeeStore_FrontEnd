@@ -6,6 +6,8 @@ import {ToastrService} from 'ngx-toastr';
 import {AccountService} from '../../../service/account.service';
 import {TokenStorageService} from '../../../service/token-storage.service';
 import {Title} from '@angular/platform-browser';
+import {HeaderComponent} from '../../../shared-module/header/header.component';
+import {LoginStatusService} from '../../../service/login-status.service';
 
 @Component({
   selector: 'app-change-password',
@@ -19,6 +21,8 @@ export class ChangePasswordComponent implements OnInit {
   constructor(private router: Router,
               private toastr: ToastrService,
               private accountService: AccountService,
+              private loginStatus: LoginStatusService,
+              private tokenStorageService: TokenStorageService,
               private titleService: Title) {
     this.titleService.setTitle('Đổi mật khẩu');
   }
@@ -125,11 +129,21 @@ export class ChangePasswordComponent implements OnInit {
       return;
     } else {
       this.accountService.changePasswordRequest(this.passwordChangeForm.value).subscribe(data => {
-        this.toastr.success('Đổi mật khẩu thành công', 'Thông báo');
-        this.router.navigateByUrl('infor-account');
+        this.toastr.warning('Vui lòng đăng nhập lại !', 'Thông báo', {
+          timeOut: 5000,
+          extendedTimeOut: 1500
+        });
+        this.toastr.success('Đổi mật khẩu thành công', 'Thông báo', {
+          timeOut: 3000,
+          extendedTimeOut: 1500
+        });
+        this.tokenStorageService.signOut();
+        this.loginStatus.changeStatus(false);
+        this.router.navigateByUrl('/login');
       }, error => {
         this.toastr.error('Mật khẩu hiện tại không chính xác', 'Thông báo');
       });
     }
+    this.tokenStorageService.signOut();
   }
 }

@@ -1,8 +1,8 @@
-import { IBillDetailDto } from './../../../modal/IBillDetailDto';
-import { Title } from '@angular/platform-browser';
-import { Component, OnInit } from '@angular/core';
-import { IBillDto } from 'src/app/modal/IBillDto';
-import { BillService } from 'src/app/service/bill.service';
+import {IBillDetailDto} from './../../../modal/IBillDetailDto';
+import {Title} from '@angular/platform-browser';
+import {Component, OnInit} from '@angular/core';
+import {IBillDto} from 'src/app/modal/IBillDto';
+import {BillService} from 'src/app/service/bill.service';
 
 @Component({
   selector: 'app-bill-list',
@@ -11,41 +11,41 @@ import { BillService } from 'src/app/service/bill.service';
 })
 export class BillListComponent implements OnInit {
 
-billLists: IBillDto[];
-billDetail: IBillDetailDto;
-currentPage = 0;
-totalPages = 0;
-totalElements = 0;
-pageSize = 8;
-id: number;
-pages: number[];
-pageRange: number[];
-date: string;
-noRecord: boolean;
-name: string;
-totalPrice: number;
-nameOrder: string;
+  billLists: IBillDto[];
+  billDetail: IBillDetailDto;
+  currentPage = 0;
+  totalPages = 0;
+  totalElements = 0;
+  pageSize = 8;
+  id: number;
+  pages: number[];
+  pageRange: number[];
+  date: string;
+  noRecord: boolean;
+  name: string;
+  totalPrice: number;
+  nameOrder: string;
 
-  constructor(private billService:BillService,
-              private title:Title) { 
-                this.title.setTitle("Quản Lý Hóa Đơn")
-              }
+  constructor(private billService: BillService,
+              private title: Title) {
+    this.title.setTitle('Quản Lý Hóa Đơn');
+  }
 
   ngOnInit(): void {
-    this.name ='';
-    this.billService.findAll(this.currentPage, this.pageSize).subscribe(response =>{
-      this.billLists = response.content;
-      this.totalPages = response.totalPages;
-      this.totalElements = response.totalElements;
-      this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
-      this.noRecord = response.size === 0;
-      this.countPageCanShow();
-    },
-    error => {
-      this.noRecord = error.status === 404;
-      this.billLists =[];
-    });
-  
+    this.name = '';
+    this.billService.findAll(this.currentPage, this.pageSize).subscribe(response => {
+        this.billLists = response.content;
+        this.totalPages = response.totalPages;
+        this.totalElements = response.totalElements;
+        this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
+        this.noRecord = response.size === 0;
+        this.countPageCanShow();
+      },
+      error => {
+        this.noRecord = error.status === 404;
+        this.billLists = [];
+      });
+
   }
 
 
@@ -63,7 +63,7 @@ nameOrder: string;
     this.getList();
   }
 
-    getList() {
+  getList() {
     if (this.name === '') {
       this.ngOnInit();
     } else {
@@ -85,7 +85,7 @@ nameOrder: string;
         this.noRecord = error.status === 404;
         this.billLists = [];
       });
-    
+
   }
 
   goToPage(page: number) {
@@ -106,7 +106,7 @@ nameOrder: string;
     const rangeStart = Math.max(0, this.currentPage - 2);
     const rangeEnd = Math.min(this.totalPages - 1, this.currentPage + 2);
     this.pageRange = Array(rangeEnd - rangeStart + 1).fill(0).map((x, i) => i + rangeStart);
-    
+
   }
 
   previousPage() {
@@ -122,18 +122,14 @@ nameOrder: string;
     this.nameOrder = '';
     this.billService.findById(id).subscribe(next => {
       this.billDetail = next;
-      
-      for (const  key in this.billDetail) {
-        this.totalPrice += this.billDetail[key].total; 
+
+      for (const key in this.billDetail) {
+        this.totalPrice += this.billDetail[key].total;
       }
     });
-    
   }
 
   formatCurrency(currency: number): string {
     return currency.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
   }
-  
-
-
 }
