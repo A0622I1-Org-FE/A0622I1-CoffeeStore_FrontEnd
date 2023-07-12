@@ -11,6 +11,8 @@ import {FeedbackService} from '../../../service/feedback.service';
 import {FeedbackDetail} from '../../../modal/FeedbackDetail';
 import {IFeedbackDto} from '../../../modal/IFeedbackDto';
 import {Component, OnInit} from '@angular/core';
+import {TokenStorageService} from '../../../service/token-storage.service';
+import {Router, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-feedback-list',
@@ -40,7 +42,9 @@ export class FeedbackListComponent implements OnInit {
   rateList = [1, 2, 3, 4, 5];
   dateErrorMessage: string;
 
-  constructor(private service: FeedbackService) {
+  constructor(private service: FeedbackService,
+              private tokenService: TokenStorageService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -63,6 +67,9 @@ export class FeedbackListComponent implements OnInit {
       });
     if (!this.imgUrl) {
       this.imgUrl = this.noImgUrl;
+    }
+    if (!this.tokenService.getToken()) {
+      this.router.navigateByUrl('login');
     }
   }
 

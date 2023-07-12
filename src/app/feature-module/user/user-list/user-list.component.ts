@@ -6,6 +6,7 @@ import {UserService} from '../../../service/user.service';
 import {formatNumber} from '@angular/common';
 import {toNumbers} from '@angular/compiler-cli/src/diagnostics/typescript_version';
 import {ToastrService} from 'ngx-toastr';
+import {TokenStorageService} from '../../../service/token-storage.service';
 
 @Component({
   selector: 'app-user-list',
@@ -25,8 +26,11 @@ export class UserListComponent implements OnInit {
   name: string;
   noRecord: boolean;
   firstTimeSearch = false;
+  role: string;
 
-  constructor(private service: UserService, private message: ToastrService) {
+  constructor(private service: UserService,
+              private message: ToastrService,
+              private tokenStrorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -44,6 +48,9 @@ export class UserListComponent implements OnInit {
         this.noRecord = error.status === 404;
         this.users = [];
       });
+    if (this.tokenStrorageService.getToken()) {
+      this.role = this.tokenStrorageService.getRole()[0];
+    }
   }
 
   getList() {

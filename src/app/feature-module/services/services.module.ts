@@ -6,10 +6,11 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BodyComponent} from './body/body.component';
+import { ListComponent } from './list/list.component';
 
 
 @NgModule({
-    declarations: [BodyComponent],
+    declarations: [BodyComponent, ListComponent],
     exports: [
         BodyComponent
     ],

@@ -39,6 +39,8 @@ export class HeaderComponent implements OnInit {
       // this.isLoggedIn = true;
       // isLoggedIn = this.name != null;
     }
+
+    console.log(this.role);
   }
 
   logout(): void {

@@ -14,21 +14,30 @@ import {SalesComponent} from './feature-module/sales/sales.component';
 
 
 const routes: Routes = [
-  {path: 'service/:id', component: ServiceComponent},
+  {path: 'service/:id', component: ServiceComponent , canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'user']
+    }},
   {path: 'change-pass', component: InforAccountComponent},
-  {path: 'order', component: BillListComponent},
+  {path: 'order', component: BillListComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'user']
+    }},
   {path: 'feedback/create', component: FeedbackCreateComponent},
   // {path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)},
   {path: 'login', component: LoginComponent},
   {path: 'change-pass', component: InforAccountComponent},
   {path: 'sales', component: SalesComponent},
   { path: 'feedbackList', component: FeedbackListComponent},
-  { path: 'userList', component: UserListComponent},
+  { path: 'userList', component: UserListComponent , canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'user']
+    }},
   { path: 'service/:id', component: ServiceComponent},
   { path: '', component: BodyComponent},
   { path: 'table', component: TableComponent, canActivate: [AuthGuard],
   data: {
-  roles: ['admin']
+  roles: ['admin', 'user']
 }},
 ];
 

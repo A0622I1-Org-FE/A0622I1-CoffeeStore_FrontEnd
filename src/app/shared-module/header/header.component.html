@@ -13,15 +13,15 @@
       <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
         <li class="nav-item"><a routerLink="/table" class="nav-link">Bàn</a></li>
         <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
-        <li class="nav-item"><a routerLink="/order" class="nav-link">Hóa đơn</a></li>
+        <li class="nav-item" *ngIf="role!='user'"><a routerLink="/order" class="nav-link">Hóa đơn</a></li>
         <li class="nav-item"><a routerLink="/feedbackList" class="nav-link">Phản Hồi</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" routerLink="/userList" id="navbarDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">
             Quản lý nhân viên
           </a>
-          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <li><a class="dropdown-item text-end" routerLink="/create-user">Thêm nhân viên</a></li>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown" *ngIf="role!='user'">
+            <li ><a class="dropdown-item text-end" routerLink="/create-user">Thêm nhân viên</a></li>
           </ul>
         </li>
         <li class="nav-item"><a routerLink="/infor-account" class="nav-link">Thông tin cá nhân</a></li>
