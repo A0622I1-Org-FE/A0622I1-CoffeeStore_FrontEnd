@@ -14,7 +14,8 @@ export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
   validationMessage = {
     username: [
-      {type: 'required', message: 'Vui lòng không để trống!'}
+      {type: 'required', message: 'Vui lòng không để trống!'},
+      {type: 'maxlength', message: 'Tên tài khoản không được quá 20 ký tự'}
     ]
   };
   constructor(private router: Router,
@@ -27,7 +28,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {
     this.forgotPasswordForm = this.formBuilder.group({
-      username: ['', [Validators.required]]
+      username: ['', [Validators.required, Validators.maxLength(20)]]
     });
   }
   submit() {

@@ -41,7 +41,7 @@ export class VerifyChangePasswordComponent implements OnInit {
     });
     this.activatedRoute.paramMap.subscribe(params => {
         this.code = params.get('code');
-        if (this.code === '') {
+        if (this.code == '') {
           this.isSendMail = false;
         } else {
           this.authService.verifyPassword(this.code).subscribe(
