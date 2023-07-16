@@ -13,8 +13,17 @@
       <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
         <li class="nav-item"><a routerLink="/table" class="nav-link">Bàn</a></li>
         <li class="nav-item"><a routerLink="/sales" class="nav-link">Thanh Toán</a></li>
-        <li class="nav-item" *ngIf="role!='user'"><a routerLink="/order" class="nav-link">Hóa đơn</a></li>
         <li class="nav-item"><a routerLink="/feedbackList" class="nav-link">Phản Hồi</a></li>
+
+        <div class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" id="navbarDropdown" aria-expanded="false">
+            Quản lý
+          </a>
+          <ul class="dropdown-menu" *ngIf="role!='user'">
+            <li><a class="dropdown-item" routerLink="/order">Hóa đơn</a></li>
+            <li><a class="dropdown-item" routerLink="/listMenu">Thực đơn</a></li>
+          </ul>
+        </div>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" routerLink="/userList" id="navbarDropdown" role="button"
              data-bs-toggle="dropdown" aria-expanded="false">

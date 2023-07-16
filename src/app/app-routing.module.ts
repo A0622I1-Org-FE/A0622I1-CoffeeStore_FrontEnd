@@ -11,6 +11,7 @@ import {BodyComponent} from './feature-module/services/body/body.component';
 import {TableComponent} from './feature-module/table/table.component';
 import {LoginComponent} from './feature-module/security/login/login.component';
 import {SalesComponent} from './feature-module/sales/sales.component';
+import {ListComponent} from './feature-module/services/list/list.component';
 
 
 const routes: Routes = [
@@ -38,6 +39,10 @@ const routes: Routes = [
   { path: 'table', component: TableComponent, canActivate: [AuthGuard],
   data: {
   roles: ['admin', 'user']
+}},
+  { path: 'listMenu', component: ListComponent, canActivate: [AuthGuard],
+  data: {
+  roles: ['admin']
 }},
 ];
 

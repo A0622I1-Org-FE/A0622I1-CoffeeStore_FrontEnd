@@ -23,6 +23,7 @@ feedback-list html file is used to show data
   <div class="d-flex justify-content-center">
     <div class="content_add col-xl-10">
       <h2 class="title">Quản lý phản hồi</h2>
+<!--      chức năng search -->
       <div class="d-flex justify-content-end">
         <div class="input-group  align-items-center" style="width: 700px!important;">
           <label for="dateSearchF">Ngày phản hồi&nbsp;&nbsp;</label>
@@ -30,7 +31,7 @@ feedback-list html file is used to show data
           <input #dateT type="date" class="form-control" id="dateSearchT">&nbsp;
           <label for="rateSearch">Đánh giá &nbsp;&nbsp;</label>
           <div style="width: 150px!important;">
-            <select #rate type="date" class="form-control" id="rateSearch" >
+            <select #rate class="form-control" id="rateSearch" >
               <option value="">Hãy chọn số sao</option>
               <option *ngFor="let rate of rateList" value="{{rate}}">{{rate}}</option>
             </select>

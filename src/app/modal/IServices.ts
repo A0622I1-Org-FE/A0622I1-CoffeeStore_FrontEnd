@@ -1,5 +1,4 @@
 import {IServiceType} from './IServiceType';
-import {IBillDetail} from './IBillDetail';
 
 export interface IServices {
   id?: number;
