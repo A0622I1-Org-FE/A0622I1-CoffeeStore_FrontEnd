@@ -23,7 +23,6 @@ feedback-list html file is used to show data
   <div class="d-flex justify-content-center">
     <div class="content_add col-xl-10">
       <h2 class="title">Danh sách thực đơn</h2>
-      <br>
       <!--      chức năng search -->
       <h4 style="color: white">Chức năng tìm kiếm</h4>
       <table class="table">
@@ -56,6 +55,13 @@ feedback-list html file is used to show data
           <td><input #sCreatedDateF type="datetime-local" class="form-control" id="sCreatedDateF" [defaultValue]="createdDateF"></td>
           <td><input #sCreatedDateT type="datetime-local" class="form-control" id="sCreatedDateT" [defaultValue]="createdDateT"></td>
         </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><label for="sPaymentF">Doanh thu</label></td>
+          <td><input #sPaymentF type="number" class="form-control" id="sPaymentF" [defaultValue]="paymentF"></td>
+          <td><input #sPaymentT type="number" class="form-control" id="sPaymentT" [defaultValue]="paymentT"></td>
+        </tr>
         </tbody>
       </table>
       <div class="d-flex justify-content-end">
@@ -64,21 +70,24 @@ feedback-list html file is used to show data
         </button>&nbsp;
           <button type="button" class="btn btn-success"
                   (click)="search(sName.value, sPriceF.value, sPriceT.value, sType.value, sQuantityF.value,
-                  sQuantityT.value, sStatus.value, sCreatedDateF.value, sCreatedDateT.value)">
+                  sQuantityT.value, sStatus.value, sCreatedDateF.value, sCreatedDateT.value, sPaymentF.value, sPaymentT.value)">
             Tìm kiếm
           </button>
       </div>
       <p *ngIf="dateErrorMessage" style="color: red">{{dateErrorMessage}}</p>
       <div class="card_main">
+        <p style="color: white">*1: Trung bình cộng giá đã bán</p>
         <table class="table" style="border: 1px solid gray;">
           <thead>
           <tr>
             <th>STT</th>
             <th>Hình ảnh</th>
             <th>Tên món</th>
-            <th>Giá</th>
+            <th>Đơn giá</th>
             <th>Loại</th>
-            <th (click)="sortQuantity()">Đã bán</th>
+            <th>Giá bán(*1)</th>
+            <th style="cursor: pointer" (click)="sortQuantity()">Đã bán</th>
+            <th>Doanh thu</th>
             <th>Trạng thái</th>
             <th class="text-center">Ngày tạo</th>
             <th></th>
@@ -91,7 +100,9 @@ feedback-list html file is used to show data
             <td>{{service.serviceName}}</td>
             <td>{{formatCurrency(service.price)}}</td>
             <td>{{service.serviceType}}</td>
-            <td>{{conventValue(service.quantity)}}</td>
+            <td>{{formatCurrency(service.salePrice)}}</td>
+            <td>{{service.quantity}}</td>
+            <td>{{formatCurrency(service.payment)}}</td>
             <td>
               <button
                 [ngClass]="{'btn-danger': service.statusFlag == 'Vô hiệu', 'btn-success': service.statusFlag != 'Vô hiệu'}"

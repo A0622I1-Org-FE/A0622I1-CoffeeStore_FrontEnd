@@ -14,6 +14,8 @@ export interface IServiceDto1 {
   price?: number;
   serviceType?: string;
   createdDate?: string;
+  salePrice?: number;
   quantity?: number;
+  payment?: number;
   statusFlag?: string;
 }

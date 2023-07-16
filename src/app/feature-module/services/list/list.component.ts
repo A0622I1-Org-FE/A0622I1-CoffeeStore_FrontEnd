@@ -35,6 +35,9 @@ export class ListComponent implements OnInit {
   priceT: string;
   quantityF: string;
   quantityT: string;
+  salePrice: string;
+  paymentF: string;
+  paymentT: string;
   status: string;
 
   constructor(private servicesService: ServicesService,
@@ -42,17 +45,25 @@ export class ListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setDefaultValue();
+    this.getListService();
+    this.getListServiceType();
+  }
+
+  setDefaultValue() {
     this.serviceName = '';
     this.serviceType = '';
     this.createdDateF = '';
     this.createdDateT = '';
     this.priceF = '';
     this.priceT = '';
+    this.salePrice = '';
     this.quantityF = '';
     this.quantityT = '';
+    this.paymentF = '';
+    this.paymentT = '';
     this.status = '';
     this.statusList = ['Hoạt động', 'Vô hiệu'];
-    this.getListService();
   }
 
   goToPage(page: number) {
@@ -87,7 +98,8 @@ export class ListComponent implements OnInit {
   getList() {
     if (this.serviceName === '' && this.priceF === '' && this.priceT === ''
       && this.quantityF === '' && this.quantityT === '' && this.status === ''
-      && this.createdDateF === '' && this.createdDateT === '') {
+      && this.createdDateF === '' && this.createdDateT === '' && this.createdDateT === ''
+      && this.paymentF === '' && this.paymentT === '') {
       this.firstTimeSearch = true;
       this.ngOnInit();
     } else {
@@ -102,8 +114,7 @@ export class ListComponent implements OnInit {
   getListService() {
     this.servicesService.findAllListService(this.currentPage, this.pageSize,
       this.serviceName, this.serviceType, this.createdDateF, this.createdDateT, this.priceF, this.priceT,
-      this.quantityF, this.quantityT, this.status).subscribe(response => {
-        console.log(response);
+      this.salePrice, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT).subscribe(response => {
         if (response) {
           this.serviceList = response.content;
           this.totalPages = response.totalPages;
@@ -114,11 +125,16 @@ export class ListComponent implements OnInit {
         } else {
           this.setNoRecord();
         }
+        console.log(this.serviceList);
       },
       error => {
         this.noRecord = error.status === 404;
         this.serviceList = [];
       });
+
+  }
+
+  getListServiceType() {
     this.serviceTypeService.findAll().subscribe(response => {
       this.serviceTypeList = response;
     });
@@ -140,14 +156,6 @@ export class ListComponent implements OnInit {
     return currency.toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
   }
 
-  conventValue(value: number): number {
-    if (value == null) {
-      return 0;
-    } else {
-      return value;
-    }
-  }
-
   sortQuantity() {
     if (this.quantityASC) {
       this.serviceList.sort((a, b) => a.quantity - b.quantity);
@@ -164,7 +172,7 @@ export class ListComponent implements OnInit {
   }
 
   search(sName: string, sPriceF: string, sPriceT: string, sType: string, sQuantityF: string, sQuantityT: string,
-         sStatus: string, sCreatedDateF: string, sCreatedDateT: string) {
+         sStatus: string, sCreatedDateF: string, sCreatedDateT: string, sPaymentF: string, sPaymentT: string) {
     if (Date.parse(sCreatedDateF) > Date.parse(sCreatedDateT)) {
       this.dateErrorMessage += 'Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc\n';
       this.setNoRecord();
@@ -184,6 +192,8 @@ export class ListComponent implements OnInit {
       this.priceT = sPriceT;
       this.quantityF = sQuantityF;
       this.quantityT = sQuantityT;
+      this.paymentF = sPaymentF;
+      this.paymentT = sPaymentT;
       this.status = sStatus;
       this.getList();
     }
@@ -196,7 +206,7 @@ export class ListComponent implements OnInit {
       const day = date.substr(8, 2);
       const hour = date.substr(11, 2);
       const min = date.substr(14, 2);
-      const sec = '00';
+      const sec = '01';
       return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
     } else {
       return date;

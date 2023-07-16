@@ -6,9 +6,7 @@ import {ServiceRespone} from '../modal/ServiceRespone';
 import {Message} from '../modal/message';
 import {ITable} from '../modal/ITable';
 import {ServiceRespone1} from '../modal/ServiceRespone1';
-import {UserEditDTO} from '../dto/UserEditDTO';
 import {IServiceDto1} from '../modal/IServiceDto1';
-import {any} from 'codelyzer/util/function';
 
 @Injectable({
   providedIn: 'root'
@@ -57,17 +55,19 @@ export class ServicesService {
     return this.httpClient.get<ServiceRespone>(url);
   }
 
-  findAllService(page: number, pageSize: number): Observable<ServiceRespone1> {
-    const url = `${this.API_URL_SERVICE_LIST}?page=${page}&size=${pageSize}`;
-    return this.httpClient.get<ServiceRespone1>(url);
-  }
-
   findAllListService(page: number, pageSize: number,
                      serviceName: string, serviceType: string,
                      createdDateF: string, createdDateT: string,
-                     priceF: string, priceT: string,
-                     quantityF: string, quantityT: string, enableFlag: string): Observable<ServiceRespone1> {
-    const url = `${this.API_URL_LIST_SERVICE}?page=${page}&size=${pageSize}&serviceName=${serviceName}&serviceType=${serviceType}&createdDateF=${createdDateF}&createdDateT=${createdDateT}&priceF=${priceF}&priceT=${priceT}&quantityF=${quantityF}&quantityT=${quantityT}&enableFlag=${enableFlag}`;
+                     priceF: string, priceT: string, salePrice: string,
+                     quantityF: string, quantityT: string, enableFlag: string,
+                     paymentF: string, paymentT: string): Observable<ServiceRespone1> {
+    const url = this.API_URL_LIST_SERVICE +
+      '?page=' + page + '&size=' + pageSize + '&serviceName=' +
+      serviceName + '&serviceType=' + serviceType + '&createdDateF=' + createdDateF +
+      '&createdDateT=' + createdDateT + '&priceF=' + priceF + '&priceT=' +
+      priceT + '&salePrice=' + salePrice + '&quantityF=' + quantityF +
+      '&quantityT=' + quantityT + '&enableFlag=' + enableFlag +
+      '&paymentF=' + paymentF + '&paymentT=' + paymentT;
     console.log(url);
     return this.httpClient.get<ServiceRespone1>(url);
   }
