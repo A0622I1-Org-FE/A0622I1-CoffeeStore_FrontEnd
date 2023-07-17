@@ -39,6 +39,8 @@ export class ListComponent implements OnInit {
   paymentF: string;
   paymentT: string;
   status: string;
+  paymentTimeF: string;
+  paymentTimeT: string;
 
   constructor(private servicesService: ServicesService,
               private serviceTypeService: ServiceTypeService) {
@@ -62,6 +64,8 @@ export class ListComponent implements OnInit {
     this.quantityT = '';
     this.paymentF = '';
     this.paymentT = '';
+    this.paymentTimeF = '';
+    this.paymentTimeT = '';
     this.status = '';
     this.statusList = ['Hoạt động', 'Vô hiệu'];
   }
@@ -99,7 +103,8 @@ export class ListComponent implements OnInit {
     if (this.serviceName === '' && this.priceF === '' && this.priceT === ''
       && this.quantityF === '' && this.quantityT === '' && this.status === ''
       && this.createdDateF === '' && this.createdDateT === '' && this.createdDateT === ''
-      && this.paymentF === '' && this.paymentT === '') {
+      && this.paymentF === '' && this.paymentT === '' && this.paymentTimeF === ''
+      && this.paymentTimeT === '') {
       this.firstTimeSearch = true;
       this.ngOnInit();
     } else {
@@ -114,7 +119,8 @@ export class ListComponent implements OnInit {
   getListService() {
     this.servicesService.findAllListService(this.currentPage, this.pageSize,
       this.serviceName, this.serviceType, this.createdDateF, this.createdDateT, this.priceF, this.priceT,
-      this.salePrice, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT).subscribe(response => {
+      this.salePrice, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT,
+      this.paymentTimeF, this.paymentTimeT).subscribe(response => {
         if (response) {
           this.serviceList = response.content;
           this.totalPages = response.totalPages;
@@ -172,14 +178,16 @@ export class ListComponent implements OnInit {
   }
 
   search(sName: string, sPriceF: string, sPriceT: string, sType: string, sQuantityF: string, sQuantityT: string,
-         sStatus: string, sCreatedDateF: string, sCreatedDateT: string, sPaymentF: string, sPaymentT: string) {
+         sStatus: string, sCreatedDateF: string, sCreatedDateT: string, sPaymentF: string, sPaymentT: string,
+         sPaymentTimeF: string, sPaymentTimeT: string) {
     if (Date.parse(sCreatedDateF) > Date.parse(sCreatedDateT)) {
       this.dateErrorMessage += 'Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc\n';
       this.setNoRecord();
     } else {
       if (this.serviceName !== sName || this.priceF !== sPriceF || this.priceT !== sPriceT ||
         this.quantityF !== sQuantityF || this.quantityT !== sQuantityT || this.status !== sStatus ||
-        this.createdDateF !== sCreatedDateF || this.createdDateT !== sCreatedDateT || this.serviceType !== sType) {
+        this.createdDateF !== sCreatedDateF || this.createdDateT !== sCreatedDateT || this.serviceType !== sType ||
+        this.paymentTimeF !== sPaymentTimeF || this.paymentTimeT !== sPaymentTimeT) {
         this.currentPage = 0;
         this.firstTimeSearch = false;
       }
@@ -194,6 +202,8 @@ export class ListComponent implements OnInit {
       this.quantityT = sQuantityT;
       this.paymentF = sPaymentF;
       this.paymentT = sPaymentT;
+      this.paymentTimeF = this.formatDateInput(sPaymentTimeF);
+      this.paymentTimeT = this.formatDateInput(sPaymentTimeT);
       this.status = sStatus;
       this.getList();
     }

@@ -39,6 +39,7 @@ export class ServicesService {
 
   updateFlag(flag, id, service): Observable<IServiceDto1> {
     const url = `${this.API_URL_UPDATE_ENABLE_FLAG}?flag=${flag}&id=${id}`;
+    console.log(url);
     return this.httpClient.put<IServiceDto1>(url, service, this.httpOptions);
   }
 
@@ -60,14 +61,12 @@ export class ServicesService {
                      createdDateF: string, createdDateT: string,
                      priceF: string, priceT: string, salePrice: string,
                      quantityF: string, quantityT: string, enableFlag: string,
-                     paymentF: string, paymentT: string): Observable<ServiceRespone1> {
+                     paymentF: string, paymentT: string, paymentTimeF: string, paymentTimeT: string): Observable<ServiceRespone1> {
     const url = this.API_URL_LIST_SERVICE +
-      '?page=' + page + '&size=' + pageSize + '&serviceName=' +
-      serviceName + '&serviceType=' + serviceType + '&createdDateF=' + createdDateF +
-      '&createdDateT=' + createdDateT + '&priceF=' + priceF + '&priceT=' +
-      priceT + '&salePrice=' + salePrice + '&quantityF=' + quantityF +
-      '&quantityT=' + quantityT + '&enableFlag=' + enableFlag +
-      '&paymentF=' + paymentF + '&paymentT=' + paymentT;
+      '?page=' + page + '&size=' + pageSize + '&serviceName=' + serviceName + '&serviceType=' + serviceType +
+      '&createdDateF=' + createdDateF + '&createdDateT=' + createdDateT + '&priceF=' + priceF + '&priceT=' + priceT +
+      '&salePrice=' + salePrice + '&quantityF=' + quantityF + '&quantityT=' + quantityT + '&enableFlag=' + enableFlag +
+      '&paymentF=' + paymentF + '&paymentT=' + paymentT + '&paymentTimeF=' + paymentTimeF + '&paymentTimeT=' + paymentTimeT;
     console.log(url);
     return this.httpClient.get<ServiceRespone1>(url);
   }
@@ -108,11 +107,5 @@ export class ServicesService {
 
   getChange() {
     return this.change;
-  }
-
-  searchDate(page: number, pageSize: number, dateF: string, dateT: string): Observable<ServiceRespone1> {
-    const url = `${this.API_URL_SEARCH_SERVICE_BY_DATE}?page=${page}&size=${pageSize}&dateF=${dateF}&dateT=${dateT}`;
-    console.log(url);
-    return this.httpClient.get<ServiceRespone1>(url);
   }
 }

@@ -30,9 +30,9 @@ feedback-list html file is used to show data
         <tr>
           <td><label for="sName">Tên món</label></td>
           <td><input #sName type="text" class="form-control" id="sName" maxlength="100" [defaultValue]="serviceName"></td>
-          <td><label for="sPriceF">Giá</label></td>
-          <td><input #sPriceF type="number" class="form-control" id="sPriceF" maxlength="10" [defaultValue]="priceF"></td>
-          <td><input #sPriceT type="number" class="form-control" id="sPriceT" maxlength="10" [defaultValue]="priceT"></td>
+          <td><label for="sQuantityF">Số lượng bán ra</label></td>
+          <td><input #sQuantityF type="number" class="form-control" id="sQuantityF" maxlength="10" [defaultValue]="quantityF"></td>
+          <td><input #sQuantityT type="number" class="form-control" id="sQuantityT" maxlength="10" [defaultValue]="quantityT"></td>
         </tr>
         <tr>
           <td><label for="sType">Nhóm</label></td>
@@ -41,9 +41,9 @@ feedback-list html file is used to show data
             <option *ngFor="let serviceType of serviceTypeList"
                     value="{{serviceType.name}}">{{serviceType.name}}</option>
           </select></td>
-          <td><label for="sQuantityF">Số lượng bán ra</label></td>
-          <td><input #sQuantityF type="number" class="form-control" id="sQuantityF" maxlength="10" [defaultValue]="quantityF"></td>
-          <td><input #sQuantityT type="number" class="form-control" id="sQuantityT" maxlength="10" [defaultValue]="quantityT"></td>
+          <td><label for="sPriceF">Đơn giá</label></td>
+          <td><input #sPriceF type="number" class="form-control" id="sPriceF" maxlength="10" [defaultValue]="priceF"></td>
+          <td><input #sPriceT type="number" class="form-control" id="sPriceT" maxlength="10" [defaultValue]="priceT"></td>
         </tr>
         <tr>
           <td><label for="sStatus">Tình trạng</label></td>
@@ -62,6 +62,13 @@ feedback-list html file is used to show data
           <td><input #sPaymentF type="number" class="form-control" id="sPaymentF" [defaultValue]="paymentF"></td>
           <td><input #sPaymentT type="number" class="form-control" id="sPaymentT" [defaultValue]="paymentT"></td>
         </tr>
+        <tr>
+          <td></td>
+          <td></td>
+          <td><label for="sCreatedDateF">Khoảng thời gian</label></td>
+          <td><input #paymentTimeF type="datetime-local" class="form-control" id="sPaymentTimeF" [defaultValue]="paymentTimeF"></td>
+          <td><input #paymentTimeT type="datetime-local" class="form-control" id="sPaymentTimeT" [defaultValue]="paymentTimeT"></td>
+        </tr>
         </tbody>
       </table>
       <div class="d-flex justify-content-end">
@@ -70,7 +77,8 @@ feedback-list html file is used to show data
         </button>&nbsp;
           <button type="button" class="btn btn-success"
                   (click)="search(sName.value, sPriceF.value, sPriceT.value, sType.value, sQuantityF.value,
-                  sQuantityT.value, sStatus.value, sCreatedDateF.value, sCreatedDateT.value, sPaymentF.value, sPaymentT.value)">
+                  sQuantityT.value, sStatus.value, sCreatedDateF.value, sCreatedDateT.value, sPaymentF.value,
+                   sPaymentT.value, paymentTimeF.value , paymentTimeT.value)">
             Tìm kiếm
           </button>
       </div>
