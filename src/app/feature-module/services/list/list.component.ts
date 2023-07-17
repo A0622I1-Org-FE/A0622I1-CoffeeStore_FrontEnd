@@ -98,7 +98,6 @@ export class ListComponent implements OnInit {
     this.countPageCanShow();
   }
 
-
   getList() {
     if (this.serviceName === '' && this.priceF === '' && this.priceT === ''
       && this.quantityF === '' && this.quantityT === '' && this.status === ''
@@ -131,7 +130,6 @@ export class ListComponent implements OnInit {
         } else {
           this.setNoRecord();
         }
-        console.log(this.serviceList);
       },
       error => {
         this.noRecord = error.status === 404;
@@ -173,8 +171,16 @@ export class ListComponent implements OnInit {
   }
 
   changeStatus(str: string, id: number) {
-    this.servicesService.updateFlag(str === 'Vô hiệu', id, this.serviceList.find(service => service.id === id));
-    this.ngOnInit();
+    this.servicesService.updateFlag(str === 'Vô hiệu', id, this.serviceList.find(service => service.id === id)).subscribe(response =>{
+      const updatedService = this.serviceList.find(service => service.id === id);
+      if (updatedService) {
+          if (updatedService.statusFlag === this.statusList[0]) {
+            updatedService.statusFlag = this.statusList[1];
+          } else {
+            updatedService.statusFlag = this.statusList[0];
+          }
+      }
+    });
   }
 
   search(sName: string, sPriceF: string, sPriceT: string, sType: string, sQuantityF: string, sQuantityT: string,
@@ -222,6 +228,7 @@ export class ListComponent implements OnInit {
       return date;
     }
   }
+
   setNoRecord() {
     this.noRecord = true;
     this.serviceList = [];
@@ -231,16 +238,7 @@ export class ListComponent implements OnInit {
     this.countPageCanShow();
   }
 
-  resetCondition() {
-    this.ngOnInit();
-    // document.getElementById('sName').innerText  = '';
-    // document.getElementById('sPriceF').innerText = '';
-    // document.getElementById('spriceT').innerText = '';
-    // document.getElementById('squantityF').innerText = '';
-    // document.getElementById('squantityT').innerText = '';
-    // document.getElementById('ssStatus').innerText = '';
-    // document.getElementById('sCreatedDateF').innerText = '';
-    // document.getElementById('sCreatedDateT').innerText = '';
-    // document.getElementById('serviceType').innerText = '';
+  reloadPage() {
+    window.location.reload();
   }
 }

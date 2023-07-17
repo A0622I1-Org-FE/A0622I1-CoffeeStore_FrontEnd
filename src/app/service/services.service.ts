@@ -20,9 +20,7 @@ export class ServicesService {
   private API_URL_BEST_SELLER = 'http://localhost:8080/api/public/body/best';
   private API_URL_NEW_FOOD = 'http://localhost:8080/api/public/body/new';
   private API_URL_TABLE = 'http://localhost:8080/api/private/list/table';
-  private API_URL_SERVICE_LIST = 'http://localhost:8080/api/private/list/serviceList';
   private API_URL_LIST_SERVICE = 'http://localhost:8080/api/private/list/listService';
-  private API_URL_SEARCH_SERVICE_BY_DATE = 'http://localhost:8080/api/private/list/serviceList/searchByDate';
   private API_URL_UPDATE_ENABLE_FLAG = 'http://localhost:8080/api/private/list/serviceList/changeServiceEnableFlag';
 
   httpOptions = {
@@ -67,7 +65,6 @@ export class ServicesService {
       '&createdDateF=' + createdDateF + '&createdDateT=' + createdDateT + '&priceF=' + priceF + '&priceT=' + priceT +
       '&salePrice=' + salePrice + '&quantityF=' + quantityF + '&quantityT=' + quantityT + '&enableFlag=' + enableFlag +
       '&paymentF=' + paymentF + '&paymentT=' + paymentT + '&paymentTimeF=' + paymentTimeF + '&paymentTimeT=' + paymentTimeT;
-    console.log(url);
     return this.httpClient.get<ServiceRespone1>(url);
   }
 
