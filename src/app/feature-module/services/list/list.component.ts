@@ -11,11 +11,12 @@ import {IServiceType} from '../../../modal/IServiceType';
 })
 export class ListComponent implements OnInit {
   serviceList: IServiceDto1[];
+  allServices: IServiceDto1[];
   serviceTypeList: IServiceType[];
   statusList: string[];
   quantityASC = true;
-  totalPages = 0;
-  totalElements = 0;
+  totalPages: number;
+  totalElements: number;
   id: number;
   pages: number[];
   pageRange: number[];
@@ -24,6 +25,7 @@ export class ListComponent implements OnInit {
   tableId: number;
   dateErrorMessage: string;
   firstTimeSearch = false;
+  totalPaymentValue: number;
 
   currentPage = 0;
   pageSize = 8;
@@ -99,11 +101,12 @@ export class ListComponent implements OnInit {
   }
 
   getList() {
-    if (this.serviceName === '' && this.priceF === '' && this.priceT === ''
-      && this.quantityF === '' && this.quantityT === '' && this.status === ''
-      && this.createdDateF === '' && this.createdDateT === '' && this.createdDateT === ''
-      && this.paymentF === '' && this.paymentT === '' && this.paymentTimeF === ''
-      && this.paymentTimeT === '') {
+    if (this.serviceName === '' && this.serviceType === '' && this.status === ''
+      && this.quantityF === '' && this.quantityT === ''
+      && this.priceF === '' && this.priceT === ''
+      && this.createdDateF === '' && this.createdDateT === ''
+      && this.paymentF === '' && this.paymentT === ''
+      && this.paymentTimeF === '' && this.paymentTimeT === '' ) {
       this.firstTimeSearch = true;
       this.ngOnInit();
     } else {
@@ -127,6 +130,7 @@ export class ListComponent implements OnInit {
           this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
           this.noRecord = response.size === 0;
           this.countPageCanShow();
+          this.totalPayment();
         } else {
           this.setNoRecord();
         }
@@ -135,7 +139,6 @@ export class ListComponent implements OnInit {
         this.noRecord = error.status === 404;
         this.serviceList = [];
       });
-
   }
 
   getListServiceType() {
@@ -171,14 +174,14 @@ export class ListComponent implements OnInit {
   }
 
   changeStatus(str: string, id: number) {
-    this.servicesService.updateFlag(str === 'Vô hiệu', id, this.serviceList.find(service => service.id === id)).subscribe(response =>{
+    this.servicesService.updateFlag(str === 'Vô hiệu', id, this.serviceList.find(service => service.id === id)).subscribe(response => {
       const updatedService = this.serviceList.find(service => service.id === id);
       if (updatedService) {
-          if (updatedService.statusFlag === this.statusList[0]) {
-            updatedService.statusFlag = this.statusList[1];
-          } else {
-            updatedService.statusFlag = this.statusList[0];
-          }
+        if (updatedService.statusFlag === this.statusList[0]) {
+          updatedService.statusFlag = this.statusList[1];
+        } else {
+          updatedService.statusFlag = this.statusList[0];
+        }
       }
     });
   }
@@ -235,10 +238,28 @@ export class ListComponent implements OnInit {
     this.totalPages = 0;
     this.totalElements = 0;
     this.pages = [];
+    this.totalPaymentValue = 0;
     this.countPageCanShow();
   }
 
   reloadPage() {
     window.location.reload();
+  }
+
+  totalPayment() {
+    this.totalPaymentValue = 0;
+    this.servicesService.findAllListService(0, this.totalElements,
+      this.serviceName, this.serviceType, this.createdDateF, this.createdDateT, this.priceF, this.priceT,
+      this.salePrice, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT,
+      this.paymentTimeF, this.paymentTimeT).subscribe(response => {
+        this.allServices = response.content;
+        for (let i = 0; i < this.allServices.length; i++) {
+          this.totalPaymentValue += this.allServices[i].payment;
+        }
+      },
+      error => {
+        this.setNoRecord();
+      });
+    if (this.totalPaymentValue === 0) {}
   }
 }

@@ -37,7 +37,6 @@ export class ServicesService {
 
   updateFlag(flag, id, service): Observable<IServiceDto1> {
     const url = `${this.API_URL_UPDATE_ENABLE_FLAG}?flag=${flag}&id=${id}`;
-    console.log(url);
     return this.httpClient.put<IServiceDto1>(url, service, this.httpOptions);
   }
 

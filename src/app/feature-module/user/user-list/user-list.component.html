@@ -6,15 +6,15 @@
         content="width=device-width, user-scalable=no, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Danh Sách Nhân Viên</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-  <link rel='stylesheet prefetch' href='https://netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css'>
 </head>
 <body>
 <div class="container_add">
   <div class="d-flex justify-content-center">
     <div class="content_add col-xl-10">
       <h2 class="title">Danh Sách Nhân Viên</h2>
+      <div class="d-flex justify-content-end" style="margin-bottom: 1em" *ngIf="role!='user'">
+        <a type="button" class="btn btn-success" routerLink="/create-user">Đăng ký</a>
+      </div>
       <div class="d-flex justify-content-end">
         <div class="input-group  align-items-center" style="width: 600px!important;">
           <label for="dateSearch">Ngày Sinh&nbsp;&nbsp;</label>
@@ -43,7 +43,7 @@
           <th>Ngày sinh</th>
           <th>Lương</th>
           <th>Chức vụ</th>
-          <th  *ngIf="role!='user'">Chỉnh sửa/Xóa</th>
+          <th *ngIf="role!='user'">Chỉnh sửa/Xóa</th>
           <th></th>
         </tr>
         </thead>
@@ -58,12 +58,14 @@
           <td>{{formatDate(user.birthday)}}</td>
           <td>{{formatSalary(user.salary)}}</td>
           <td>{{user.position}}</td>
-                    <td><a *ngIf="getEnableFlag(user.enableFlag) && role!='user'" routerLink="edit-user/{{user.id}}" class="btn btn-outline-info">📝</a> &nbsp;
-                      <button *ngIf="getEnableFlag(user.enableFlag) && role!='user'" type="button" class="btn btn-outline-danger" data-bs-toggle="modal"
-                              data-bs-target="#packageModal" (click)="sendId(user.id)">
-                        🗑
-                      </button>
-                    </td>
+          <td><a *ngIf="getEnableFlag(user.enableFlag) && role!='user'" routerLink="edit-user/{{user.id}}"
+                 class="btn btn-outline-info">📝</a> &nbsp;
+            <button *ngIf="getEnableFlag(user.enableFlag) && role!='user'" type="button" class="btn btn-outline-danger"
+                    data-bs-toggle="modal"
+                    data-bs-target="#packageModal" (click)="sendId(user.id)">
+              🗑
+            </button>
+          </td>
         </tr>
         </tbody>
         <tr *ngIf="noRecord">
@@ -107,9 +109,9 @@
         <div style="position: absolute; left: 18px">
           <h6 class="text-danger">Lưu ý! Hành động không thể hoàn tác!</h6>
         </div>
-                <button type="button" class="btn_action" data-bs-dismiss="modal" (click)="deleteById()">
-                  Delete
-                </button>
+        <button type="button" class="btn_action" data-bs-dismiss="modal" (click)="deleteById()">
+          Delete
+        </button>
         <button type="button" class="btn_action" data-bs-dismiss="modal">Close</button>
       </div>
     </div>
