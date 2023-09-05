@@ -7,10 +7,11 @@ import {BrowserModule} from '@angular/platform-browser';
 import {ReactiveFormsModule} from '@angular/forms';
 import {BodyComponent} from './body/body.component';
 import { ListComponent } from './list/list.component';
+import { CreateComponent } from './create/create.component';
 
 
 @NgModule({
-    declarations: [BodyComponent, ListComponent],
+    declarations: [BodyComponent, ListComponent, CreateComponent],
     exports: [
         BodyComponent
     ],

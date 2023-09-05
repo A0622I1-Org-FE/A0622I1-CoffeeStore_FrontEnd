@@ -12,6 +12,7 @@ import {TableComponent} from './feature-module/table/table.component';
 import {LoginComponent} from './feature-module/security/login/login.component';
 import {SalesComponent} from './feature-module/sales/sales.component';
 import {ListComponent} from './feature-module/services/list/list.component';
+import {CreateComponent} from './feature-module/services/create/create.component';
 
 
 const routes: Routes = [
@@ -34,7 +35,6 @@ const routes: Routes = [
     data: {
       roles: ['admin', 'user']
     }},
-  { path: 'service/:id', component: ServiceComponent},
   { path: '', component: BodyComponent},
   { path: 'table', component: TableComponent, canActivate: [AuthGuard],
   data: {
@@ -44,6 +44,10 @@ const routes: Routes = [
   data: {
   roles: ['admin']
 }},
+  { path: 'createService', component: CreateComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['admin']
+    }},
 ];
 
 @NgModule({

@@ -20,6 +20,10 @@ feedback-list html file is used to show data
   <div class="d-flex justify-content-center">
     <div class="content_add col-xl-10">
       <h2 class="title">Danh sách thực đơn</h2>
+      <!--      chức năng  đăng ký mới-->
+      <div class="d-flex justify-content-end" style="margin-bottom: 1em" *ngIf="role!='user'">
+        <a type="button" class="btn btn-success" routerLink="/createService">Đăng ký</a>
+      </div>
       <!--      chức năng search -->
       <h4 style="color: white">Chức năng tìm kiếm</h4>
       <table class="table">

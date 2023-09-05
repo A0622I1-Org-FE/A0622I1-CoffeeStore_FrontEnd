@@ -55,7 +55,8 @@ export class UserCreateComponent implements OnInit {
         Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]),
         gender: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
-        address: new FormControl('', [Validators.required,Validators.minLength(6), Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]),
+        address: new FormControl('', [Validators.required, Validators.minLength(6),
+          Validators.maxLength(100), Validators.pattern('^[a-zA-Z0-9\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ ,]*$')]),
         birthday: new FormControl('', [Validators.required, checkDateOfBirth]),
         phoneNumber: new FormControl('', [Validators.required, Validators.pattern('^(\\+?84|0)(3[2-9]|5[689]|7[0|6-9]|8[1-9]|9[0-9])[0-9]{7}$')]),
         position: new FormControl('', Validators.required),
@@ -148,7 +149,7 @@ export class UserCreateComponent implements OnInit {
     this.selectedImage = event.target.files[0];
     if (this.selectedImage != null) {
       const fileSizeInMB = this.selectedImage.size / (1024 * 1024);
-      const maxFileSizeInMB = 5; 
+      const maxFileSizeInMB = 5;
       if (fileSizeInMB > maxFileSizeInMB) {
         this.toastrService.error('Giới hạn dung lượng ảnh là 5MB', 'Cảnh Báo');
         this.selectedImage = null;

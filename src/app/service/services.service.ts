@@ -1,12 +1,13 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {IServices} from '../modal/IServices';
 import {ServiceRespone} from '../modal/ServiceRespone';
 import {Message} from '../modal/message';
 import {ITable} from '../modal/ITable';
 import {ServiceRespone1} from '../modal/ServiceRespone1';
 import {IServiceDto1} from '../modal/IServiceDto1';
+import {catchError} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class ServicesService {
   private API_URL_NEW_FOOD = 'http://localhost:8080/api/public/body/new';
   private API_URL_TABLE = 'http://localhost:8080/api/private/list/table';
   private API_URL_LIST_SERVICE = 'http://localhost:8080/api/private/list/listService';
+  private API_URL_CREATE_SERVICE = 'http://localhost:8080/api/private/list/createService';
   private API_URL_UPDATE_ENABLE_FLAG = 'http://localhost:8080/api/private/list/serviceList/changeServiceEnableFlag';
 
   httpOptions = {
@@ -67,6 +69,23 @@ export class ServicesService {
     return this.httpClient.get<ServiceRespone1>(url);
   }
 
+  createService(service): Observable<IServices> {
+        return this.httpClient.post<IServices>(this.API_URL_CREATE_SERVICE, JSON.stringify(service), this.httpOptions)
+          .pipe(
+            catchError(this.errorHandler)
+          );
+  }
+
+  errorHandler(error) {
+    let errorMessage = '';
+    if (error.error instanceof ErrorEvent) {
+      errorMessage = error.error.message;
+    } else {
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    return throwError(errorMessage);
+  }
+
   findAllTable(): Observable<ITable[]> {
     return this.httpClient.get<ITable[]>(this.API_URL_TABLE);
   }
@@ -104,4 +123,5 @@ export class ServicesService {
   getChange() {
     return this.change;
   }
+
 }

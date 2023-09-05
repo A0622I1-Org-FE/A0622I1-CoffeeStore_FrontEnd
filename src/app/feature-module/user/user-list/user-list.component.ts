@@ -30,7 +30,7 @@ export class UserListComponent implements OnInit {
 
   constructor(private service: UserService,
               private message: ToastrService,
-              private tokenStrorageService: TokenStorageService) {
+              private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
@@ -48,8 +48,8 @@ export class UserListComponent implements OnInit {
         this.noRecord = error.status === 404;
         this.users = [];
       });
-    if (this.tokenStrorageService.getToken()) {
-      this.role = this.tokenStrorageService.getRole()[0];
+    if (this.tokenStorageService.getToken()) {
+      this.role = this.tokenStorageService.getRole()[0];
     }
   }
 

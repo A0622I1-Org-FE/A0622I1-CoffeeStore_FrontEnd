@@ -3,6 +3,7 @@ import {ServicesService} from '../../../service/services.service';
 import {IServiceDto1} from '../../../modal/IServiceDto1';
 import {ServiceTypeService} from '../../../service/service-type.service';
 import {IServiceType} from '../../../modal/IServiceType';
+import {TokenStorageService} from '../../../service/token-storage.service';
 
 @Component({
   selector: 'app-list',
@@ -26,6 +27,7 @@ export class ListComponent implements OnInit {
   dateErrorMessage: string;
   firstTimeSearch = false;
   totalPaymentValue: number;
+  role: string;
 
   currentPage = 0;
   pageSize = 8;
@@ -45,13 +47,20 @@ export class ListComponent implements OnInit {
   paymentTimeT: string;
 
   constructor(private servicesService: ServicesService,
-              private serviceTypeService: ServiceTypeService) {
+              private serviceTypeService: ServiceTypeService,
+              private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
     this.setDefaultValue();
     this.getListService();
     this.getListServiceType();
+    this.checkRole();
+  }
+  checkRole() {
+    if (this.tokenStorageService.getToken()) {
+      this.role = this.tokenStorageService.getRole()[0];
+    }
   }
 
   setDefaultValue() {
