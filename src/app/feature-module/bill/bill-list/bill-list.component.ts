@@ -132,4 +132,8 @@ export class BillListComponent implements OnInit {
   formatCurrency(currency: number): string {
       return parseFloat(String(currency)).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
   }
+
+  reloadPage() {
+    window.location.reload();
+  }
 }

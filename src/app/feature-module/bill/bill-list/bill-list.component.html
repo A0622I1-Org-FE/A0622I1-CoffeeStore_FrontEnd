@@ -13,22 +13,60 @@
         <div class="d-flex justify-content-center">
             <div class="content_add col-xl-10">
                 <h2 class="title">Quản lý hóa đơn</h2>
-                <div class="d-flex justify-content-end">
-                    <div class="input-group" style="width: 300px!important;">
-                        <!-- <label for="dateSearch">Ngày xuất hóa đơn&nbsp;&nbsp;</label>
-                        <input #date type="date" class="form-control" id="dateSearch">&nbsp;&nbsp; -->
-                        <label for="userSearch">Người tạo&nbsp;&nbsp;</label>
-                        <input #name type="text" class="form-control" id="userSearch">
-                        <button type="button" class="btn btn-outline-light" (click)="searchUser(name.value)">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                                class="bi bi-search" viewBox="0 0 16 16">
-                                <path
-                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
+<!--                <div class="d-flex justify-content-end">-->
+<!--                    <div class="input-group" style="width: 300px!important;">-->
+<!--                        &lt;!&ndash; <label for="dateSearch">Ngày xuất hóa đơn&nbsp;&nbsp;</label>-->
+<!--                        <input #date type="date" class="form-control" id="dateSearch">&nbsp;&nbsp; &ndash;&gt;-->
+<!--                        <label for="userSearch">Người tạo&nbsp;&nbsp;</label>-->
+<!--                        <input #name type="text" class="form-control" id="userSearch">-->
+<!--                        <button type="button" class="btn btn-outline-light" (click)="searchUser(name.value)">-->
+<!--                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"-->
+<!--                                class="bi bi-search" viewBox="0 0 16 16">-->
+<!--                                <path-->
+<!--                                    d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />-->
+<!--                            </svg>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+              <table class="table">
+                <tbody>
+                <tr>
+                  <td style="width: 110px"><label for="sBillNo">Số hoá đơn</label></td>
+                  <td style="width: 180px"><input #sBillNo type="text" class="form-control" id="sBillNo" maxlength="100"
+                                                  [defaultValue]="billNo">
+                  </td>
+                  <td><label for="sCreatedDateF">Ngày tạo</label></td>
+                  <td><input #sCreatedDateF type="datetime-local" class="form-control" id="sCreatedDateF"
+                             [defaultValue]="createdDateF"></td>
+                  <td><input #sCreatedDateT type="datetime-local" class="form-control" id="sCreatedDateT"
+                             [defaultValue]="createdDateT"></td>
 
+                  <td><label for="sPaymentF">Doanh thu</label></td>
+                  <td><input #sPaymentF type="number" class="form-control" id="sPaymentF" [defaultValue]="paymentF"></td>
+                  <td><input #sPaymentT type="number" class="form-control" id="sPaymentT" [defaultValue]="paymentT"></td>
+                </tr>
+                <tr>
+                  <td style="width: 110px"><label for="sTableNo">Số bàn</label></td>
+                  <td style="width: 180px"><input #sTableNo type="text" class="form-control" id="sTableNo" maxlength="100"
+                                                  [defaultValue]="tableNo">
+                  </td>
+                  <td style="width: 110px"><label for="sCreatedBy">Người tạo</label></td>
+                  <td style="width: 180px"><input #sCreatedBy type="text" class="form-control" id="sCreatedBy" maxlength="100"
+                                                  [defaultValue]="createdBy">
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+              <div class="d-flex justify-content-end">
+                <button type="button" class="btn btn-secondary" (click)="reloadPage()">
+                  Làm mới
+                </button>&nbsp;
+                <button type="button" class="btn btn-success"
+                        (click)="search(sBillNo.value, sCreatedDateF.value, sCreatedDateT.value, sPaymentF.value, sPaymentT.value, sTableNo.value,
+                  sCreatedBy.value)">
+                  Tìm kiếm
+                </button>
+              </div>
                 <br>
                 <div class="card_main">
                     <table class="table" style="border: 1px solid gray;">
