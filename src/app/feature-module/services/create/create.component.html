@@ -1,7 +1,7 @@
 <body>
 <div class="d-flex justify-content-center" *ngIf="serviceTypeList">
   <div class="content_add col-xl-6" style="margin-top: 5em">
-    <h2>THÊM MỚI MEMU</h2>
+    <h2>Thêm mới menu</h2>
     <form [formGroup]="serviceForm" (ngSubmit)="create()">
       <div class="row align-items-end">
           <div class="form-group col-4">
@@ -102,7 +102,7 @@
             </button>
           </div>
           <div style="margin-top: 17px !important">
-            <a routerLink="/listMenu" class="btn_action" style="padding: 19px 28px;">Quay Lại</a>
+            <a routerLink="/listMenu" class="btn btn-outline-danger btn-padding-10">Quay lại</a>
           </div>
         </div>
       </div>
