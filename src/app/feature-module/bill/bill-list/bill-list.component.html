@@ -31,29 +31,32 @@
               <table class="table">
                 <tbody>
                 <tr>
-                  <td style="width: 110px"><label for="sBillNo">Số hoá đơn</label></td>
+                  <td style="width: 180px"><label for="sBillNo">Số hoá đơn</label></td>
                   <td style="width: 180px"><input #sBillNo type="text" class="form-control" id="sBillNo" maxlength="100"
                                                   [defaultValue]="billNo">
                   </td>
-                  <td><label for="sCreatedDateF">Ngày tạo</label></td>
-                  <td><input #sCreatedDateF type="datetime-local" class="form-control" id="sCreatedDateF"
-                             [defaultValue]="createdDateF"></td>
-                  <td><input #sCreatedDateT type="datetime-local" class="form-control" id="sCreatedDateT"
-                             [defaultValue]="createdDateT"></td>
+                  <td style="width: 110px"><label for="sCreatedBy">Người tạo</label></td>
+                  <td style="width: 180px"><input #sCreatedBy type="text" class="form-control" id="sCreatedBy" maxlength="100"
+                                                  [defaultValue]="createdBy">
+                  </td>
+                  <td><label for="sCreatedTimeF">Ngày tạo</label></td>
+                  <td><input #sCreatedTimeF type="datetime-local" class="form-control" id="sCreatedTimeF"
+                             [defaultValue]="createdTimeF"></td>
+                  <td><input #sCreatedTimeT type="datetime-local" class="form-control" id="sCreatedTimeT"
+                             [defaultValue]="createdTimeT"></td>
 
-                  <td><label for="sPaymentF">Doanh thu</label></td>
-                  <td><input #sPaymentF type="number" class="form-control" id="sPaymentF" [defaultValue]="paymentF"></td>
-                  <td><input #sPaymentT type="number" class="form-control" id="sPaymentT" [defaultValue]="paymentT"></td>
+
                 </tr>
                 <tr>
                   <td style="width: 110px"><label for="sTableNo">Số bàn</label></td>
                   <td style="width: 180px"><input #sTableNo type="text" class="form-control" id="sTableNo" maxlength="100"
                                                   [defaultValue]="tableNo">
                   </td>
-                  <td style="width: 110px"><label for="sCreatedBy">Người tạo</label></td>
-                  <td style="width: 180px"><input #sCreatedBy type="text" class="form-control" id="sCreatedBy" maxlength="100"
-                                                  [defaultValue]="createdBy">
-                  </td>
+<td></td>
+<td></td>
+                  <td><label for="sPaymentF">Doanh thu</label></td>
+                  <td><input #sPaymentF type="number" class="form-control" id="sPaymentF" [defaultValue]="paymentF"></td>
+                  <td><input #sPaymentT type="number" class="form-control" id="sPaymentT" [defaultValue]="paymentT"></td>
                 </tr>
                 </tbody>
               </table>
@@ -62,8 +65,7 @@
                   Làm mới
                 </button>&nbsp;
                 <button type="button" class="btn btn-success"
-                        (click)="search(sBillNo.value, sCreatedDateF.value, sCreatedDateT.value, sPaymentF.value, sPaymentT.value, sTableNo.value,
-                  sCreatedBy.value)">
+                        (click)="search(sBillNo.value, sCreatedTimeF.value, sCreatedTimeT.value, sPaymentF.value, sPaymentT.value, sTableNo.value,sCreatedBy.value)">
                   Tìm kiếm
                 </button>
               </div>

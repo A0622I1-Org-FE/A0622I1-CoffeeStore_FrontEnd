@@ -10,7 +10,6 @@ import {BillService} from 'src/app/service/bill.service';
   styleUrls: ['./bill-list.component.css']
 })
 export class BillListComponent implements OnInit {
-
   billLists: IBillDto[];
   billDetail: IBillDetailDto;
   currentPage = 0;
@@ -18,13 +17,23 @@ export class BillListComponent implements OnInit {
   totalElements = 0;
   pageSize = 8;
   id: number;
+  billNo: string;
+  createdTimeF: string;
+  createdTimeT: string;
+  paymentF: string;
+  paymentT: string;
+  tableNo: string;
+  createdBy: string;
   pages: number[];
   pageRange: number[];
   date: string;
   noRecord: boolean;
   name: string;
-  totalPrice: number;
+  totalPaymentInBill: number;
+  totalPayment: number;
   nameOrder: string;
+  dateErrorMessage: string;
+  firstTimeSearch = false;
 
   constructor(private billService: BillService,
               private title: Title) {
@@ -32,6 +41,7 @@ export class BillListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.setDefaultValue();
     this.name = '';
     this.billService.findAll(this.currentPage, this.pageSize).subscribe(response => {
         this.billLists = response.content;
@@ -45,7 +55,6 @@ export class BillListComponent implements OnInit {
         this.noRecord = error.status === 404;
         this.billLists = [];
       });
-
   }
 
 
@@ -62,9 +71,12 @@ export class BillListComponent implements OnInit {
     this.currentPage = 0;
     this.getList();
   }
-
+  //      if (this.billNo !== SBillNo || this.createdTimeF !== sCreatedTimeF || this.createdTimeT !== sCreatedTimeT ||
+  //         this.paymentF !== sPaymentF || this.paymentT !== sPaymentT || this.tableNo !== sTableNo) {
   getList() {
-    if (this.name === '') {
+    if (this.createdBy === '' && this.billNo === '' && this.createdTimeF === '' && this.createdTimeT === '' &&
+      this.paymentF === '' && this.paymentT === '' && this.tableNo === '') {
+      this.firstTimeSearch = true;
       this.ngOnInit();
     } else {
       this.getListByUser();
@@ -79,7 +91,7 @@ export class BillListComponent implements OnInit {
         this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
         this.noRecord = response.size === 0;
         this.countPageCanShow();
-        debugger
+        // debugger
       },
       error => {
         this.noRecord = error.status === 404;
@@ -118,22 +130,77 @@ export class BillListComponent implements OnInit {
   }
 
   sendId(id: number) {
-    this.totalPrice = 0;
+    this.totalPaymentInBill = 0;
     this.nameOrder = '';
     this.billService.findById(id).subscribe(next => {
       this.billDetail = next;
 
       for (const key in this.billDetail) {
-        this.totalPrice += this.billDetail[key].total;
+        this.totalPaymentInBill += this.billDetail[key].total;
       }
     });
   }
 
   formatCurrency(currency: number): string {
-      return parseFloat(String(currency)).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
+    return parseFloat(String(currency)).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
   }
 
   reloadPage() {
     window.location.reload();
+  }
+
+  search(SBillNo: string, sCreatedTimeF: string, sCreatedTimeT: string,
+         sPaymentF: string, sPaymentT: string, sTableNo: string, sCreatedBy: string) {
+    if (Date.parse(sCreatedTimeF) > Date.parse(sCreatedTimeT)) {
+      this.dateErrorMessage += 'Ngày bắt đầu phải nhỏ hơn hoặc bằng ngày kết thúc\n';
+      this.setNoRecord();
+    } else {
+      if (this.billNo !== SBillNo || this.createdTimeF !== sCreatedTimeF || this.createdTimeT !== sCreatedTimeT ||
+        this.paymentF !== sPaymentF || this.paymentT !== sPaymentT || this.tableNo !== sTableNo || this.createdBy !== sCreatedBy) {
+        this.currentPage = 0;
+        this.firstTimeSearch = false;
+      }
+      this.dateErrorMessage = '';
+      this.createdTimeF = this.formatDateInput(sCreatedTimeF);
+      this.createdTimeT = this.formatDateInput(sCreatedTimeT);
+      this.billNo = SBillNo;
+      this.paymentF = sPaymentF;
+      this.paymentT = sPaymentT;
+      this.tableNo = sTableNo;
+      this.createdBy = sCreatedBy;
+      this.getList();
+    }
+  }
+
+  setNoRecord() {
+    this.noRecord = true;
+    this.billLists = [];
+    this.totalPages = 0;
+    this.totalElements = 0;
+    this.pages = [];
+    this.totalPayment = 0;
+    this.countPageCanShow();
+  }
+  formatDateInput(date: string): string {
+    if (date) {
+      const year = date.substr(0, 4);
+      const month = date.substr(5, 2);
+      const day = date.substr(8, 2);
+      const hour = date.substr(11, 2);
+      const min = date.substr(14, 2);
+      const sec = '01';
+      return `${year}-${month}-${day} ${hour}:${min}:${sec}`;
+    } else {
+      return date;
+    }
+  }
+  setDefaultValue() {
+    this.billNo = '';
+    this.createdTimeF = '';
+    this.createdTimeF = '';
+    this.paymentF = '0';
+    this.paymentT = '';
+    this.createdBy = '';
+    this.tableNo = '';
   }
 }
