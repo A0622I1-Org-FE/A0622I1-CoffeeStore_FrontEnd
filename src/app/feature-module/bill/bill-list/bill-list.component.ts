@@ -1,4 +1,4 @@
-import {IBillDetailDto} from './../../../modal/IBillDetailDto';
+import {IBillDetailDto} from '../../../modal/IBillDetailDto';
 import {Title} from '@angular/platform-browser';
 import {Component, OnInit} from '@angular/core';
 import {IBillDto} from 'src/app/modal/IBillDto';
@@ -43,20 +43,20 @@ export class BillListComponent implements OnInit {
   ngOnInit(): void {
     this.setDefaultValue();
     this.name = '';
-    this.billService.findAll(this.currentPage, this.pageSize).subscribe(response => {
-        this.billLists = response.content;
-        this.totalPages = response.totalPages;
-        this.totalElements = response.totalElements;
-        this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
-        this.noRecord = response.size === 0;
-        this.countPageCanShow();
-      },
-      error => {
-        this.noRecord = error.status === 404;
-        this.billLists = [];
-      });
+    // this.billService.findAll(this.currentPage, this.pageSize).subscribe(response => {
+    //     this.billLists = response.content;
+    //     this.totalPages = response.totalPages;
+    //     this.totalElements = response.totalElements;
+    //     this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
+    //     this.noRecord = response.size === 0;
+    //     this.countPageCanShow();
+    //   },
+    //   error => {
+    //     this.noRecord = error.status === 404;
+    //     this.billLists = [];
+    //   });
+    this.getList();
   }
-
 
   formatDate(date: string): string {
     const parts = date.split('-');
@@ -66,39 +66,60 @@ export class BillListComponent implements OnInit {
     return `${day}-${month}-${year}`;
   }
 
-  searchUser(name: string) {
-    this.name = name;
-    this.currentPage = 0;
-    this.getList();
-  }
-  //      if (this.billNo !== SBillNo || this.createdTimeF !== sCreatedTimeF || this.createdTimeT !== sCreatedTimeT ||
-  //         this.paymentF !== sPaymentF || this.paymentT !== sPaymentT || this.tableNo !== sTableNo) {
+  // searchUser(name: string) {
+  //   this.name = name;
+  //   this.currentPage = 0;
+  //   this.getList();
+  // }
+
   getList() {
     if (this.createdBy === '' && this.billNo === '' && this.createdTimeF === '' && this.createdTimeT === '' &&
       this.paymentF === '' && this.paymentT === '' && this.tableNo === '') {
       this.firstTimeSearch = true;
       this.ngOnInit();
     } else {
-      this.getListByUser();
+      this.getListBill();
     }
   }
 
-  getListByUser() {
-    this.billService.searchUser(this.name, this.currentPage, this.pageSize).subscribe(response => {
-        this.billLists = response.content;
-        this.totalPages = response.totalPages;
-        this.totalElements = response.totalElements;
-        this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
-        this.noRecord = response.size === 0;
-        this.countPageCanShow();
-        // debugger
+  getListBill() {
+    this.billService.getBillList(this.currentPage, this.pageSize,
+      this.billNo, this.createdTimeF, this.createdTimeT, this.paymentF, this.paymentT, this.tableNo,
+      this.createdBy).subscribe(response => {
+        if (response) {
+          this.billLists = response.content;
+          this.totalPages = response.totalPages;
+          this.totalElements = response.totalElements;
+          this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
+          this.noRecord = response.size === 0;
+          this.countPageCanShow();
+          // this.totalPayment();
+        } else {
+          this.setNoRecord();
+        }
       },
       error => {
         this.noRecord = error.status === 404;
         this.billLists = [];
       });
-
   }
+
+  // getListByUser() {
+  //   this.billService.searchUser(this.name, this.currentPage, this.pageSize).subscribe(response => {
+  //       this.billLists = response.content;
+  //       this.totalPages = response.totalPages;
+  //       this.totalElements = response.totalElements;
+  //       this.pages = Array(this.totalPages).fill(0).map((x, i) => i);
+  //       this.noRecord = response.size === 0;
+  //       this.countPageCanShow();
+  //       // debugger
+  //     },
+  //     error => {
+  //       this.noRecord = error.status === 404;
+  //       this.billLists = [];
+  //     });
+  //
+  // }
 
   goToPage(page: number) {
     this.currentPage = page;
@@ -135,13 +156,14 @@ export class BillListComponent implements OnInit {
     this.billService.findById(id).subscribe(next => {
       this.billDetail = next;
 
+      // tslint:disable-next-line:forin
       for (const key in this.billDetail) {
         this.totalPaymentInBill += this.billDetail[key].total;
       }
     });
   }
 
-  formatCurrency(currency: number): string {
+  formatCurrency(currency: string): string {
     return parseFloat(String(currency)).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
   }
 
@@ -181,6 +203,7 @@ export class BillListComponent implements OnInit {
     this.totalPayment = 0;
     this.countPageCanShow();
   }
+
   formatDateInput(date: string): string {
     if (date) {
       const year = date.substr(0, 4);
@@ -194,10 +217,11 @@ export class BillListComponent implements OnInit {
       return date;
     }
   }
+
   setDefaultValue() {
     this.billNo = '';
     this.createdTimeF = '';
-    this.createdTimeF = '';
+    this.createdTimeT = '';
     this.paymentF = '0';
     this.paymentT = '';
     this.createdBy = '';

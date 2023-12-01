@@ -1,4 +1,4 @@
-import { IBillDto } from "./IBillDto";
+import { IBillDto } from './IBillDto';
 
 export interface BillResponse {
     content: IBillDto[];
