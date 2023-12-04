@@ -49,7 +49,6 @@ export class FeedbackCreateComponent implements OnInit {
     if (this.tableId === undefined) {
       this.tableId = 1;
     }
-    console.log(this.tableId);
     this.loadJavaScriptFile('/assets/js/index.js');
     this.feedbackTypeService.findAll().subscribe(next => {
       this.feedbackTypeList = next;
@@ -84,7 +83,6 @@ export class FeedbackCreateComponent implements OnInit {
 
   save() {
     const formData = this.rfCreate.value;
-    console.log(formData);
     if (this.selectedImage && this.selectedImage.length > 0) {
       for (let i = 0; i < this.selectedImage.length; i++) {
         const nameImg = this.getCurrentDateTime() + this.selectedImage[i].name;
@@ -125,7 +123,6 @@ export class FeedbackCreateComponent implements OnInit {
       return;
     } else {
       const email = this.rfCreate.get('email').value;
-      console.log(email);
       this.feedbackService.countEmail(email).subscribe(count => {
         if (count > 0) {
           this.toastr.error('Vui lòng điền tất cả các thông tin cần thiết');
@@ -136,7 +133,6 @@ export class FeedbackCreateComponent implements OnInit {
           this.feedbackService.save(formData).subscribe(next => {
             this.toastr.success('Lời phản hồi của bạn góp phần tạo nên thành công của chúng tôi!\n' +
               'Chúc bạn một ngày tốt lành ♥♥♥');
-            console.log(this.tableId);
             this.router.navigateByUrl('/service/' + this.tableId);
           });
         }

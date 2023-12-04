@@ -52,7 +52,7 @@ export class UserCreateComponent implements OnInit {
         userName: new FormControl('', [Validators.required, Validators.minLength(6), Validators.pattern('^[a-zA-Z0-9]+$')]),
         imgUrl: new FormControl(),
         name: new FormControl('', [Validators.required, Validators.maxLength(40), Validators.minLength(6),
-        Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]),
+          Validators.pattern('^[a-zA-Z\'-\'\\sáàảãạăâắằấầặẵẫậéèẻ ẽẹếềểễệóêòỏõọôốồổỗộ ơớờởỡợíìỉĩịđùỳýúủũụưứ� �ửữựÀÁÂÃÈÉÊÌÍÒÓÝÔÕÙÚĂĐĨŨƠ ƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼ� ��ỀỂỄỆỈỊỌỎỐỒỔỖỘỚỜỞ ỠỢỤỨỪỬỮỰỲỴÝỶỸửữựỵ ỷỹ]*$')]),
         gender: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')]),
         address: new FormControl('', [Validators.required, Validators.minLength(6),
@@ -94,7 +94,7 @@ export class UserCreateComponent implements OnInit {
       {type: 'required', message: 'Vui lòng nhập địa chỉ.'},
       {type: 'maxlength', message: 'Vui lòng nhập địa chỉ bé hơn 100 kí tự.'},
       {type: 'pattern', message: 'Không được nhập ký tự đặt biệt.'},
-      { type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.' },
+      {type: 'minlength', message: 'Tên phải lớn hơn 6 ký tự.'},
     ],
     email: [
       {type: 'required', message: 'Vui lòng nhập email.'},
@@ -155,7 +155,6 @@ export class UserCreateComponent implements OnInit {
         this.selectedImage = null;
         return;
       }
-
       const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
       const fileExtension = this.selectedImage.name.toLowerCase().substring(this.selectedImage.name.lastIndexOf('.'));
       if (!allowedExtensions.includes(fileExtension)) {
@@ -163,7 +162,6 @@ export class UserCreateComponent implements OnInit {
         this.selectedImage = null;
         return;
       }
-
       const reader = new FileReader();
       reader.readAsDataURL(this.file);
       reader.onload = (e: any) => {

@@ -63,12 +63,13 @@ export class CreateComponent implements OnInit {
         Validators.required, Validators.minLength(6), Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9]+$')]),
       imgUrl: new FormControl('', [Validators.required]),
       price: new FormControl(0, [Validators.required, this.checkPrice]),
-      serviceType: new FormControl(1, [Validators.required]),
+      typeId: new FormControl(1, [Validators.required]),
       enableFlag: new FormControl(1),
       createdDate: new FormControl(this.getCurrentDateTime()),
+      // discription: new FormControl('', [Validators.required])
     });
     this.getListServiceType();
-    this.statusList = ['Hoạt động', 'Vô hiệu'];
+    this.statusList = ['Vô hiệu', 'Hoạt động'];
   }
 
   getListServiceType() {
@@ -98,6 +99,7 @@ export class CreateComponent implements OnInit {
       this.showMessage.showMessageCreateError();
       return;
     }
+    console.log(this.serviceForm.value);
     this.isLoading = true;
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);
@@ -106,6 +108,7 @@ export class CreateComponent implements OnInit {
         fileRef.getDownloadURL().subscribe((url) => {
           this.serviceForm.value.imgUrl = url;
           this.service.createService(this.serviceForm.value).subscribe(data => {
+            console.log(this.serviceForm.value);
             if (data != null) {
               this.error = data[0].defaultMessage;
               this.toastService.error(this.error, 'Message');

@@ -81,7 +81,6 @@ export class VerifyChangePasswordComponent implements OnInit {
     } else {
       this.activatedRoute.paramMap.subscribe(param => {
         const code1 = param.get('code');
-        console.log(code1);
         this.authService.changePassword(this.verifyChangePasswordForm.value, code1).subscribe(
           data => {
             this.toastrService.success('Bạn hãy đăng nhập lại', 'Thay đổi mật khẩu thành công:', {

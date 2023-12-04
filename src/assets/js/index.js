@@ -89,7 +89,6 @@ document.getElementById("image-input").addEventListener("change", function (even
           document.getElementById("image-preview").appendChild(imageDiv);
         };
         reader.readAsDataURL(file);
-        console.log(file);
         updateTotalSelectedFiles(1);
       }
       hideLoadingOverlay();
