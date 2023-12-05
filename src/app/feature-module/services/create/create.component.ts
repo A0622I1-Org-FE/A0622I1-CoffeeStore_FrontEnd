@@ -61,7 +61,7 @@ export class CreateComponent implements OnInit {
     this.serviceForm = new FormGroup({
       name: new FormControl('', [
         Validators.required, Validators.minLength(6), Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9]+$')]),
-      imgUrl: new FormControl('', [Validators.required]),
+      imgUrl: new FormControl(),
       price: new FormControl(0, [Validators.required, this.checkPrice]),
       typeId: new FormControl(1, [Validators.required]),
       enableFlag: new FormControl(1),
