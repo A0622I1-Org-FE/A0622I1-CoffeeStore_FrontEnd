@@ -99,7 +99,6 @@ export class CreateComponent implements OnInit {
       this.showMessage.showMessageCreateError();
       return;
     }
-    console.log(this.serviceForm.value);
     this.isLoading = true;
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);
@@ -108,7 +107,6 @@ export class CreateComponent implements OnInit {
         fileRef.getDownloadURL().subscribe((url) => {
           this.serviceForm.value.imgUrl = url;
           this.service.createService(this.serviceForm.value).subscribe(data => {
-            console.log(this.serviceForm.value);
             if (data != null) {
               this.error = data[0].defaultMessage;
               this.toastService.error(this.error, 'Message');

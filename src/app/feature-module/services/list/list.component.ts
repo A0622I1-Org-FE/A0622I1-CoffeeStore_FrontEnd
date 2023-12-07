@@ -39,7 +39,6 @@ export class ListComponent implements OnInit {
   priceT: string;
   quantityF: string;
   quantityT: string;
-  salePrice: string;
   paymentF: string;
   paymentT: string;
   status: string;
@@ -70,7 +69,6 @@ export class ListComponent implements OnInit {
     this.createdDateT = '';
     this.priceF = '';
     this.priceT = '';
-    this.salePrice = '';
     this.quantityF = '';
     this.quantityT = '';
     this.paymentF = '';
@@ -129,8 +127,8 @@ export class ListComponent implements OnInit {
 
   getListService() {
     this.servicesService.findAllListService(this.currentPage, this.pageSize,
-      this.serviceName, this.serviceType, this.createdDateF, this.createdDateT, this.priceF, this.priceT,
-      this.salePrice, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT,
+      this.serviceName, this.serviceType, this.createdDateF, this.createdDateT,
+      this.priceF, this.priceT, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT,
       this.paymentTimeF, this.paymentTimeT).subscribe(response => {
         if (response) {
           this.serviceList = response.content;
@@ -258,8 +256,8 @@ export class ListComponent implements OnInit {
   totalPayment() {
     this.totalPaymentValue = 0;
     this.servicesService.findAllListService(0, this.totalElements,
-      this.serviceName, this.serviceType, this.createdDateF, this.createdDateT, this.priceF, this.priceT,
-      this.salePrice, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT,
+      this.serviceName, this.serviceType, this.createdDateF, this.createdDateT,
+      this.priceF, this.priceT, this.quantityF, this.quantityT, this.status, this.paymentF, this.paymentT,
       this.paymentTimeF, this.paymentTimeT).subscribe(response => {
         this.allServices = response.content;
         for (let i = 0; i < this.allServices.length; i++) {

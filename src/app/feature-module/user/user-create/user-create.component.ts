@@ -119,7 +119,6 @@ export class UserCreateComponent implements OnInit {
       this.showMessage.showMessageCreateError();
       return;
     }
-    console.log(this.userForm.value);
     this.isLoading = true;
     const nameImg = this.getCurrentDateTime() + this.selectedImage.name;
     const fileRef = this.storage.ref(nameImg);

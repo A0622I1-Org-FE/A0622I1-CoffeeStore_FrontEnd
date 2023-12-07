@@ -58,13 +58,13 @@ export class ServicesService {
   findAllListService(page: number, pageSize: number,
                      serviceName: string, serviceType: string,
                      createdDateF: string, createdDateT: string,
-                     priceF: string, priceT: string, salePrice: string,
+                     priceF: string, priceT: string,
                      quantityF: string, quantityT: string, enableFlag: string,
                      paymentF: string, paymentT: string, paymentTimeF: string, paymentTimeT: string): Observable<ServiceRespone1> {
     const url = this.API_URL_LIST_SERVICE +
       '?page=' + page + '&size=' + pageSize + '&serviceName=' + serviceName + '&serviceType=' + serviceType +
-      '&createdDateF=' + createdDateF + '&createdDateT=' + createdDateT + '&priceF=' + priceF + '&priceT=' + priceT +
-      '&salePrice=' + salePrice + '&quantityF=' + quantityF + '&quantityT=' + quantityT + '&enableFlag=' + enableFlag +
+      '&createdDateF=' + createdDateF + '&createdDateT=' + createdDateT + '&priceF=' + priceF +
+      '&priceT=' + priceT + '&quantityF=' + quantityF + '&quantityT=' + quantityT + '&enableFlag=' + enableFlag +
       '&paymentF=' + paymentF + '&paymentT=' + paymentT + '&paymentTimeF=' + paymentTimeF + '&paymentTimeT=' + paymentTimeT;
     return this.httpClient.get<ServiceRespone1>(url);
   }
