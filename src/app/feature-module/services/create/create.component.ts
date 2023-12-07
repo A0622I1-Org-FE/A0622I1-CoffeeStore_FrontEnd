@@ -58,6 +58,9 @@ export class CreateComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    const script = this.renderer.createElement('script');
+    script.src = '/assets/js/index1.js';
+    this.renderer.appendChild(document.body, script);
     this.serviceForm = new FormGroup({
       name: new FormControl('', [
         Validators.required, Validators.minLength(6), Validators.maxLength(50), Validators.pattern('^[a-zA-Z0-9]+$')]),
@@ -125,27 +128,34 @@ export class CreateComponent implements OnInit {
   }
 
   showPreview(event: any) {
-    this.selectedImage = event.target.files[0];
-    if (this.selectedImage != null) {
-      const fileSizeInMB = this.selectedImage.size / (1024 * 1024);
-      const maxFileSizeInMB = 5;
-      if (fileSizeInMB > maxFileSizeInMB) {
-        this.toastService.error('Giới hạn dung lượng ảnh là 5MB', 'Cảnh Báo');
-        this.selectedImage = null;
-        return;
-      }
+    const fileInput = event.target;
+    if (fileInput.files && fileInput.files.length > 0) {
+      const file = fileInput.files[0];
       const allowedExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
-      const fileExtension = this.selectedImage.name.toLowerCase().substring(this.selectedImage.name.lastIndexOf('.'));
+      const fileExtension = file.name.toLowerCase().substring(file.name.lastIndexOf('.'));
       if (!allowedExtensions.includes(fileExtension)) {
         this.toastService.error('Tệp tin không phải là ảnh.', 'Cảnh Báo');
         this.selectedImage = null;
         return;
       }
-      const reader = new FileReader();
-      reader.readAsDataURL(this.file);
-      reader.onload = (e: any) => {
-        this.selectedImage = e.target.result;
-      };
+      if (file instanceof Blob) {
+        const fileSizeInMB = file.size / (1024 * 1024);
+        const maxFileSizeInMB = 5;
+        if (fileSizeInMB > maxFileSizeInMB) {
+          this.toastService.error('Giới hạn dung lượng ảnh là 5MB', 'Cảnh Báo');
+          this.selectedImage = null;
+          return;
+        }
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          const image = e.target.result;
+        };
+        this.selectedImage = file;
+        reader.readAsDataURL(file);
+      } else {
+        console.error('Đối tượng nhận được không phải kiểu File hoặc Blob');
+        this.selectedImage = null;
+      }
     }
   }
 }
