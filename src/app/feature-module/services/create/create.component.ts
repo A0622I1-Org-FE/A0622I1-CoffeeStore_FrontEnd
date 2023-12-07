@@ -58,6 +58,7 @@ export class CreateComponent implements OnInit {
   };
 
   ngOnInit(): void {
+    this.selectedImage = null;
     const script = this.renderer.createElement('script');
     script.src = '/assets/js/index1.js';
     this.renderer.appendChild(document.body, script);
