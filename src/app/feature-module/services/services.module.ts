@@ -8,10 +8,11 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {BodyComponent} from './body/body.component';
 import { ListComponent } from './list/list.component';
 import { CreateComponent } from './create/create.component';
+import { EditServiceComponent } from './edit-service/edit-service.component';
 
 
 @NgModule({
-    declarations: [BodyComponent, ListComponent, CreateComponent],
+    declarations: [BodyComponent, ListComponent, CreateComponent, EditServiceComponent],
     exports: [
         BodyComponent
     ],

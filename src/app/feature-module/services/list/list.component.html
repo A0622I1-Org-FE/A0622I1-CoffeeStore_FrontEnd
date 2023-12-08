@@ -118,13 +118,16 @@ feedback-list html file is used to show data
             <td>{{formatCurrency(service.salePrice)}}</td>
             <td>{{service.quantity}}</td>
             <td>{{formatCurrency(service.payment)}}</td>
+            <td class="text-center">{{formatDate(service.createdDate)}}</td>
             <td>
               <button
                 [ngClass]="{'btn-danger': service.statusFlag == 'Vô hiệu', 'btn-success': service.statusFlag != 'Vô hiệu'}"
                 class="btn" type="button" style="width: 102px" (click)="changeStatus(service.statusFlag, service.id)">
                 {{service.statusFlag}}</button>
             </td>
-            <td class="text-center">{{formatDate(service.createdDate)}}</td>
+            <td><a *ngIf="role!='user'" routerLink="edit-service/{{service.id}}"
+                   class="btn btn-outline-info">📝</a>
+            </td>
           </tr>
           </tbody>
           <tr *ngIf="noRecord">

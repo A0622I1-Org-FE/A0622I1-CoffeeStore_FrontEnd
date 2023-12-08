@@ -146,5 +146,20 @@ span p {
   .content_add{
     opacity: 1;
   }
+  .input-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .input-row input {
+    flex: 1;
+    margin-right: 10px;
+    padding: 5px;
+  }
+  .input-row input[readonly] {
+    background-color: #f4f4f4;
+  }
+
 }
 

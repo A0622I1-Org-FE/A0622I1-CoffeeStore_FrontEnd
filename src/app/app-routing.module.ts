@@ -13,6 +13,7 @@ import {LoginComponent} from './feature-module/security/login/login.component';
 import {SalesComponent} from './feature-module/sales/sales.component';
 import {ListComponent} from './feature-module/services/list/list.component';
 import {CreateComponent} from './feature-module/services/create/create.component';
+import {EditServiceComponent} from './feature-module/services/edit-service/edit-service.component';
 
 
 const routes: Routes = [
@@ -45,6 +46,10 @@ const routes: Routes = [
   roles: ['admin']
 }},
   { path: 'createService', component: CreateComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['admin']
+    }},
+  { path: 'editService/:id', component: EditServiceComponent, canActivate: [AuthGuard],
     data: {
       roles: ['admin']
     }},
