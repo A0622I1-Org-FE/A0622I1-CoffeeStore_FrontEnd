@@ -10,6 +10,9 @@ import {Router} from '@angular/router';
 import {ToastrService} from 'ngx-toastr';
 import {ServicesService} from '../../../service/services.service';
 import {ServiceTypeService} from '../../../service/service-type.service';
+import {MaterialService} from '../../../service/material.service';
+import {IMaterialDto} from '../../../modal/IMaterialDto';
+import {IRecipeDto} from '../../../modal/IRecipeDto';
 
 @Component({
   selector: 'app-create',
@@ -25,7 +28,8 @@ export class CreateComponent implements OnInit {
               private router: Router,
               private service: ServicesService,
               private toastService: ToastrService,
-              private serviceTypeService: ServiceTypeService) {
+              private serviceTypeService: ServiceTypeService,
+              private materialService: MaterialService) {
     this.titleService.setTitle('Đăng ký menu');
   }
 
@@ -37,6 +41,12 @@ export class CreateComponent implements OnInit {
   file: any;
   selectedImage: any = null;
   statusList: string[];
+  materials: IMaterialDto[];
+  createRecipe: IRecipeDto[] = [];
+  recipe: IRecipeDto;
+  priceValue = '';
+  sumPrice: string;
+  showRecipeFl = false;
 
 
   validationMessages = {
@@ -74,6 +84,7 @@ export class CreateComponent implements OnInit {
     });
     this.getListServiceType();
     this.statusList = ['Vô hiệu', 'Hoạt động'];
+    this.getListMaterial();
   }
 
   getListServiceType() {
@@ -82,6 +93,29 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  getListMaterial() {
+    this.materialService.findAll().subscribe(response => {
+      this.materials = response;
+    });
+  }
+
+  addNewRowRecipe(materialId: string, quantity: string, price: string) {
+    this.recipe = {
+      serviceId: '1',
+      materialId,
+      quantity,
+      price
+    };
+    const newRecipe = {
+      serviceId: '1',
+      materialId,
+      quantity,
+      price
+    };
+    this.createRecipe.push(newRecipe);
+    this.calculationSum();
+    this.showRecipeFl = this.createRecipe[0] !== [];
+  }
   checkPrice(control: AbstractControl) {
     const priceValue = control.value;
     if (priceValue > 1000000000) {
@@ -158,5 +192,31 @@ export class CreateComponent implements OnInit {
         this.selectedImage = null;
       }
     }
+  }
+
+  calculationPrice(quantity: string, materialId: string) {
+    const price = this.materials.find(material => material.id === parseInt(materialId)).price * parseInt(quantity);
+    this.priceValue = parseFloat(String(price)).toFixed(1);
+  }
+
+  findMaterialNameOrUnit(materialId: string, type: number) {
+      if (type === 1) {
+        return this.materials.find(material => material.id === parseInt(materialId)).name;
+      }
+      else {
+        return this.materials.find(material => material.id === parseInt(materialId)).unit;
+      }
+  }
+
+  calculationSum() {
+    this.sumPrice = '';
+    this.sumPrice = this.createRecipe.reduce((total, recipe) => total + parseInt(recipe.price), 0).
+                    toLocaleString('vi-VN', {style: 'currency', currency: 'VND'}).replace('₫', 'VNĐ');
+  }
+
+  removeRecipe(recipe: IRecipeDto) {
+    this.createRecipe = this.createRecipe.filter(item => item.materialId !== recipe.materialId);
+    this.calculationSum();
+    this.showRecipeFl = this.createRecipe[0] !== [];
   }
 }
