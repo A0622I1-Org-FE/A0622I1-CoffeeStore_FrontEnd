@@ -13,6 +13,7 @@ import {ServiceTypeService} from '../../../service/service-type.service';
 import {MaterialService} from '../../../service/material.service';
 import {IMaterialDto} from '../../../modal/IMaterialDto';
 import {IRecipeDto} from '../../../modal/IRecipeDto';
+import {RecipeService} from '../../../service/recipe.service';
 
 @Component({
   selector: 'app-create',
@@ -29,7 +30,8 @@ export class CreateComponent implements OnInit {
               private service: ServicesService,
               private toastService: ToastrService,
               private serviceTypeService: ServiceTypeService,
-              private materialService: MaterialService) {
+              private materialService: MaterialService,
+              private recipeService: RecipeService) {
     this.titleService.setTitle('Đăng ký menu');
   }
 
@@ -101,13 +103,11 @@ export class CreateComponent implements OnInit {
 
   addNewRowRecipe(materialId: string, quantity: string, price: string) {
     this.recipe = {
-      serviceId: '1',
       materialId,
       quantity,
       price
     };
     const newRecipe = {
-      serviceId: '1',
       materialId,
       quantity,
       price
@@ -151,8 +151,11 @@ export class CreateComponent implements OnInit {
             } else {
               this.toastService.success('Thêm thành công!', 'Message');
               this.router.navigateByUrl('listMenu');
+              // tslint:disable-next-line:no-shadowed-variable
+              this.recipeService.addRecipeforService(this.createRecipe).subscribe(data => {
+                this.toastService.error('Không thể thêm công thức', 'Message');
+              });
             }
-
             this.isLoading = false;
           }, error => {
             this.isLoading = false;
