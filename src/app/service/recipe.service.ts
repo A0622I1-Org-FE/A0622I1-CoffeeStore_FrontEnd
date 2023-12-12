@@ -8,10 +8,14 @@ import {IRecipeDto} from '../modal/IRecipeDto';
 })
 export class RecipeService {
   private CREATE_RECIPE = 'http://localhost:8080/api/private/list/createRecipe';
+  private SELECT_RECIPE = 'http://localhost:8080/api/private/recipe';
   constructor(
     private http: HttpClient
   ) {}
-  addRecipeforService(recipeList: IRecipeDto[]): Observable<IRecipeDto[]> {
+  addRecipeForService(recipeList: IRecipeDto[]): Observable<IRecipeDto[]> {
     return this.http.post<IRecipeDto[]>(this.CREATE_RECIPE, recipeList);
+  }
+  findByServiceId(id: number): Observable<IRecipeDto[]> {
+    return this.http.get<IRecipeDto[]>(`${this.SELECT_RECIPE}/${id}`);
   }
 }

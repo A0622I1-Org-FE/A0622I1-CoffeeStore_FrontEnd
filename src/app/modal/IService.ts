@@ -1,6 +1,6 @@
 import {IServiceType} from './IServiceType';
 
-export interface IServices {
+export interface IService {
   id?: number;
   name: string;
   price: number;
@@ -8,4 +8,5 @@ export interface IServices {
   imgUrl: string;
   createdDate: string;
   serviceType: IServiceType;
+  describe: string;
 }

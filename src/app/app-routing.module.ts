@@ -17,42 +17,56 @@ import {EditServiceComponent} from './feature-module/services/edit-service/edit-
 
 
 const routes: Routes = [
-  {path: 'service/:id', component: ServiceComponent , canActivate: [AuthGuard],
+  {
+    path: 'service/:id', component: ServiceComponent, canActivate: [AuthGuard],
     data: {
       roles: ['admin', 'user']
-    }},
+    }
+  },
   {path: 'change-pass', component: InforAccountComponent},
-  {path: 'order', component: BillListComponent, canActivate: [AuthGuard],
+  {
+    path: 'order', component: BillListComponent, canActivate: [AuthGuard],
     data: {
       roles: ['admin', 'user']
-    }},
+    }
+  },
   {path: 'feedback/create', component: FeedbackCreateComponent},
   // {path: 'sales', loadChildren: () => import('./feature-module/sales/sales.module').then(module => module.SalesModule)},
   {path: 'login', component: LoginComponent},
   {path: 'change-pass', component: InforAccountComponent},
   {path: 'sales', component: SalesComponent},
-  { path: 'feedbackList', component: FeedbackListComponent},
-  { path: 'userList', component: UserListComponent , canActivate: [AuthGuard],
+  {path: 'feedbackList', component: FeedbackListComponent},
+  {
+    path: 'userList', component: UserListComponent, canActivate: [AuthGuard],
     data: {
       roles: ['admin', 'user']
-    }},
-  { path: '', component: BodyComponent},
-  { path: 'table', component: TableComponent, canActivate: [AuthGuard],
-  data: {
-  roles: ['admin', 'user']
-}},
-  { path: 'listMenu', component: ListComponent, canActivate: [AuthGuard],
-  data: {
-  roles: ['admin']
-}},
-  { path: 'createService', component: CreateComponent, canActivate: [AuthGuard],
+    }
+  },
+  {path: '', component: BodyComponent},
+  {
+    path: 'table', component: TableComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['admin', 'user']
+    }
+  },
+  {
+    path: 'listMenu', component: ListComponent, canActivate: [AuthGuard],
     data: {
       roles: ['admin']
-    }},
-  { path: 'editService/:id', component: EditServiceComponent, canActivate: [AuthGuard],
+    }
+  },
+  {
+    path: 'createService', component: CreateComponent, canActivate: [AuthGuard],
     data: {
       roles: ['admin']
-    }},
+    }
+  },
+  {
+    path: 'editService/:id', component: EditServiceComponent, canActivate: [AuthGuard],
+    data: {
+      roles: ['admin']
+    }
+  },
 ];
 
 @NgModule({

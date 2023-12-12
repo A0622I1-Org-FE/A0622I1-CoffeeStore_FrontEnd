@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit} from '@angular/core';
-import {IServices} from '../../../modal/IServices';
+import {IService} from '../../../modal/IService';
 import {ServicesService} from '../../../service/services.service';
 import {ServiceTypeService} from '../../../service/service-type.service';
 import {IServiceType} from '../../../modal/IServiceType';
@@ -22,7 +22,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./service.component.css']
 })
 export class ServiceComponent implements OnInit {
-  serviceList: IServices[];
+  serviceList: IService[];
   serviceTypeList: IServiceType[];
   orderList: Order[] = [];
   check = 'button';
@@ -35,7 +35,7 @@ export class ServiceComponent implements OnInit {
   pageRange: number[];
   noRecord: boolean;
   typeId = 0;
-  serviceChon: IServices;
+  serviceChon: IService;
   rfCreate: FormGroup;
   tongTien = 0;
   deleteOrder: Order;
@@ -149,7 +149,7 @@ export class ServiceComponent implements OnInit {
     this.getList();
   }
 
-  chon(service: IServices) {
+  chon(service: IService) {
     this.tongTien = 0;
     this.order1 = {
       service_id: service.id,

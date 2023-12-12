@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ServicesService} from '../../../service/services.service';
-import {IServices} from '../../../modal/IServices';
+import {IService} from '../../../modal/IService';
 
 @Component({
   selector: 'app-body',
@@ -11,8 +11,8 @@ import {IServices} from '../../../modal/IServices';
     '../../../../assets/scss/style.scss']
 })
 export class BodyComponent implements OnInit {
-  bestSellerList: IServices[] = [];
-  newFoodList: IServices[] = [];
+  bestSellerList: IService[] = [];
+  newFoodList: IService[] = [];
 
 
   constructor(private servicesService: ServicesService) {

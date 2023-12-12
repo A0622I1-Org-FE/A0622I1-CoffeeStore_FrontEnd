@@ -1,4 +1,4 @@
-import {IServices} from './IServices';
+import {IService} from './IService';
 import {IServiceDto1} from './IServiceDto1';
 
 export interface ServiceRespone1 {

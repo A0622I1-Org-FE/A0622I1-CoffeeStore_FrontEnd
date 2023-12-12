@@ -1,4 +1,4 @@
-import {IServices} from './IServices';
+import {IService} from './IService';
 
 export interface IServiceType {
   id?: number;

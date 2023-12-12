@@ -1,7 +1,7 @@
-import {IServices} from './IServices';
+import {IService} from './IService';
 
 export interface ServiceRespone {
-  content: IServices[];
+  content: IService[];
   pageable: {
     sort: {
       empty: boolean;

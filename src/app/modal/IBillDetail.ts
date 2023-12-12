@@ -1,9 +1,9 @@
-import {IServices} from './IServices';
+import {IService} from './IService';
 import {IBill} from './IBill';
 
 export interface IBillDetail {
   id?: number;
   quantity: number;
-  service: IServices;
+  service: IService;
   bill: IBill;
 }

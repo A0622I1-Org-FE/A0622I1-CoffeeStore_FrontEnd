@@ -3,7 +3,7 @@ export interface UserEditDTO {
     username: string;
     name: string;
     imgUrl: string;
-    email:string;
+    email: string;
     gender: number;
     birthday: string;
     address: string;

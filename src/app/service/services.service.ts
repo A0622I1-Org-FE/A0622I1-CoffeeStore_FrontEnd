@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, throwError} from 'rxjs';
-import {IServices} from '../modal/IServices';
+import {IService} from '../modal/IService';
 import {ServiceRespone} from '../modal/ServiceRespone';
 import {Message} from '../modal/message';
 import {ITable} from '../modal/ITable';
@@ -15,7 +15,7 @@ import {catchError} from 'rxjs/operators';
 export class ServicesService {
   private idTable: number;
   private change = 'false';
-  private API_URL = 'http://localhost:8080/api/private/list/service';
+  private API_URL = 'http://localhost:8080/api/private/service';
   private API_URL_TYPE = 'http://localhost:8080/api/private/type_id';
   private API_URL_SERVICE = 'http://localhost:8080/api/private/list/service_type';
   private API_URL_BEST_SELLER = 'http://localhost:8080/api/public/body/best';
@@ -42,12 +42,12 @@ export class ServicesService {
     return this.httpClient.put<IServiceDto1>(url, service, this.httpOptions);
   }
 
-  getListBestSeller(): Observable<IServices[]> {
-    return this.httpClient.get<IServices[]>(this.API_URL_BEST_SELLER);
+  getListBestSeller(): Observable<IService[]> {
+    return this.httpClient.get<IService[]>(this.API_URL_BEST_SELLER);
   }
 
-  getListNewFood(): Observable<IServices[]> {
-    return this.httpClient.get<IServices[]>(this.API_URL_NEW_FOOD);
+  getListNewFood(): Observable<IService[]> {
+    return this.httpClient.get<IService[]>(this.API_URL_NEW_FOOD);
   }
 
   findAll(page: number, pageSize: number): Observable<ServiceRespone> {
@@ -69,8 +69,8 @@ export class ServicesService {
     return this.httpClient.get<ServiceRespone1>(url);
   }
 
-  createService(service): Observable<IServices> {
-        return this.httpClient.post<IServices>(this.API_URL_CREATE_SERVICE, JSON.stringify(service), this.httpOptions)
+  createService(service): Observable<IService> {
+        return this.httpClient.post<IService>(this.API_URL_CREATE_SERVICE, JSON.stringify(service), this.httpOptions)
           .pipe(
             catchError(this.errorHandler)
           );
@@ -95,9 +95,9 @@ export class ServicesService {
     return this.httpClient.get<ServiceRespone>(url);
   }
 
-  serviceById(id: number): Observable<IServices> {
+  findById(id: number): Observable<IService> {
     const url = `${this.API_URL}/${id}`;
-    return this.httpClient.get<IServices>(url);
+    return this.httpClient.get<IService>(url);
   }
 
   getMessage(): Observable<Message[]> {

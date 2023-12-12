@@ -82,7 +82,7 @@ export class CreateComponent implements OnInit {
       typeId: new FormControl(1, [Validators.required]),
       enableFlag: new FormControl(1),
       createdDate: new FormControl(this.getCurrentDateTime()),
-      // discription: new FormControl('', [Validators.required])
+      describe: new FormControl('', )
     });
     this.getListServiceType();
     this.statusList = ['Vô hiệu', 'Hoạt động'];
@@ -102,6 +102,7 @@ export class CreateComponent implements OnInit {
   }
 
   addNewRowRecipe(materialId: string, quantity: string, price: string) {
+    this.recipe = {};
     this.recipe = {
       materialId,
       quantity,
@@ -114,7 +115,7 @@ export class CreateComponent implements OnInit {
     };
     this.createRecipe.push(newRecipe);
     this.calculationSum();
-    this.showRecipeFl = this.createRecipe[0] !== [];
+    this.showRecipeFl = this.createRecipe[1] !== [];
   }
   checkPrice(control: AbstractControl) {
     const priceValue = control.value;
@@ -152,7 +153,7 @@ export class CreateComponent implements OnInit {
               this.toastService.success('Thêm thành công!', 'Message');
               this.router.navigateByUrl('listMenu');
               // tslint:disable-next-line:no-shadowed-variable
-              this.recipeService.addRecipeforService(this.createRecipe).subscribe(data => {
+              this.recipeService.addRecipeForService(this.createRecipe).subscribe(data => {
                 this.toastService.error('Không thể thêm công thức', 'Message');
               });
             }
@@ -220,6 +221,6 @@ export class CreateComponent implements OnInit {
   removeRecipe(recipe: IRecipeDto) {
     this.createRecipe = this.createRecipe.filter(item => item.materialId !== recipe.materialId);
     this.calculationSum();
-    this.showRecipeFl = this.createRecipe[0] !== [];
+    this.showRecipeFl = this.createRecipe[1] !== [];
   }
 }

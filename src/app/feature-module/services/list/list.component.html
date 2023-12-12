@@ -126,7 +126,7 @@ feedback-list html file is used to show data
                 class="btn" type="button" style="width: 102px" (click)="changeStatus(service.statusFlag, service.id)">
                 {{service.statusFlag}}</button>
             </td>
-            <td><a *ngIf="role!='user'" routerLink="edit-service/{{service.id}}"
+            <td><a *ngIf="role!='user'" routerLink="/editService/{{service.id}}"
                    class="btn btn-outline-info">📝</a>
             </td>
           </tr>

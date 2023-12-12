@@ -1,1 +1,218 @@
-<p>edit-service works!</p>
+<div class="container_add">
+  <div class="d-flex justify-content-center" *ngIf="serviceTypeList">
+    <div class="content_add col-xl-6" style="margin-top: 5em">
+      <h2>Thêm mới menu</h2>
+      <form [formGroup]="serviceForm" (ngSubmit)="create()" *ngIf="editService">
+        <div class="row align-items-end">
+
+          <div class="form-group col-md-4">
+            <div class="avt_img d-flex flex-column">
+              <div class="avt_overlay">
+                <label for="fileInput" class="upload-label">
+                  <img src="{{editImgUrl}}" id="previewImage" alt="Preview Image">
+                  <span>Chọn Ảnh</span>
+                </label>
+              </div>
+              <input (change)="showPreview($event)" formControlName="imgUrl" type="file" id="fileInput"
+                     accept=".png, .jpg, .jpeg, .gif" class="file-input">
+              <!-- <p class="text-danger">Bắt buộc nhập. </p> -->
+            </div>
+          </div>
+
+          <div class="form-group col-8">
+            <a class="btn btn-outline-info btn-padding-10" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+              Công thức
+            </a>
+            <div class="form-group">
+              <label for="name">Tên món:</label>
+              <input formControlName="name" type="text" class="form-control" id="name" required
+                     placeholder="Nhập tên món" maxlength="40">
+              <span class="d-flex">
+                                <div class="text-danger" *ngFor="let validation of validationMessages.name">
+                                    <div class="error-message"
+                                         *ngIf="serviceForm.get('name').hasError(validation.type) && (serviceForm.get('name').dirty || serviceForm.get('name').touched)">
+                                        {{validation.message}}</div>
+                                </div>
+                            </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-4">
+              <div class="form-group">
+                <label for="price">Giá bán:</label>
+                <input formControlName="price" type="number" class="form-control" id="price" required
+                       placeholder="Nhập giá bán" maxlength="40">
+                <span class="d-flex">
+                                <div class="text-danger" *ngFor="let validation of validationMessages.name">
+<!--                                    <div class="error-message"-->
+                                  <!--                                         *ngIf="serviceForm.get('name').hasError(validation.type) && (serviceForm.get('name').dirty || serviceForm.get('name').touched)">-->
+                                  <!--                                        {{validation.message}}</div>-->
+                                </div>
+                            </span>
+              </div>
+            </div>
+            <div class="form-group col-4">
+              <div class="form-group">
+                <label for="enableFlag">Tình trạng</label>
+                <select formControlName="enableFlag" type="text" class="form-control" id="enableFlag" required>
+                  <option value=""></option>
+                  <option *ngFor="let status of statusList; let i = index" [ngValue]="i">{{status}}</option>
+                </select>
+                <span class="d-flex">
+                                <div class="text-danger" *ngFor="let validation of validationMessages.name">
+<!--                                    <div class="error-message"-->
+                                  <!--                                         *ngIf="serviceForm.get('name').hasError(validation.type) && (serviceForm.get('name').dirty || serviceForm.get('name').touched)">-->
+                                  <!--                                        {{validation.message}}</div>-->
+                                </div>
+                            </span>
+              </div>
+            </div>
+            <div class="form-group col-4">
+              <div class="form-group">
+                <label for="typeId">Nhóm</label>
+                <select formControlName="typeId" type="text" class="form-control" id="typeId" required>
+                  <option value=""></option>
+                  <option *ngFor="let serviceType of serviceTypeList"
+                          value="{{serviceType.id}}">{{serviceType.name}}</option>
+                  <span class="d-flex">
+                                <div class="text-danger" *ngFor="let validation of validationMessages.name">
+<!--                                    <div class="error-message"-->
+                                  <!--                                         *ngIf="serviceForm.get('name').hasError(validation.type) && (serviceForm.get('name').dirty || serviceForm.get('name').touched)">-->
+                                  <!--                                        {{validation.message}}</div>-->
+                                </div>
+                            </span>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-12">
+              <label for="describe">Mô tả</label>
+              <textarea formControlName="describe" type="text" class="form-control" id="describe"
+                        placeholder="Nhập mô tả" maxlength="500" size="10">
+                              </textarea>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end">
+            <div class="mr-2">
+              <button class="btn_action" style="margin-right: 15px !important;" type="submit"
+                      [disabled]="isLoading">
+                <span *ngIf="!isLoading">Xác Nhận</span>
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status"
+                      aria-hidden="true"></span>
+                <span *ngIf="isLoading" class="ms-2">Đang thêm...</span>
+              </button>
+            </div>
+            <div style="margin-top: 17px !important">
+              <a routerLink="/listMenu" class="btn btn-outline-danger btn-padding-10">Quay lại</a>
+            </div>
+          </div>
+
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1"
+     aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="staticBackdropLabel">Công thức</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-4">
+            <span>Tên Nguyên liệu</span></div>
+          <div class="col-3">
+            <span>Số lượng</span></div>
+          <div class="col-3">
+            <span>Thành tiền</span></div>
+        </div>
+        <table>
+          <td>
+            <div class="form-group">
+              <select #materialId style="width: 160px" type="text" class="form-control" id="materialName"
+                      (change)="calculationPrice(quantity.value, materialId.value)">
+                <option *ngFor="let material of materials"
+                        value="{{material.id}}">{{material.name}}
+                  <span> (</span><span>{{material.unit}}</span><span>)</span></option>
+                <!--                  <span class="d-flex">-->
+                <!--                                <div class="text-danger" *ngFor="let validation of validationMessages.name">-->
+                <!--&lt;!&ndash;                                    <div class="error-message"&ndash;&gt;-->
+                <!--                                  &lt;!&ndash;                                         *ngIf="serviceForm.get('name').hasError(validation.type) && (serviceForm.get('name').dirty || serviceForm.get('name').touched)">&ndash;&gt;-->
+                <!--                                  &lt;!&ndash;                                        {{validation.message}}</div>&ndash;&gt;-->
+                <!--                                </div>-->
+                <!--                            </span>-->
+              </select>
+            </div>
+          </td>
+          <td>
+            <div class="form-group"><input #quantity style="width: 120px" type="number"
+                                           (change)="calculationPrice(quantity.value, materialId.value)"></div>
+          </td>
+          <td>
+            <div class="form-group"><input #price style="width: 120px" type="number" value="{{priceValue}}" readonly></div>
+          </td>
+          <td>
+            <div class="form-group">
+              <button type="button" class="btn btn-outline-primary btn-padding-10"
+                      (click)="addNewRowRecipe(materialId.value, quantity.value, price.value)">Thêm
+              </button>
+            </div>
+          </td>
+        </table>
+        <div></div>
+        <table class="table" *ngIf="showRecipeFl" style="color: white">
+          <thead>
+          <tr>
+            <th scope="col">No</th>
+            <th scope="col">Nguyên liệu</th>
+            <th scope="col">Số lượng</th>
+            <th scope="col">Đơn vị</th>
+            <th scope="col">Thành tiền</th>
+            <th scope="col">Xóa</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let recipe of createRecipe; index as i">
+            <th scope="row">{{i+1}}</th>
+            <td>{{findMaterialNameOrUnit(recipe.materialId, 1)}}</td>
+            <td>{{recipe.quantity}}</td>
+            <td>{{findMaterialNameOrUnit(recipe.materialId, 2)}}</td>
+            <td>{{recipe.price}}</td>
+            <td>
+              <input type="button" value=" X " (click)="removeRecipe(recipe)" data-bs-toggle="modal" class="btn btn-outline-danger"
+                     data-bs-target="#exampleModal1" name="">
+            </td>
+          </tr>
+          <tr>
+            <td colspan="4">Tổng tiền:</td>
+            <td>
+              {{sumPrice}}</td>
+            <td></td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-secondary btn-padding-10" data-bs-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const fileInput = document.getElementById('fileInput');
+  const previewImage = document.getElementById('previewImage');
+  fileInput.addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      previewImage.setAttribute('src', e.target.result);
+      previewImage.style.display = 'block';
+    };
+    reader.readAsDataURL(file);
+  });
+</script>
