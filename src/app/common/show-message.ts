@@ -19,7 +19,6 @@ export class ShowMessage {
     this.toastr.error('Thêm mới thất bại', 'Thêm mới');
   }
 
-
   showMessageNotFound() {
     this.toastr.warning('Không tìm thấy', 'Tìm kiếm');
   }
@@ -30,5 +29,9 @@ export class ShowMessage {
 
   showMessageRegisterError() {
     this.toastr.error('Đăng ký thất bại', 'Đăng ký');
+  }
+
+  showMessageUpdateError() {
+    this.toastr.error('Cấp nhật thất bại', 'Cập nhật');
   }
 }

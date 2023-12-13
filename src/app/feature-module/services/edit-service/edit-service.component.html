@@ -1,8 +1,8 @@
 <div class="container_add">
   <div class="d-flex justify-content-center" *ngIf="serviceTypeList">
     <div class="content_add col-xl-6" style="margin-top: 5em">
-      <h2>Thêm mới menu</h2>
-      <form [formGroup]="serviceForm" (ngSubmit)="create()" *ngIf="editService">
+      <h2>Chỉnh sửa món</h2>
+      <form [formGroup]="serviceForm" (ngSubmit)="update()" *ngIf="editService">
         <div class="row align-items-end">
 
           <div class="form-group col-md-4">
@@ -13,7 +13,7 @@
                   <span>Chọn Ảnh</span>
                 </label>
               </div>
-              <input (change)="showPreview($event)" formControlName="imgUrl" type="file" id="fileInput"
+              <input (change)="showPreview($event)" formControlName="imgUrl" src="" type="file" id="fileInput"
                      accept=".png, .jpg, .jpeg, .gif" class="file-input">
               <!-- <p class="text-danger">Bắt buộc nhập. </p> -->
             </div>
@@ -44,9 +44,9 @@
                        placeholder="Nhập giá bán" maxlength="40">
                 <span class="d-flex">
                                 <div class="text-danger" *ngFor="let validation of validationMessages.name">
-<!--                                    <div class="error-message"-->
-                                  <!--                                         *ngIf="serviceForm.get('name').hasError(validation.type) && (serviceForm.get('name').dirty || serviceForm.get('name').touched)">-->
-                                  <!--                                        {{validation.message}}</div>-->
+                                    <div class="error-message"
+                                         *ngIf="serviceForm.get('price').hasError(validation.type) && (serviceForm.get('price').dirty || serviceForm.get('price').touched)">
+                                                                          {{validation.message}}</div>
                                 </div>
                             </span>
               </div>
@@ -55,7 +55,6 @@
               <div class="form-group">
                 <label for="enableFlag">Tình trạng</label>
                 <select formControlName="enableFlag" type="text" class="form-control" id="enableFlag" required>
-                  <option value=""></option>
                   <option *ngFor="let status of statusList; let i = index" [ngValue]="i">{{status}}</option>
                 </select>
                 <span class="d-flex">
@@ -71,9 +70,8 @@
               <div class="form-group">
                 <label for="typeId">Nhóm</label>
                 <select formControlName="typeId" type="text" class="form-control" id="typeId" required>
-                  <option value=""></option>
                   <option *ngFor="let serviceType of serviceTypeList"
-                          value="{{serviceType.id}}">{{serviceType.name}}</option>
+                          [ngValue]="serviceType.id">{{serviceType.name}}</option>
                   <span class="d-flex">
                                 <div class="text-danger" *ngFor="let validation of validationMessages.name">
 <!--                                    <div class="error-message"-->
@@ -154,7 +152,8 @@
                                            (change)="calculationPrice(quantity.value, materialId.value)"></div>
           </td>
           <td>
-            <div class="form-group"><input #price style="width: 120px" type="number" value="{{priceValue}}" readonly></div>
+            <div class="form-group"><input #price style="width: 120px" type="number" value="{{priceValue}}" readonly>
+            </div>
           </td>
           <td>
             <div class="form-group">
@@ -177,14 +176,15 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let recipe of createRecipe; index as i">
-            <th scope="row">{{i+1}}</th>
-            <td>{{findMaterialNameOrUnit(recipe.materialId, 1)}}</td>
+          <tr *ngFor="let recipe of editRecipe; index as i">
+            <th scope="row">{{i + 1}}</th>
+            <td>{{recipe.id}}{{recipe.name}}</td>
             <td>{{recipe.quantity}}</td>
-            <td>{{findMaterialNameOrUnit(recipe.materialId, 2)}}</td>
+            <td>{{recipe.unit}}</td>
             <td>{{recipe.price}}</td>
             <td>
-              <input type="button" value=" X " (click)="removeRecipe(recipe)" data-bs-toggle="modal" class="btn btn-outline-danger"
+              <input type="button" value=" X " (click)="removeRecipe(recipe)" data-bs-toggle="modal"
+                     class="btn btn-outline-danger"
                      data-bs-target="#exampleModal1" name="">
             </td>
           </tr>
@@ -203,16 +203,4 @@
     </div>
   </div>
 </div>
-<script>
-  const fileInput = document.getElementById('fileInput');
-  const previewImage = document.getElementById('previewImage');
-  fileInput.addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    const reader = new FileReader();
-    reader.onload = function (e) {
-      previewImage.setAttribute('src', e.target.result);
-      previewImage.style.display = 'block';
-    };
-    reader.readAsDataURL(file);
-  });
-</script>
+<script src="../../../../assets/js/index1.js"></script>

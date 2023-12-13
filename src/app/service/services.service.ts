@@ -15,7 +15,8 @@ import {catchError} from 'rxjs/operators';
 export class ServicesService {
   private idTable: number;
   private change = 'false';
-  private API_URL = 'http://localhost:8080/api/private/service';
+  private API_URL = 'http://localhost:8080/api/private/list/service';
+  private API_URL_FIND_SERVICE = 'http://localhost:8080/api/private/service';
   private API_URL_TYPE = 'http://localhost:8080/api/private/type_id';
   private API_URL_SERVICE = 'http://localhost:8080/api/private/list/service_type';
   private API_URL_BEST_SELLER = 'http://localhost:8080/api/public/body/best';
@@ -23,6 +24,7 @@ export class ServicesService {
   private API_URL_TABLE = 'http://localhost:8080/api/private/list/table';
   private API_URL_LIST_SERVICE = 'http://localhost:8080/api/private/list/listService';
   private API_URL_CREATE_SERVICE = 'http://localhost:8080/api/private/list/createService';
+  private API_URL_UPDATE_SERVICE = 'http://localhost:8080/api/private/list/updateService';
   private API_URL_UPDATE_ENABLE_FLAG = 'http://localhost:8080/api/private/list/serviceList/changeServiceEnableFlag';
 
   httpOptions = {
@@ -76,6 +78,14 @@ export class ServicesService {
           );
   }
 
+  updateService(service): Observable<IService> {
+    console.log(service);
+    return this.httpClient.post<IService>(this.API_URL_UPDATE_SERVICE, JSON.stringify(service), this.httpOptions)
+      .pipe(
+        catchError(this.errorHandler)
+      );
+  }
+
   errorHandler(error) {
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
@@ -96,7 +106,7 @@ export class ServicesService {
   }
 
   findById(id: number): Observable<IService> {
-    const url = `${this.API_URL}/${id}`;
+    const url = `${this.API_URL_FIND_SERVICE}/${id}`;
     return this.httpClient.get<IService>(url);
   }
 

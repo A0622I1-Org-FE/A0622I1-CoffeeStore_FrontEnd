@@ -24,23 +24,6 @@ import {AlertService} from '../../user/alert.service';
 })
 export class EditServiceComponent implements OnInit {
 
-  constructor(
-    @Inject(AngularFireStorage) private storage: AngularFireStorage,
-    private showMessage: ShowMessage,
-    private titleService: Title,
-    private renderer: Renderer2,
-    private formBuilder: FormBuilder,
-    private router: Router,
-    private activatedRoute: ActivatedRoute,
-    private toastService: ToastrService,
-    private alertService: AlertService,
-    private service: ServicesService,
-    private serviceTypeService: ServiceTypeService,
-    private materialService: MaterialService,
-    private recipeService: RecipeService) {
-    this.titleService.setTitle('Chỉnh sửa món');
-  }
-
   public serviceTypeList: IServiceType[];
   serviceForm: FormGroup;
   public check = false;
@@ -50,14 +33,15 @@ export class EditServiceComponent implements OnInit {
   selectedImage: any = null;
   statusList: string[];
   materials: IMaterialDto[];
-  createRecipe: IRecipeDto[] = [];
+  originRecipe: IRecipeDto[] = [];
+  editRecipe: IRecipeDto[] = [];
   recipe: IRecipeDto;
   priceValue = '';
   sumPrice: string;
   showRecipeFl = false;
   editService: IService;
+  editServiceId: number;
   editImgUrl: string;
-
 
   validationMessages = {
     name: [
@@ -77,24 +61,46 @@ export class EditServiceComponent implements OnInit {
     ]
   };
 
+  constructor(
+    @Inject(AngularFireStorage) private storage: AngularFireStorage,
+    private showMessage: ShowMessage,
+    private titleService: Title,
+    private formBuilder: FormBuilder,
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private toastService: ToastrService,
+    private alertService: AlertService,
+    private service: ServicesService,
+    private serviceTypeService: ServiceTypeService,
+    private materialService: MaterialService,
+    private recipeService: RecipeService) {
+    this.titleService.setTitle('Chỉnh sửa món');
+  }
+
   ngOnInit(): void {
-    this.selectedImage = null;
     this.activatedRoute.paramMap.subscribe((data: ParamMap) => {
       const id = data.get('id');
+      this.editServiceId = parseInt(id);
       this.service.findById(parseInt(id)).subscribe(next => {
         this.editService = next;
-        console.log(this.editService);
         this.serviceTypeService.findAll().subscribe(data => {
           this.serviceTypeList = data;
         });
+        this.recipeService.findByServiceId(parseInt(id)).subscribe(next => {
+          this.editRecipe = next;
+          this.originRecipe = next;
+          this.showRecipeFl = this.editRecipe[1] !== [];
+          this.showRecipeFl === true ? this.calculationSum() : this.showRecipeFl = false;
+        });
         this.editImgUrl = this.editService.imgUrl;
+        this.editService.imgUrl = '';
         this.serviceForm = this.formBuilder.group({
           id: [this.editService.id],
           name: [this.editService.name],
           imgUrl: [this.editService.imgUrl],
-          price: [this.editService.price],
+          price: [this.editService.price, [Validators.required, this.checkPrice]],
           typeId: [this.editService.serviceType.id],
-          enableFlag: [this.editService.enableFlag],
+          enableFlag: [this.editService.enableFlag === true ? 1 : 0],
           createdDate: [this.editService.createdDate],
           describe: [this.editService.describe]
           // id: [this.editService.id],
@@ -128,19 +134,24 @@ export class EditServiceComponent implements OnInit {
 
   addNewRowRecipe(materialId: string, quantity: string, price: string) {
     this.recipe = {};
+    const name = this.findMaterialNameOrUnit(materialId, 1);
+    const unit = this.findMaterialNameOrUnit(materialId, 2);
+    const serviceId = this.editServiceId;
+    const idValue = this.originRecipe.find(recipe => recipe.materialId === materialId);
+    console.log(idValue);
+    const id = idValue !== undefined ? idValue.id : null;
     this.recipe = {
+      id,
+      name,
+      serviceId,
       materialId,
       quantity,
+      unit,
       price
     };
-    const newRecipe = {
-      materialId,
-      quantity,
-      price
-    };
-    this.createRecipe.push(newRecipe);
+    this.editRecipe.push(this.recipe);
     this.calculationSum();
-    this.showRecipeFl = this.createRecipe[1] !== [];
+    this.showRecipeFl = this.editRecipe[1] !== [];
   }
 
   checkPrice(control: AbstractControl) {
@@ -158,10 +169,10 @@ export class EditServiceComponent implements OnInit {
     return formatDate(new Date(), 'dd-MM-yyyyhhmmssa', 'en-US');
   }
 
-  create() {
+  update() {
     if (this.serviceForm.invalid) {
       this.check = true;
-      this.showMessage.showMessageCreateError();
+      this.showMessage.showMessageUpdateError();
       return;
     }
     this.isLoading = true;
@@ -171,16 +182,16 @@ export class EditServiceComponent implements OnInit {
       finalize(() => {
         fileRef.getDownloadURL().subscribe((url) => {
           this.serviceForm.value.imgUrl = url;
-          this.service.createService(this.serviceForm.value).subscribe(data => {
+          this.service.updateService(this.serviceForm.value).subscribe(data => {
             if (data != null) {
               this.error = data[0].defaultMessage;
               this.toastService.error(this.error, 'Message');
             } else {
-              this.toastService.success('Thêm thành công!', 'Message');
+              this.toastService.success('Chỉnh sửa thành công!', 'Message');
               this.router.navigateByUrl('listMenu');
-              // tslint:disable-next-line:no-shadowed-variable
-              this.recipeService.addRecipeForService(this.createRecipe).subscribe(data => {
-                this.toastService.error('Không thể thêm công thức', 'Message');
+              this.recipeService.updateRecipeForService(this.editRecipe).subscribe(next => {
+                console.log(next);
+                this.toastService.error('Không thể chỉnh sửa công thức', 'Message');
               });
             }
             this.isLoading = false;
@@ -213,7 +224,8 @@ export class EditServiceComponent implements OnInit {
         }
         const reader = new FileReader();
         reader.onload = (e: any) => {
-          const image = e.target.result;
+          const previewImageInput = document.getElementById('previewImage') as HTMLInputElement;
+          previewImageInput.setAttribute('src', e.target.result);
         };
         this.selectedImage = file;
         reader.readAsDataURL(file);
@@ -239,15 +251,16 @@ export class EditServiceComponent implements OnInit {
 
   calculationSum() {
     this.sumPrice = '';
-    this.sumPrice = this.createRecipe.reduce((total, recipe) => total + parseInt(recipe.price), 0).toLocaleString('vi-VN', {
+    this.sumPrice = this.editRecipe.reduce((total, recipe) => total + parseInt(recipe.price), 0).toLocaleString('vi-VN', {
       style: 'currency',
       currency: 'VND'
     }).replace('₫', 'VNĐ');
   }
 
   removeRecipe(recipe: IRecipeDto) {
-    this.createRecipe = this.createRecipe.filter(item => item.materialId !== recipe.materialId);
+    this.editRecipe = this.editRecipe.filter
+    (item => item.materialId !== recipe.materialId);
     this.calculationSum();
-    this.showRecipeFl = this.createRecipe[1] !== [];
+    this.showRecipeFl = this.editRecipe[1] !== [];
   }
 }
