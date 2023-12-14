@@ -25,7 +25,6 @@ export class RecipeService {
   }
 
   updateRecipeForService(recipeList: IRecipeDto[]): Observable<IRecipeDto[]> {
-    console.log(recipeList);
     return this.http.post<IRecipeDto[]>(this.UPDATE_RECIPE, recipeList);
   }
 }

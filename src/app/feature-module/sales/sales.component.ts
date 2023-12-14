@@ -52,8 +52,8 @@ export class SalesComponent implements OnInit {
         //     console.log(data);
         //   });
         // }
-        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(data => {
-          console.log(data);
+        this.servicesService.deleteMessage(this.messList[this.messList.length - 1].id).subscribe(next => {
+          console.log(next);
         });
       }
     }, 30000);

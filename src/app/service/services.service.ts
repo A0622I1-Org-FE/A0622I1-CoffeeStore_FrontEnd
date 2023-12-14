@@ -79,7 +79,6 @@ export class ServicesService {
   }
 
   updateService(service): Observable<IService> {
-    console.log(service);
     return this.httpClient.post<IService>(this.API_URL_UPDATE_SERVICE, JSON.stringify(service), this.httpOptions)
       .pipe(
         catchError(this.errorHandler)
