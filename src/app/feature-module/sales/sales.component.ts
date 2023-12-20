@@ -57,15 +57,8 @@ export class SalesComponent implements OnInit {
         });
       }
     }, 30000);
-
   }
 
-
-  /**
-   * <h3>Description: Hiển thị danh sách bàn chưa bị hư</h3>
-   * @return Danh sách bàn.
-   * @author CuongHM
-   */
   getAll() {
     this.tableService.getAll().subscribe(tableList => this.tableList = tableList);
   }
@@ -83,17 +76,6 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  /**
-   * <h3>Description: Hiển thị thông báo bàn không có khách.</h3>
-   * @author CuongHM
-   */
-
-  /**
-   * <h3>Description: Format giá trị số sang định dạng tiền.</h3>
-   * <p>Params: tableId, tableName</p>
-   * @return Giá trị số dưới dạng tiền kèm đơn vị đằng sau.
-   * @author CuongHM
-   */
   billDetail(tableId, tableName: string) {
     const isPresent = this.tableList.some(el => el.id === +tableId);
     if (+tableId < 1 || isNaN(+tableId)) {
@@ -108,12 +90,6 @@ export class SalesComponent implements OnInit {
     }
   }
 
-  /**
-   * <h3>Description: Format giá trị số sang định dạng tiền.</h3>
-   * <p>Param: money</p>
-   * @return Giá trị số dưới dạng tiền kèm đơn vị đằng sau.
-   * @author CuongHM
-   */
   formatter(money) {
     return parseFloat(money).toLocaleString('vi-VN', {style: 'currency', currency: 'VND'})
       .replace('₫', 'VNĐ');
@@ -125,21 +101,12 @@ export class SalesComponent implements OnInit {
     } else { return quantity + ' ly'; }
   }
 
-  /**
-   * <h3>Description: Truyền tableId và tableName sang modal confirm.</h3>
-   * @author CuongHM
-   */
   confirmModal() {
     const tableName = document.getElementById('modelTitleId').innerText.replace('Hóa đơn bàn ', '');
     document.getElementById('confirm-body').innerText = 'Bạn có muốn tinh tiền bàn ' + tableName + ' không?';
     document.getElementById('tableId1').innerText = document.getElementById('tableId').innerText;
   }
 
-  /**
-   * <h3>Description: Tính tiền bàn đã chọn.</h3>
-   * @return Hóa đơn đã tính tiền.
-   * @author CuongHM
-   */
   chargeTheBill() {
     this.getAll();
     const tableId = document.getElementById('tableId1').innerText;
