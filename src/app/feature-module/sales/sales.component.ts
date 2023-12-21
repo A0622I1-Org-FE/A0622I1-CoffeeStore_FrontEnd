@@ -9,6 +9,7 @@ import {ServicesService} from '../../service/services.service';
 import {Message} from '../../modal/message';
 import {Title} from '@angular/platform-browser';
 import {BillDetailService} from '../../service/bill-detail.service';
+import {IRecipeDto} from '../../modal/IRecipeDto';
 
 
 @Component({
@@ -88,6 +89,16 @@ export class SalesComponent implements OnInit {
       document.getElementById('modelTitleId').innerText = 'Hóa đơn bàn ' + tableName;
       this.getAll();
     }
+    // console.log(this.billDetailList);
+    // console.log(this.billChargingList);
+  }
+
+  removeService(billDetail: IBillDetailListDTO) {
+    // this.editRecipeFl = true;
+    this.billDetailList = this.billDetailList.filter
+    (item => item.imgUrl !== billDetail.imgUrl);
+    // this.calculationSum();
+    // this.showRecipeFl = this.editRecipe[1] !== [];
   }
 
   formatter(money) {
