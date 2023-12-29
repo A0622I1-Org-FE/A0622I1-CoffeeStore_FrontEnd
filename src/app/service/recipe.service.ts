@@ -9,6 +9,7 @@ import {IRecipeDto} from '../modal/IRecipeDto';
 export class RecipeService {
   private CREATE_RECIPE = 'http://localhost:8080/api/private/list/createRecipe';
   private UPDATE_RECIPE = 'http://localhost:8080/api/private/list/updateRecipe';
+  private DELETE_RECIPE = 'http://localhost:8080/api/private/list/deleteRecipe';
   private SELECT_RECIPE = 'http://localhost:8080/api/private/recipe';
 
   constructor(
@@ -22,6 +23,10 @@ export class RecipeService {
 
   findByServiceId(id: number): Observable<IRecipeDto[]> {
     return this.http.get<IRecipeDto[]>(`${this.SELECT_RECIPE}/${id}`);
+  }
+
+  deleteRecipeByServiceId(id: number): Observable<IRecipeDto[]> {
+    return this.http.get<IRecipeDto[]>(`${this.DELETE_RECIPE}/${id}`);
   }
 
   updateRecipeForService(recipeList: IRecipeDto[]): Observable<IRecipeDto[]> {
