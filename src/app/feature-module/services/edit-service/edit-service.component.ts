@@ -82,6 +82,7 @@ export class EditServiceComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((data: ParamMap) => {
       const id = data.get('id');
       this.editServiceId = parseInt(id);
+      console.log('serviceId = ' + this.editServiceId);
       this.service.findById(parseInt(id)).subscribe(next => {
         this.editService = next;
         this.serviceTypeService.findAll().subscribe(data => {
@@ -172,9 +173,22 @@ export class EditServiceComponent implements OnInit {
       this.updateService(this.serviceForm);
     }
     if (this.editRecipeFl) {
-      this.recipeService.updateRecipeForService(this.editRecipe).subscribe(next => {
-        console.log(next);
-      });
+      console.log(this.editRecipe);
+      if (Array.isArray(this.editRecipe) && this.editRecipe.length === 0) {
+        this.recipeService.deleteRecipeByServiceId(this.editServiceId).subscribe(
+          () => {
+          },
+          (error) => {
+          }
+        );
+      } else {
+        this.recipeService.updateRecipeForService(this.editRecipe).subscribe(
+          () => {
+          },
+          (error) => {
+          }
+        );
+      }
     }
   }
 
